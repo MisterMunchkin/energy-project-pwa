@@ -8,6 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        'epp-white': '#FBFBFB',
+        'papaya': '#FFF0D5',
+        'light-red': '#fe7a83',
+        'winkle': '#C2D2FD',
+        'epp-indigo': '#6200FF',
+        'epp-aqua': '#61FEB0'
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
