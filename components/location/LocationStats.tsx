@@ -22,13 +22,13 @@ const LocationStats = ({locationId}: Props) => {
     <div
       className="flex flex-col"
     >
-      <span className="font-bold text-3xl">{stats?.totalWHSPerDay}</span>
+      <span className="font-bold text-3xl">{stats?.totalWHSPerDay ?? 0}</span>
       <span className="font-normal text-sm">WHS/day</span>
     </div>
     <div
       className="flex flex-col"
     >
-      <span className="font-bold text-3xl">{stats?.totalAppliances}</span>
+      <span className="font-bold text-3xl">{stats?.totalAppliances ?? 0}</span>
       <span className="font-normal text-sm">Total appliances</span>
     </div>
   </section>

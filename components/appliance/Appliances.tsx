@@ -50,7 +50,7 @@ const Appliances = (props: Props) => {
         {(appliances && appliances.length > 0) ? (
           renderAppliances()
         ) : (
-          <span>No appliances</span>
+          <span className="font-bold text-lg place-self-center">No appliances 🦥</span>
         )}
       </div>
     </section>
