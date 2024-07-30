@@ -1,8 +1,10 @@
 import Appliances from "@/components/appliance/Appliances";
+import BackIcon from "@/components/icons/BackIcon";
 import LocationStats from "@/components/location/LocationStats";
 import { API_CONTROLLER } from "@/constants/controller-navigation.constants";
 import { ApplianceType } from "@/types/appliance.type";
 import { ServerComponentProps } from "@/types/server-component-props.types";
+import Link from "next/link";
 
 //TODO: This might need to be a client component since we
 // Need access to the localstorage to retrieve locations.
@@ -26,8 +28,16 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
   // const appliances = await getAppliances();
 
   return <main
-    className="p-4"
+    className="p-4 flex flex-col"
   >
+    <Link
+      className="cursor-pointer w-10"
+      href='/'
+    >
+      <BackIcon
+        className="text-epp-indigo w-10 h-10"
+      />
+    </Link>
     <div
       className="flex flex-col space-y-8"
     >
