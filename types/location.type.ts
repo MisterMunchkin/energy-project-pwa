@@ -15,7 +15,7 @@ export type LocationType = {
  * @property {number} hoursPerDay Number of hours the appliances are running per day.
  * @property {number} totalWHSPerDay Calculated watt-hours per day for this appliance object. (watt * hoursPerDay) * quantity where watt is a constant fetch from server
  */
-type LocationApplianceType = {
+export type LocationApplianceType = {
   name: string;
   quantity: number;
   hoursPerDay: number;

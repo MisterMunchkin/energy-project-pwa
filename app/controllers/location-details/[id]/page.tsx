@@ -1,3 +1,4 @@
+import Appliances from "@/components/appliance/Appliances";
 import { API_CONTROLLER } from "@/constants/controller-navigation.constants";
 import { ApplianceType } from "@/types/appliance.type";
 import { ServerComponentProps } from "@/types/server-component-props.types";
@@ -15,12 +16,18 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
     id
   } = params || {};
 
-  if (!id) 
-    throw new Error('passing `id` is required for `LocationDetails`');
+  if (!id || isNaN(parseInt(id))) 
+    throw new Error('passing `id` is required for `LocationDetails`. id: ' + id);
   
-  const appliances = await getAppliances();
+  //This is just a test, we can remove this later on
+  // const appliances = await getAppliances();
 
-  return <main>
+  return <main
+    className="p-4"
+  >
+    <Appliances 
+      locationId={parseInt(id)}
+    />
   </main>
 }
 export default LocationDetails;
