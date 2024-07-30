@@ -1,6 +1,8 @@
-import { DUMMY_LOCATIONS } from "@/constants/dummy-data";
+
+import { DUMMY_LOCATIONS } from "@/constants/dummy-data.constants";
 import LocationCard from "./LocationCard";
 import Link from "next/link";
+import { ROUTE_CONTROLLER } from "@/constants/controller-navigation.constants";
 
 type Props = {
 
@@ -12,7 +14,7 @@ const Locations = () => {
         className="w-full"
         key={index}
         href={{
-          pathname: '/location-details',
+          pathname: `${ROUTE_CONTROLLER}location-details`,
           query: {
             id: location.id
           }
