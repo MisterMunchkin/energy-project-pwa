@@ -28,12 +28,16 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
   return <main
     className="p-4"
   >
-    <LocationStats
-      locationId={id}
-    />
-    <Appliances 
-      locationId={id}
-    />
+    <div
+      className="flex flex-col space-y-8"
+    >
+      <LocationStats
+        locationId={id}
+      />
+      <Appliances 
+        locationId={id}
+      />
+    </div>
   </main>
 }
 export default LocationDetails;
