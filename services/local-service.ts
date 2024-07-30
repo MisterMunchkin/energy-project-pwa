@@ -1,6 +1,6 @@
 import { DUMMY_LOCATIONS } from "@/constants/dummy-data.constants";
 import { LOCATIONS } from "@/constants/local-service.constants";
-import { LocationApplianceType, LocationType } from "@/types/location.type";
+import { LocationApplianceType, LocationClass, LocationStatsType, LocationType } from "@/types/location.type";
 
 /**
  * Retrieves all appliances for a specific location.
@@ -10,19 +10,8 @@ import { LocationApplianceType, LocationType } from "@/types/location.type";
 const getAppliances = (locationId: number): LocationApplianceType[] => {
   if (!isStorageDefined()) return [];
 
-  const jsonData = localStorage.getItem(LOCATIONS);
-  
-  if (!jsonData) {
-    console.error(`'${LOCATIONS}' in localStorage is empty.`);
-    return [];
-  }
-  
-  const locations = JSON.parse(jsonData) as LocationType[];
-  const appliances = locations
-    .find((location) => location.id === locationId)
-    ?.appliances ?? [];
-
-  return appliances;
+  const location = getLocation(locationId);
+  return location?.appliances ?? [];
 }
 
 const getLocations = (): LocationType[] => {
@@ -37,6 +26,25 @@ const getLocations = (): LocationType[] => {
 
   const locations = JSON.parse(jsonData) as LocationType[];
   return locations;
+}
+
+const getLocationStats = (locationId: number): LocationStatsType | undefined => {
+  if(!isStorageDefined()) return;
+
+  const location = getLocation(locationId);
+  return location?.locationStats;
+}
+
+const getLocation = (locationId: number): LocationClass | undefined => {
+  const jsonData = localStorage.getItem(LOCATIONS);
+  if (!jsonData) {
+    console.error(`'${LOCATIONS}' in localStorage is empty.`);
+    return;
+  }
+
+  const locations = JSON.parse(jsonData) as LocationType[];
+  const location = locations.find(location => location.id === locationId);
+  return (location) ? new LocationClass(location) : undefined;
 }
 
 const populateDummies = (): void => {
@@ -63,4 +71,5 @@ export const localService = {
   getAppliances,
   populateDummies,
   getLocations,
+  getLocationStats,
 }

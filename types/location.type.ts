@@ -21,3 +21,40 @@ export type LocationApplianceType = {
   hoursPerDay: number;
   totalWHSPerDay: number;
 }
+
+
+export type LocationStatsType = {
+  totalWHSPerDay: number;
+  totalAppliances: number;
+}
+
+export class LocationClass implements LocationType {
+  id: number = 0;
+  streetAddress: string = '';
+  city: string = '';
+  state: string = '';
+  appliances: LocationApplianceType[] = [];
+
+  constructor(location: LocationType) {
+    this.id = location.id;
+    this.streetAddress = location.streetAddress;
+    this.city = location.city;
+    this.state = location.state;
+    this.appliances = location.appliances;
+  }
+
+  get totalWHSPerDay(): number {
+    return this.appliances.reduce((acc, curr) => curr.totalWHSPerDay + acc, 0);
+  }
+
+  get totalAppliances(): number {
+    return this.appliances.length;
+  }
+
+  get locationStats(): LocationStatsType {
+    return {
+      totalAppliances: this.totalAppliances,
+      totalWHSPerDay: this.totalWHSPerDay,
+    } as LocationStatsType
+  }
+}
