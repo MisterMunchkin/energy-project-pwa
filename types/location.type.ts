@@ -1,4 +1,5 @@
 export type LocationType = {
+  id: number;
   streetAddress: string;
   city: string;
   state: string;

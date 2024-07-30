@@ -3,10 +3,11 @@ import { LocationType } from "@/types/location.type";
 
 export const DUMMY_LOCATIONS: LocationType[] = [
   {
-   streetAddress: '125 Colchester Street',
-   city: 'South Brisbane',
-   state: 'Queensland',
-   appliances: [
+    id: 1,
+    streetAddress: '125 Colchester Street',
+    city: 'South Brisbane',
+    state: 'Queensland',
+    appliances: [
     {
       name: 'Refrigerator',
       quantity: 1,
@@ -15,7 +16,8 @@ export const DUMMY_LOCATIONS: LocationType[] = [
     }
    ] 
   },
-   {
+  {
+    id: 2,
     streetAddress: '20 George Street',
     city: 'Parkwood',
     state: 'Queensland',
