@@ -30,14 +30,16 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
   return <main
     className="p-4 flex flex-col"
   >
-    <Link
-      className="cursor-pointer w-10"
-      href='/'
-    >
-      <BackIcon
-        className="text-epp-indigo w-10 h-10"
-      />
-    </Link>
+    <div>
+      <Link
+        className="cursor-pointer w-10"
+        href='/'
+      >
+        <BackIcon
+          className="text-epp-indigo w-10 h-10"
+        />
+      </Link>
+    </div>
     <div
       className="flex flex-col space-y-8"
     >
