@@ -14,10 +14,10 @@ const Locations = () => {
         className="w-full"
         key={index}
         href={{
-          pathname: `${ROUTE_CONTROLLER}location-details`,
-          query: {
-            id: location.id
-          }
+          pathname: `${ROUTE_CONTROLLER}location-details/${location.id}`,
+          // query: {
+          //   id: location.id
+          // }
         }}
       >
         <LocationCard 

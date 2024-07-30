@@ -4,5 +4,9 @@
  * @param {searchParams} searchParam The `query` object configured within a <Link/> href
  */
 export type ServerComponentProps = {
-  searchParams?: any
+  params?: INavParams;
 }
+
+interface INavParams {
+  id: string;
+} 

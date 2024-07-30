@@ -9,11 +9,11 @@ import { ServerComponentProps } from "@/types/server-component-props.types";
  * @param {serverComponentProps} serverComponentProps Strictly types NextJs server navigation from a `<Link />`. 
  * 
 */
-const LocationDetails = async ({searchParams}: ServerComponentProps) => {
+const LocationDetails = async ({params}: ServerComponentProps) => {
 
   const {
     id
-  } = searchParams || {};
+  } = params || {};
 
   if (!id) 
     throw new Error('passing `id` is required for `LocationDetails`');
