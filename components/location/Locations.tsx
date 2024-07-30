@@ -1,15 +1,35 @@
+'use client'
 
-import { DUMMY_LOCATIONS } from "@/constants/dummy-data.constants";
 import LocationCard from "./LocationCard";
 import Link from "next/link";
 import { ROUTE_CONTROLLER } from "@/constants/controller-navigation.constants";
+import { localService } from "@/services/local-service";
+import { useEffect, useState } from "react";
+import { LocationType } from "@/types/location.type";
 
 type Props = {
 
 }
+/**
+ * Client Component to handle localStorage retrieval.
+ *
+ */
 const Locations = () => {
+  const [locations, setLocations] = useState<LocationType[]>([]);
+
+  //Without useEffect, localStorage access would get a runtime error.
+  //Due to Nextjs prerendering on the server side.
+  useEffect(() => {
+    //TODO: For test purposes only
+    localService.populateDummies();
+
+    const locations = localService.getLocations();
+    setLocations(locations);
+  }, []);
+
+
   return <main className="flex min-h-screen flex-col items-center space-y-4 p-4">
-    {DUMMY_LOCATIONS.map((location, index) => (
+    {locations.map((location, index) => (
       <Link
         className="w-full"
         key={index}
