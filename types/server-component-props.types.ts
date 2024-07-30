@@ -1,12 +1,13 @@
 /**
  * Optional prop type for server components
  * 
- * @param {searchParams} searchParam The `query` object configured within a <Link/> href
+ * @param {searchParams} params Is the object where dynamic routes like /location-details/[id] will be accessible
  */
 export type ServerComponentProps = {
-  params?: INavParams;
+  params?: DynamicRoute;
 }
 
-interface INavParams {
+
+interface DynamicRoute {
   id: string;
 } 
