@@ -2,7 +2,8 @@
 
 import { localService } from "@/services/local-service";
 import ApplianceCard from "./ApplianceCard";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { LocationApplianceType } from "@/types/location.type";
 
 type Props = {
   locationId: number;
@@ -19,8 +20,13 @@ const Appliances = (props: Props) => {
   const {
     locationId
   } = props;
+  const [appliances, setAppliances] = useState<LocationApplianceType[]>([]);
+  
+  useEffect(() => {
+    const appliances = localService.getAppliances(locationId);
+    setAppliances(appliances);
+  }, [locationId]);
 
-  const appliances = localService.getAppliances(locationId);
 
   const renderAppliances = useCallback(() => {
     return appliances.map((appliance, index) => (
