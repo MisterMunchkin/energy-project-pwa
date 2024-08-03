@@ -1,5 +1,6 @@
 import Appliances from "@/components/appliance/Appliances";
 import BackIcon from "@/components/icons/BackIcon";
+import LocationBarChart from "@/components/location/LocationBarChart";
 import LocationStats from "@/components/location/LocationStats";
 import { API_CONTROLLER } from "@/constants/controller-navigation.constants";
 import { ApplianceType } from "@/types/appliance.type";
@@ -38,6 +39,7 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
         <BackIcon
           className="text-epp-indigo w-10 h-10"
         />
+        <LocationBarChart locationId={id} />
       </Link>
     </div>
     <div

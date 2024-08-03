@@ -1,6 +1,7 @@
 import { DUMMY_LOCATIONS } from "@/constants/dummy-data.constants";
 import { LOCATIONS } from "@/constants/local-service.constants";
 import { LocationApplianceType, LocationClass, LocationStatsType, LocationType } from "@/types/location.type";
+import { StateType } from "@/types/state.type";
 
 /**
  * Retrieves all appliances for a specific location.
@@ -33,6 +34,13 @@ const getLocationStats = (locationId: number): LocationStatsType | undefined => 
 
   const location = getLocation(locationId);
   return location?.locationStats;
+}
+
+const getState = (locationId: number): StateType | undefined => {
+  if (!isStorageDefined()) return;
+
+  const location = getLocation(locationId);
+  return (location?.state as StateType) ?? undefined;
 }
 
 const getLocation = (locationId: number): LocationClass | undefined => {
@@ -72,4 +80,5 @@ export const localService = {
   populateDummies,
   getLocations,
   getLocationStats,
+  getState,
 }
