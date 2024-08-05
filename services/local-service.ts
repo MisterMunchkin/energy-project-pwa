@@ -15,6 +15,9 @@ const getAppliances = (locationId: number): LocationApplianceType[] => {
   return location?.appliances ?? [];
 }
 
+/**
+ * Retrieves all locations and their given appliance types.
+ */
 const getLocations = (): LocationType[] => {
   if (!isStorageDefined()) return [];
 
@@ -29,6 +32,9 @@ const getLocations = (): LocationType[] => {
   return locations;
 }
 
+/**
+ * Gets the location stats {totalWHSPerDay, totalAppliances} for a given locationId
+ */
 const getLocationStats = (locationId: number): LocationStatsType | undefined => {
   if(!isStorageDefined()) return;
 
@@ -36,6 +42,9 @@ const getLocationStats = (locationId: number): LocationStatsType | undefined => 
   return location?.locationStats;
 }
 
+/**
+ * Gets the state for a given location.
+ */
 const getState = (locationId: number): StateType | undefined => {
   if (!isStorageDefined()) return;
 
@@ -43,6 +52,11 @@ const getState = (locationId: number): StateType | undefined => {
   return (location?.state as StateType) ?? undefined;
 }
 
+/**
+ * Gets a location class instance.
+ * 
+ * @usage If there are location class logic that is needed to retrieve data.
+ */
 const getLocation = (locationId: number): LocationClass | undefined => {
   const jsonData = localStorage.getItem(LOCATIONS);
   if (!jsonData) {
@@ -64,6 +78,11 @@ const populateDummies = (): void => {
   localStorage.setItem(LOCATIONS, locationData);
 }
 
+/**
+ * Because of Nextjs SSR, window may be undefined if the component is rendered on server side.
+ * 
+ * Nextjs also pre-renders Client Components in the server, so the calls need to come within a `useEffect`
+ */
 const isStorageDefined = (): boolean => {
   const isDefined = (typeof window !== 'undefined');
 
@@ -75,6 +94,10 @@ const isStorageDefined = (): boolean => {
   return isDefined;
 }
 
+/**
+ * Can only be called on `useEffects` due to NextJs SSR. Client Components
+ * are also pre-rendered on the server which is why `useEffect` is needed.
+ */
 export const localService = {
   getAppliances,
   populateDummies,

@@ -1,3 +1,6 @@
+/**
+ * Percentages of wind, solar, gas, coal for a given state.
+ */
 export type EnergySourcesType = {
   wind: number;
   solar: number;
