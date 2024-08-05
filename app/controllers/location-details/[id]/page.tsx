@@ -25,8 +25,6 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
   const id = parseInt(idString);
   if (isNaN(id)) 
     throw new Error('`id` needs to be a number. id: ' + id);
-  //This is just a test, we can remove this later on
-  // const appliances = await getAppliances();
 
   return <main
     className="p-4 flex flex-col"
@@ -55,16 +53,3 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
   </main>
 }
 export default LocationDetails;
-
-const getAppliances = async() => {
-  const res = await fetch(`${API_CONTROLLER}appliances`, {
-    method: 'GET'
-  });
-
-  if (!res.ok)
-    console.error('API threw an error', res.status);
-
-  const appliances = await res.json() as ApplianceType[];
-  return appliances;
-};
-
