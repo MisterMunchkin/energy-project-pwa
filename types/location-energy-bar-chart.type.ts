@@ -1,4 +1,6 @@
+import { ChartData } from "chart.js";
 import { EnergySourcesType } from "./energy-production.types";
+import { backgroundColors } from "@/components/location/bar-chart.config";
 
 export class LocationEnergyBarChartClass {
   totalWattHour: number;
@@ -12,15 +14,17 @@ export class LocationEnergyBarChartClass {
     this.sourceTypes = Object.keys(energySources) as KeyOfEnergySources[];
   }
 
-  get chartData(): LocationEnergyBarChartType[] {
-    const chartData = this.sourceTypes.map(type => {
-      return {
-        source: type,
-        wattHourPer: this.getWattHourPer(type)
-      } as LocationEnergyBarChartType
-    });
-
-    return chartData;
+  get chartData(): ChartData<'bar'> {
+    return {
+      labels: this.sourceTypes as string[],
+      datasets: [
+        {
+          data: this.sourceTypes.map(type => this.getWattHourPer(type)),
+          backgroundColor: backgroundColors,
+          borderWidth: 1
+        }
+      ],
+    }
   }
 
   private getWattHourPer(sourceType: KeyOfEnergySources) {
@@ -31,7 +35,3 @@ export class LocationEnergyBarChartClass {
 }
 
 type KeyOfEnergySources = keyof EnergySourcesType;
-type LocationEnergyBarChartType = {
-  source: string;
-  wattHourPer: number;
-}

@@ -6,15 +6,24 @@ import { StateEnergyProductionType } from '@/types/energy-production.types';
 import { LocationEnergyBarChartClass } from '@/types/location-energy-bar-chart.type';
 import { LocationStatsType } from '@/types/location.type';
 import { StateType } from '@/types/state.type';
-import { useEffect } from 'react';
-// import { Chart, BarController, BarElement, Legend, Tooltip } from 'chart.js';
+import { useEffect, useState } from 'react';
+import { Chart, BarElement, Tooltip, ChartData, Title, LinearScale, CategoryScale, ChartOptions } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 
-// Chart.register(BarController, BarElement, Legend, Tooltip);
+Chart.register(
+  BarElement,
+  Tooltip,
+  Title,
+  LinearScale,
+  CategoryScale,
+)
 
 type Props = {
   locationId: number
 }
 const LocationBarChart = ({locationId}: Props) => {
+  const [ chartData, setChartData ] = useState<ChartData<'bar'>>();
+
   useEffect(() => {
     const stats = localService.getLocationStats(locationId);
     const state = localService.getState(locationId);
@@ -33,14 +42,28 @@ const LocationBarChart = ({locationId}: Props) => {
   const getChartData = async ({totalWHSPerDay}: LocationStatsType, state: StateType) => {
     const {energySources} = await getEnergyProduction(state);
     const chartClass = new LocationEnergyBarChartClass(totalWHSPerDay, energySources);
-    console.log(energySources);
-    console.log(chartClass.chartData);
+    
+    setChartData(chartClass.chartData);
   }
   
   return (
-    <p>This is a location bar chart.</p>
+    <div>
+      {chartData && (
+        <Bar options={options} data={chartData}></Bar>
+      )}
+    </div>
   );
 }
+
+const options: ChartOptions<'bar'> = {
+  responsive: true,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Total usage per energy source'
+    }
+  }
+};
 
 export default LocationBarChart;
 
