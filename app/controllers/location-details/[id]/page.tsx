@@ -27,19 +27,23 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
     throw new Error('`id` needs to be a number. id: ' + id);
 
   return <main
-    className="p-4 flex flex-col"
+    className="p-4 flex flex-col space-y-4"
   >
-    <div>
-      <Link
-        className="cursor-pointer w-10"
-        href='/'
-      >
-        <BackIcon
-          className="text-epp-indigo w-10 h-10"
-        />
-        <LocationBarChart locationId={id} />
-      </Link>
+    {/* Chart, back button, and menu */}
+    <div className="flex flex-col">
+      <div>
+        <Link
+          className="cursor-pointer w-10"
+          href='/'
+        >
+          <BackIcon
+            className="text-epp-indigo w-10 h-10"
+          />
+        </Link>
+      </div>
+      <LocationBarChart locationId={id} />
     </div>
+    {/* Location Stats and Appliances List */}
     <div
       className="flex flex-col space-y-8"
     >

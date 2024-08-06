@@ -47,7 +47,7 @@ const LocationBarChart = ({locationId}: Props) => {
   }
   
   return (
-    <div>
+    <div className='h-96 w-full m-auto'>
       {chartData && (
         <Bar options={options} data={chartData}></Bar>
       )}
@@ -57,6 +57,7 @@ const LocationBarChart = ({locationId}: Props) => {
 
 const options: ChartOptions<'bar'> = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     title: {
       display: true,
