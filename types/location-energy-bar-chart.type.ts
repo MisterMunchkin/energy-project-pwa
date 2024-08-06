@@ -1,6 +1,6 @@
 import { ChartData } from "chart.js";
 import { EnergySourcesType } from "./energy-production.types";
-import { backgroundColors } from "@/components/location/bar-chart.config";
+import { energySourceBackgrounds } from "@/components/location/bar-chart.config";
 
 export class LocationEnergyBarChartClass {
   totalWattHour: number;
@@ -15,12 +15,14 @@ export class LocationEnergyBarChartClass {
   }
 
   get chartData(): ChartData<'bar'> {
+    const sourceTypes = this.sourceTypes.sort();
+
     return {
-      labels: this.sourceTypes as string[],
+      labels: sourceTypes as string[],
       datasets: [
         {
-          data: this.sourceTypes.map(type => this.getWattHourPer(type)),
-          backgroundColor: backgroundColors,
+          data: sourceTypes.map(type => this.getWattHourPer(type)),
+          backgroundColor: energySourceBackgrounds,
           borderWidth: 1
         }
       ],

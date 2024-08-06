@@ -14,7 +14,9 @@ const config: Config = {
         'light-red': '#fe7a83',
         'winkle': '#C2D2FD',
         'epp-indigo': '#6200FF',
-        'epp-aqua': '#61FEB0'
+        'epp-aqua': '#61FEB0',
+        'epp-spring-green': '#0af693',
+        'epp-orange': '#fea800',
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

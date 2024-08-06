@@ -13,9 +13,9 @@ const ApplianceCard = ({appliance}: Props) => {
 
   return (
     <div
-      className="rounded-lg bg-epp-aqua flex flex-col px-4 pt-2 pb-6 max-h-20"
+      className="rounded-lg bg-epp-indigo flex flex-col px-4 pt-2 pb-6 max-h-20 shadow-md shadow-epp-aqua"
     >
-      <span className="place-self-end text-sm">
+      <span className="place-self-end text-sm text-epp-white">
         <span 
           className="font-bold"
         >
@@ -23,7 +23,7 @@ const ApplianceCard = ({appliance}: Props) => {
         </span> whs/day
       </span>
       <span
-        className="text-lg"
+        className="text-lg text-epp-white"
       >
         <span className="font-bold text-xl">
           {quantity} {name} {' '}
