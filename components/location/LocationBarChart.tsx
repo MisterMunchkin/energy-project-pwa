@@ -47,7 +47,7 @@ const LocationBarChart = ({locationId}: Props) => {
   }
   
   return (
-    <div className='h-96 w-full m-auto'>
+    <div className='h-96 w-full m-auto px-4'>
       {chartData && (
         <Bar options={options} data={chartData}></Bar>
       )}
