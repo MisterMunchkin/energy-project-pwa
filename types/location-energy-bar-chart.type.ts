@@ -24,7 +24,8 @@ export class LocationEnergyBarChartClass {
           data: sourceTypes.map(type => this.getWattHourPer(type)),
           backgroundColor: energySourceBackgrounds,
           borderWidth: 2,
-          borderRadius: 5
+          borderRadius: 10,
+          barThickness: "flex"
         }
       ],
     }

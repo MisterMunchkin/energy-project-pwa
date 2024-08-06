@@ -63,6 +63,21 @@ const options: ChartOptions<'bar'> = {
       display: true,
       text: 'Total usage per energy source'
     }
+  },
+  scales: {
+    x: {
+      grid: {
+        display: false
+      },
+    },
+    y: {
+      grid: {
+        display: false
+      },
+      ticks: {
+        display: false
+      }
+    }
   }
 };
 
