@@ -7,8 +7,9 @@ import { LocationEnergyBarChartClass } from '@/types/location-energy-bar-chart.t
 import { LocationStatsType } from '@/types/location.type';
 import { StateType } from '@/types/state.type';
 import { useEffect, useState } from 'react';
-import { Chart, BarElement, Tooltip, ChartData, Title, LinearScale, CategoryScale, ChartOptions } from 'chart.js';
+import { Chart, BarElement, Tooltip, ChartData, Title, LinearScale, CategoryScale } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import { barChartOptions } from './bar-chart.config';
 
 Chart.register(
   BarElement,
@@ -49,37 +50,11 @@ const LocationBarChart = ({locationId}: Props) => {
   return (
     <div className='h-96 w-full m-auto px-4'>
       {chartData && (
-        <Bar options={options} data={chartData}></Bar>
+        <Bar options={barChartOptions} data={chartData}></Bar>
       )}
     </div>
   );
 }
-
-const options: ChartOptions<'bar'> = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    title: {
-      display: true,
-      text: 'Total usage per energy source'
-    }
-  },
-  scales: {
-    x: {
-      grid: {
-        display: false
-      },
-    },
-    y: {
-      grid: {
-        display: false
-      },
-      ticks: {
-        display: false
-      }
-    }
-  }
-};
 
 export default LocationBarChart;
 

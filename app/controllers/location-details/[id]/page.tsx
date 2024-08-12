@@ -2,13 +2,9 @@ import Appliances from "@/components/appliance/Appliances";
 import BackIcon from "@/components/icons/BackIcon";
 import LocationBarChart from "@/components/location/LocationBarChart";
 import LocationStats from "@/components/location/LocationStats";
-import { API_CONTROLLER } from "@/constants/controller-navigation.constants";
-import { ApplianceType } from "@/types/appliance.type";
 import { ServerComponentProps } from "@/types/server-component-props.types";
 import Link from "next/link";
 
-//TODO: This might need to be a client component since we
-// Need access to the localstorage to retrieve locations.
 
 /**
  * @param {serverComponentProps} serverComponentProps Strictly types NextJs server navigation from a `<Link />`. 

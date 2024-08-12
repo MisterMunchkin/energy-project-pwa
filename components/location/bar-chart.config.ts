@@ -1,3 +1,4 @@
+import { ChartOptions } from "chart.js";
 
 // The following colors will be used sequentially for the chart bars
 export const energySourceBackgrounds = [
@@ -6,3 +7,30 @@ export const energySourceBackgrounds = [
   "#fea800", //solar
   "#6200FF", //wind
 ];
+
+
+export const barChartOptions: ChartOptions<'bar'> = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    title: {
+      display: true,
+      text: 'Total usage per energy source'
+    }
+  },
+  scales: {
+    x: {
+      grid: {
+        display: false
+      },
+    },
+    y: {
+      grid: {
+        display: false
+      },
+      ticks: {
+        display: false
+      }
+    }
+  }
+};
