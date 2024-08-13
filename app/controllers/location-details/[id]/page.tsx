@@ -1,9 +1,9 @@
 import Appliances from "@/components/appliance/Appliances";
-import BackIcon from "@/components/icons/BackIcon";
 import LocationBarChart from "@/components/location/LocationBarChart";
 import LocationStats from "@/components/location/LocationStats";
 import { ServerComponentProps } from "@/types/server-component-props.types";
 import Link from "next/link";
+import { VscArrowLeft } from "react-icons/vsc";
 
 
 /**
@@ -32,7 +32,7 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
           className="cursor-pointer w-10"
           href='/'
         >
-          <BackIcon
+          <VscArrowLeft
             className="text-epp-indigo w-10 h-10"
           />
         </Link>
