@@ -5,7 +5,7 @@ type NavOption = {
   href: string;
 }
 
-export const navOptions: NavOption[] = [
+export const bottomTabOptions: NavOption[] = [
   {
     content: <span className="px-4">Home</span>,
     href: '/'

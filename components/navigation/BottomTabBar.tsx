@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { navOptions } from "./navigation-options.config";
+import { bottomTabOptions } from "./navigation-options.config";
 
 type Props = {}
 const BottomTabBar = () => {
@@ -7,7 +7,7 @@ const BottomTabBar = () => {
     <div 
       className="flex flex-row justify-evenly w-full p-4 fixed bottom-0 left-0 border-t-2 bg-epp-white"
     >
-      {navOptions.map((option, index) => (
+      {bottomTabOptions.map((option, index) => (
         <Link
           key={index}
           className="text-light-red"
