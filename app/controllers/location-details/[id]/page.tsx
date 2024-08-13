@@ -41,7 +41,7 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
     </div>
     {/* Location Stats and Appliances List */}
     <div
-      className="flex flex-col space-y-8 p-4 bg-epp-white scroll-auto rounded-t-2xl shadow-md shadow-epp-aqua"
+      className="flex flex-col space-y-8 p-4 bg-epp-white scroll-auto rounded-t-2xl"
     >
       <LocationStats
         locationId={id}
