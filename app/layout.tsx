@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import BottomTabBar from "@/components/navigation/BottomTabBar";
-import TopNavBar from "@/components/navigation/TopNavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,12 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} py-16`}>
-        <TopNavBar 
-          title="Energy Project"
-        />
+      <body className={`${inter.className}`}>
         {children}
-        <BottomTabBar />
       </body>
     </html>
   );

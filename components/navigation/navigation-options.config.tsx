@@ -15,7 +15,7 @@ export const bottomTabOptions: NavOption[] = [
   },
   {
     content: (className: string) => <VscAdd className={`${className}  w-16 h-full`} />,
-    href: `${LOCATION_DETAILS}/new`
+    href: `${LOCATION_DETAILS}/save`
   },
   {
     content: (className: string) => <FaEarthOceania className={`${className}  w-14 h-full`} />,

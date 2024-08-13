@@ -1,4 +1,6 @@
 import Locations from "@/components/location/Locations";
+import BottomTabBar from "@/components/navigation/BottomTabBar";
+import TopNavBar from "@/components/navigation/TopNavBar";
 
 /**
  * 
@@ -11,6 +13,13 @@ export default function Home() {
 
 
   return (
-    <Locations />
+    <section className="py-16">
+      <TopNavBar 
+        title="Energy Project"
+        showAccount
+      />
+      <Locations />
+      <BottomTabBar />
+    </section>
   );
 }
