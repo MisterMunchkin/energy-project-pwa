@@ -5,7 +5,7 @@ type Props = {}
 const BottomTabBar = () => {
   return (
     <div 
-      className="flex flex-row justify-evenly w-full p-4 fixed bottom-0 left-0 border-t border bg-epp-white"
+      className="flex flex-row justify-evenly w-full p-4 fixed bottom-0 left-0 border-t-2 bg-epp-white"
     >
       {navOptions.map((option, index) => (
         <Link
