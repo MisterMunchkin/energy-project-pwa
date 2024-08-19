@@ -13,7 +13,7 @@ export default function Home() {
 
 
   return (
-    <section className="py-16">
+    <section className="py-[50px]">
       <TopNavBar 
         title="Energy Project"
         showAccount

@@ -10,7 +10,7 @@ const BottomTabBar = () => {
 
   return (
     <div 
-      className="flex flex-row justify-evenly w-full h-14 fixed bottom-0 left-0 border-t-2 bg-epp-white"
+      className="flex flex-row justify-evenly w-full h-[50px] fixed bottom-0 left-0 border-t-2 bg-epp-white"
     >
       {bottomTabOptions.map((option, index) => (
         <Link
