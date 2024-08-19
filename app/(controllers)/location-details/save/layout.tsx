@@ -11,7 +11,7 @@ export default function NewLocationLayout({
   children: React.ReactNode
 }>) {
   return (
-    <section className="pt-16">
+    <section className="pt-[50px]">
         <TopNavBar 
           title="New Location"
           showAccount
