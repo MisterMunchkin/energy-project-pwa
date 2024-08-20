@@ -1,5 +1,5 @@
 import { ChartData } from "chart.js";
-import { EnergySourcesType } from "./energy-production.types";
+import { EnergySourcesType } from "./state-energy-production.types";
 import { energySourceBackgrounds } from "@/components/location/bar-chart.config";
 
 export class LocationEnergyBarChartClass {

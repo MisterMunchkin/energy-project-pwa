@@ -1,4 +1,5 @@
-import { StateEnergyProductionType } from "@/types/energy-production.types";
+import { StateEnergyProductionType } from "@/types/state-energy-production.types";
+
 
 export const ENERGY_PRODUCTION_DATA: StateEnergyProductionType[] = [
   { 
