@@ -1,4 +1,4 @@
-import { ENERGY_PRODUCTION_DATA } from "@/constants/energy-production-data.constants";
+import { StateEnergyProductionModel } from "@/models/state-energy-production.model";
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
@@ -8,6 +8,7 @@ export function GET(
   if (!req.url)
     return NextResponse.json({}, {status: 400, statusText: 'invalid URL'});
 
-  const states = ENERGY_PRODUCTION_DATA.map(e => e.name);
+  const states = StateEnergyProductionModel.getStates();
+  console.log(states);
   return NextResponse.json(states);
 }

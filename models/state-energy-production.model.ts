@@ -1,11 +1,21 @@
 import { StateEnergyProductionType } from "@/types/state-energy-production.types";
-import { BaseModel } from "./base.model";
+import { BaseModel, PredicateType } from "./base.model";
 
-export class StateEnergyProductionModel extends BaseModel<StateEnergyProductionType> {
+export class StateEnergyProductionModel {
+  // maybe best to use an object instead...
+  private static store: BaseModel<StateEnergyProductionType>;
 
   constructor(stateEnergyProductions: StateEnergyProductionType[]) {
-    super();
-    this.populate(stateEnergyProductions);
+    StateEnergyProductionModel.store = new BaseModel();
+    StateEnergyProductionModel.store.populate(stateEnergyProductions);
+  }
+
+  static getStates(): string[] {
+    return this.store.select().map(data => data.name);
+  }
+
+  static get(filter?: PredicateType<StateEnergyProductionType>) {
+    return this.store.select(filter);
   }
 }
 
