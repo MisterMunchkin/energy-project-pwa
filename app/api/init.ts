@@ -1,4 +1,6 @@
+import { APPLIANCES_DATA } from "@/constants/appliances-data.constants";
 import { ENERGY_PRODUCTION_DATA } from "@/constants/energy-production-data.constants";
+import { ApplianceModel } from "@/models/appliance.model";
 import { StateEnergyProductionModel } from "@/models/state-energy-production.model";
 import NodeCache, { Options } from "node-cache";
 
@@ -26,5 +28,8 @@ const populateModels = () => {
   console.log('populating models...');
   new StateEnergyProductionModel()
   .populate(ENERGY_PRODUCTION_DATA);
+  
+  new ApplianceModel()
+  .populate(APPLIANCES_DATA);
 }
 export default initServerData;
