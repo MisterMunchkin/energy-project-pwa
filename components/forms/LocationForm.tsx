@@ -1,8 +1,8 @@
 'use client'
 
+import Services from "@/services/services";
 import { LocationType } from "@/types/location.type";
 import { Field, Form, Formik, FormikHelpers } from "formik";
-import { Suspense } from "react";
 
 const initialValues: LocationType = {
   id: 0,
@@ -13,7 +13,7 @@ const initialValues: LocationType = {
 };
 
 type Props = {
-  states: string[];
+  states: string[]
 }
 const LocationForm = ({states}: Props) => {
   const handleSubmit = (values: LocationType, setSubmitting: (isSubmitting: boolean) => void) => {
@@ -36,23 +36,21 @@ const LocationForm = ({states}: Props) => {
         <label htmlFor="city">City</label>
         <Field id="city" name="city" />
 
-        <Suspense>
-          <label htmlFor="state">State</label>
-          <Field
-            component="select"
-            id="state"
-            name="state"
-          >
-            {states.map((value, index) => (
-              <option
-                key={index}
-                value={value}
-              >
-                {value}
-              </option>
-            ))}
-          </Field>
-        </Suspense>
+        <label htmlFor="state">State</label>
+        <Field
+          component="select"
+          id="state"
+          name="state"
+        >
+          {states.map((value, index) => (
+            <option
+              key={index}
+              value={value}
+            >
+              {value}
+            </option>
+          ))}
+        </Field>
         <button type="submit">Submit</button>
       </Form>
     </Formik>
