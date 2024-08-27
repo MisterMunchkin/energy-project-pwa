@@ -25,3 +25,11 @@ body {
     text-wrap: balance;
   }
 }
+
+.default-field {
+  @apply border-2 rounded-md outline-epp-indigo py-2 px-1.5
+}
+
+.default-field-container {
+  @apply flex flex-col space-y-2
+}
