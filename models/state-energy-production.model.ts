@@ -14,13 +14,6 @@ export class StateEnergyProductionModel extends BaseModel<StateEnergyProductionT
   }
 
   /**
-   * gets an array of StateEnergyProductionTypes with an optional filter
-   */
-  get(filter?: PredicateType<StateEnergyProductionType>): StateEnergyProductionType[] {
-    return this.select(filter);
-  }
-
-  /**
    * Like get except it will eiter return the Type object or null
    */
   find(filter?: PredicateType<StateEnergyProductionType>): StateEnergyProductionType | null {
