@@ -2,7 +2,7 @@
 
 import { API_CONTROLLER } from '@/constants/controller-navigation.constants';
 import { localService } from '@/services/local-service';
-import { StateEnergyProductionType } from '@/types/energy-production.types';
+
 import { LocationEnergyBarChartClass } from '@/types/location-energy-bar-chart.type';
 import { LocationStatsType } from '@/types/location.type';
 import { StateType } from '@/types/state.type';
@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { Chart, BarElement, Tooltip, ChartData, Title, LinearScale, CategoryScale } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { barChartOptions } from './bar-chart.config';
+import { StateEnergyProductionType } from '@/types/state-energy-production.types';
 
 Chart.register(
   BarElement,

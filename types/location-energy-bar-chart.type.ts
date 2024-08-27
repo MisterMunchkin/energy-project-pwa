@@ -2,6 +2,7 @@ import { ChartData } from "chart.js";
 import { EnergySourcesType } from "./state-energy-production.types";
 import { energySourceBackgrounds } from "@/components/location/bar-chart.config";
 
+type KeyOfEnergySources = keyof EnergySourcesType;
 export class LocationEnergyBarChartClass {
   totalWattHour: number;
   energySources: EnergySourcesType;
@@ -9,8 +10,10 @@ export class LocationEnergyBarChartClass {
   
   constructor(totalWattHour: number, energySources: EnergySourcesType) {
     this.totalWattHour = totalWattHour;
+    if (typeof energySources !== 'object')
+      throw new Error(`energySources is of type: ${typeof energySources}`);
+    
     this.energySources = energySources;
-
     this.sourceTypes = Object.keys(energySources) as KeyOfEnergySources[];
   }
 
@@ -37,5 +40,3 @@ export class LocationEnergyBarChartClass {
     return this.totalWattHour * decimal;
   }
 }
-
-type KeyOfEnergySources = keyof EnergySourcesType;

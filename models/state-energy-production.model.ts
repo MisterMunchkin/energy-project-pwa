@@ -1,21 +1,34 @@
 import { StateEnergyProductionType } from "@/types/state-energy-production.types";
 import { BaseModel, PredicateType } from "./base.model";
 
-export class StateEnergyProductionModel {
-  // maybe best to use an object instead...
-  private static store: BaseModel<StateEnergyProductionType>;
-
-  constructor(stateEnergyProductions: StateEnergyProductionType[]) {
-    StateEnergyProductionModel.store = new BaseModel();
-    StateEnergyProductionModel.store.populate(stateEnergyProductions);
+export class StateEnergyProductionModel extends BaseModel<StateEnergyProductionType> {
+  constructor() {
+    super(StateEnergyProductionModel.name);
   }
 
-  static getStates(): string[] {
-    return this.store.select().map(data => data.name);
+  /**
+   * Retrieves an array of Australian states.
+   */
+  getStates(): string[] {
+    return this.select().map(data => data.name);
   }
 
-  static get(filter?: PredicateType<StateEnergyProductionType>) {
-    return this.store.select(filter);
+  /**
+   * gets an array of StateEnergyProductionTypes with an optional filter
+   */
+  get(filter?: PredicateType<StateEnergyProductionType>): StateEnergyProductionType[] {
+    return this.select(filter);
+  }
+
+  /**
+   * Like get except it will eiter return the Type object or null
+   */
+  find(filter?: PredicateType<StateEnergyProductionType>): StateEnergyProductionType | null {
+    const dataList = this.select(filter);
+    if (!dataList || dataList.length === 0)
+      return null;
+
+    return dataList[0];
   }
 }
 

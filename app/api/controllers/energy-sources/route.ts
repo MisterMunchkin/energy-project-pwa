@@ -13,8 +13,8 @@ export function GET(
   if (!searchParams.has('state'))
     return NextResponse.json({}, {status: 500, statusText: 'State does not exist'});
 
-  // const energyData = ENERGY_PRODUCTION_DATA.find(e => e.name === searchParams.get('state'));
-  const energyData = StateEnergyProductionModel.get(e => e.name === searchParams.get('state'));
-  console.log(energyData);
+  const energyData = new StateEnergyProductionModel()
+    .find(e => e.name === searchParams.get('state'));
+  
   return NextResponse.json(energyData);
 }

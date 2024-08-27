@@ -7,8 +7,8 @@ export function GET(
 ) {
   if (!req.url)
     return NextResponse.json({}, {status: 400, statusText: 'invalid URL'});
-
-  const states = StateEnergyProductionModel.getStates();
-  console.log(states);
+  
+  const states = new StateEnergyProductionModel()
+    .getStates();
   return NextResponse.json(states);
 }
