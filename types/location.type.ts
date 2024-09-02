@@ -3,6 +3,7 @@ export type LocationType = {
   streetAddress: string;
   city: string;
   state: string;
+  postalCode: string;
   appliances: LocationApplianceType[];
 }
 
@@ -33,6 +34,7 @@ export class LocationClass implements LocationType {
   streetAddress: string = '';
   city: string = '';
   state: string = '';
+  postalCode: string = '';
   appliances: LocationApplianceType[] = [];
 
   constructor(location: LocationType) {
@@ -41,6 +43,7 @@ export class LocationClass implements LocationType {
     this.city = location.city;
     this.state = location.state;
     this.appliances = location.appliances;
+    this.postalCode = location.postalCode;
   }
 
   get totalWHSPerDay(): number {
