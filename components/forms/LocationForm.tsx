@@ -12,7 +12,7 @@ const initialValues: LocationType = {
   streetAddress: '',
   city: '',
   state: '',
-  postalCode: '',
+  postalCode: 0,
   appliances: [],
 };
 
