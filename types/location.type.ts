@@ -3,7 +3,7 @@ export type LocationType = {
   streetAddress: string;
   city: string;
   state: string;
-  postalCode: string;
+  postalCode: number;
   appliances: LocationApplianceType[];
 }
 
@@ -20,7 +20,7 @@ export type LocationApplianceType = {
   name: string;
   quantity: number;
   hoursPerDay: number;
-  totalWHSPerDay: number;
+  watts: number;
 }
 
 
@@ -34,7 +34,7 @@ export class LocationClass implements LocationType {
   streetAddress: string = '';
   city: string = '';
   state: string = '';
-  postalCode: string = '';
+  postalCode: number = 0;
   appliances: LocationApplianceType[] = [];
 
   constructor(location: LocationType) {
@@ -47,7 +47,8 @@ export class LocationClass implements LocationType {
   }
 
   get totalWHSPerDay(): number {
-    return this.appliances.reduce((acc, curr) => curr.totalWHSPerDay + acc, 0);
+    const appliances = this.appliances.map(appliance => new LocationApplianceClass(appliance))
+    return appliances.reduce((acc, curr) => curr.totalWHSPerDay + acc, 0);
   }
 
   get totalAppliances(): number {
@@ -59,5 +60,28 @@ export class LocationClass implements LocationType {
       totalAppliances: this.totalAppliances,
       totalWHSPerDay: this.totalWHSPerDay,
     } as LocationStatsType
+  }
+}
+
+export class LocationApplianceClass implements LocationApplianceType {
+  name: string = '';
+  quantity: number = 0;
+  hoursPerDay: number = 0;
+  watts: number = 0;
+  
+  constructor(locationAppliance: LocationApplianceType) {
+    const {
+      name,
+      quantity,
+      hoursPerDay,
+    } = locationAppliance;
+
+    this.name = name;
+    this.quantity = quantity;
+    this.hoursPerDay = hoursPerDay;
+  }
+
+  get totalWHSPerDay(): number {
+    return (this.watts * this.hoursPerDay) * this.quantity;
   }
 }
