@@ -2,8 +2,9 @@
 
 import { ApplianceType } from "@/types/appliance.type";
 import { LocationApplianceType } from "@/types/location.type";
-import { Field, FieldArrayRenderProps, Form, Formik, FormikHelpers } from "formik";
+import { FieldArrayRenderProps, Form, Formik, FormikErrors, FormikHelpers, FormikTouched } from "formik";
 import ModalWrapper, { ModalFooterComponentType, ModalTriggerComponentType } from "@/components/wrappers/ModalWrapper";
+import FieldWrapper from "@/components/wrappers/FieldWrapper";
 
 const initialValues: LocationApplianceType = {
   name: '',
@@ -24,45 +25,48 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
     setSubmitting(false);
   }
 
-  const renderFormBody = () => {
+  const renderFormBody = (errors: FormikErrors<LocationApplianceType>, touched: FormikTouched<LocationApplianceType>) => {
     return (
       <Form className="space-y-4">
-        <div className="default-field-container">
-          <label htmlFor="appliance-type">Appliance</label>
-          <Field
-            className="default-field"
-            component="select"
-            id="name"
-            name="name"
-          >
-            {sortedAppliances.map(({name}, index) => (
-              <option
-                key={index}
-                value={name}
-              >
-                {name}
-              </option>
-            ))}
-          </Field>
-        </div>
-        <div className="default-field-container w-20">
-          <label htmlFor="hoursPerDay">Hours</label>
-          <Field 
-            className="default-field" 
-            id="hoursPerDay" 
-            name="hoursPerDay" 
-            type="number"  
-          />
-        </div>
-        <div className="default-field-container w-20">
-          <label htmlFor="quantity">Quantity</label>
-          <Field 
-            className="default-field" 
-            id="quantity" 
-            name="quantity" 
-            type="number"  
-          />
-        </div>
+        <FieldWrapper
+          name="name"
+          label="Appliance"
+          component="select"
+          classNames={{
+            field: "default-field"
+          }}
+          errors={errors.name}
+          touched={touched.name}
+        >
+          {sortedAppliances.map(({name}, index) => (
+            <option
+              key={index}
+              value={name}
+            >
+              {name}
+            </option>
+          ))}
+        </FieldWrapper>
+        <FieldWrapper 
+          name="hoursPerDay"
+          label="Hours"
+          classNames={{
+            container: "w-20",
+            field: "default-field"
+          }}
+          errors={errors.hoursPerDay}
+          touched={touched.hoursPerDay}
+        />
+        <FieldWrapper 
+          name="quantity"
+          label="Quantity"
+          classNames={{
+            container: "w-20",
+            field: "default-field"
+          }}
+          errors={errors.quantity}
+          touched={touched.quantity}
+        />
       </Form>
     )
   }
@@ -76,15 +80,15 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
           { setSubmitting }: FormikHelpers<LocationApplianceType>
         ) => handleSubmit(values, setSubmitting)}
       >
-        {(subformik) => (
+        {({submitForm, errors, touched}) => (
 
           <ModalWrapper
             title="Add new appliance"
             FooterComponent={ApplianceModalFooter}
             ModalTriggerComponent={ApplianceModalTrigger}
-            onSubmit={() => subformik.submitForm()}
+            onSubmit={() => submitForm()}
           >
-            {renderFormBody()}
+            {renderFormBody(errors, touched)}
           </ModalWrapper>
         )}
       </Formik>
