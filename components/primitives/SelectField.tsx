@@ -9,7 +9,7 @@ type Props<T> = {
   children?: ReactNode;
   validation?: () => string | undefined;
   onChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<T>>;
+  setFieldValue?: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<T>>;
   errors?: string;
   touched?: boolean;
   classNames?: ClassValues<"container" | "label" | "field" | "error">
@@ -29,6 +29,11 @@ type Props<T> = {
  * @param {classNames} classNames Optional classNames for container, label, field, and error 
  */
 const SelectField = <T,>({name, label, children, validation, onChange, setFieldValue, errors, touched, classNames}: Props<T>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setFieldValue && setFieldValue(name, event.target.value);
+    onChange && onChange(event);
+  };
+  
   return <div
     className={cn(
       "default-field-container",
@@ -53,10 +58,7 @@ const SelectField = <T,>({name, label, children, validation, onChange, setFieldV
       name={name}
       component="select"
       validate={validation}
-      onChange={(event: React.ChangeEvent<HTMLSelectElement>) => {
-        setFieldValue('name', event.target.value);
-        onChange && onChange(event);
-      }}
+      {...(onChange && setFieldValue ? { onChange: handleChange } : {})}
     >
       {children}
     </Field>
