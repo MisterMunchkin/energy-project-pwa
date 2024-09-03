@@ -1,7 +1,9 @@
 "use client"
 
 import DropdownWrapper, { SimpleDropdownItemType } from "@/components/wrappers/DropdownWrapper"
+import { LOCATION_DETAILS } from "@/constants/controller-navigation.constants"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Key } from "react"
 import { BsThreeDots } from "react-icons/bs"
 import { TbWorldUpload } from "react-icons/tb"
@@ -38,8 +40,21 @@ type Props = {
   locationId: string
 }
 const LocationHeader = ({locationId}: Props) => {
+  const router = useRouter();
   function handleDropDownMenuAction(key: Key): void {
-    console.log(key)
+    switch (key) {
+      case "edit":
+        router.push(`${LOCATION_DETAILS}/save/${locationId}`)
+        break;
+      case "post":
+        console.error("Not yet implemented");
+        break;
+      case "delete":
+        console.error("Not yet implemented");
+        break;
+      default:
+        break;
+    }
   }
 
   return (
