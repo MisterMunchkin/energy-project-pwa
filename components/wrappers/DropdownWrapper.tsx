@@ -26,9 +26,10 @@ const DropdownWrapper = ({trigger, ariaLabel, simpleMenuItems, onAction}: Props)
         aria-label={ariaLabel}
         onAction={onAction}
       >
-        {simpleMenuItems.map(({display, props}) => (
+        {simpleMenuItems.map(({display, props: {key, ...optionalProps}}) => (
           <DropdownItem
-            {...props}
+            key={key}
+            {...optionalProps}
           >{display}</DropdownItem>
         ))}
       </DropdownMenu>
