@@ -1,9 +1,12 @@
+import { ClassValues } from "@/lib/clsx";
 import { LocationApplianceClass, LocationApplianceType } from "@/types/location.type";
+import { cn } from "@nextui-org/theme";
 
 type Props = {
   appliance: LocationApplianceType;
+  classNames: ClassValues<"container">;
 }
-const ApplianceCard = ({appliance}: Props) => {
+const ApplianceCard = ({appliance, classNames}: Props) => {
   const {
     name,
     quantity,
@@ -13,7 +16,10 @@ const ApplianceCard = ({appliance}: Props) => {
 
   return (
     <div
-      className="rounded-lg bg-epp-indigo flex flex-col px-4 pt-2 pb-6 max-h-20 shadow-md shadow-epp-aqua"
+      className={cn(
+        "rounded-lg bg-epp-indigo flex flex-col px-4 pt-2 pb-6 max-h-20 shadow-md shadow-epp-aqua",
+        classNames?.container
+      )}
     >
       <span className="place-self-end text-sm text-epp-white">
         <span 
