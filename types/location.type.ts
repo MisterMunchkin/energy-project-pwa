@@ -74,11 +74,13 @@ export class LocationApplianceClass implements LocationApplianceType {
       name,
       quantity,
       hoursPerDay,
+      watts,
     } = locationAppliance;
 
     this.name = name;
     this.quantity = quantity;
     this.hoursPerDay = hoursPerDay;
+    this.watts = watts;
   }
 
   get totalWHSPerDay(): number {
