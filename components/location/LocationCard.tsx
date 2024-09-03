@@ -1,6 +1,6 @@
 'use client'
 
-import { LocationType } from "@/types/location.type";
+import { LocationClass, LocationType } from "@/types/location.type";
 
 /**
  * @param {location} location data to display to cards.
@@ -15,13 +15,10 @@ const LocationCard = ({location, isLink}: Props) => {
     streetAddress,
     city,
     state,
-    appliances
-  } = location;
-
+    totalAppliances,
+    totalWHSPerDay,
+  } = new LocationClass(location);
   const fullLocation = `${streetAddress} ${city} ${state}`;
-  const applianceCount = appliances.length;
-  const totalWattHoursPerDay = appliances.reduce((acc, curr) => curr.totalWHSPerDay + acc, 0);
-
   return (
     <div 
       className={`rounded-lg bg-papaya flex flex-col p-4 max-h-48 w-full space-y-8
@@ -34,8 +31,8 @@ const LocationCard = ({location, isLink}: Props) => {
       </span>
 
       <div className="flex flex-row justify-between font-semibold text-lg">
-        <span>{applianceCount}</span>
-        <span>{totalWattHoursPerDay + ' whs/day'}</span>
+        <span>{totalAppliances}</span>
+        <span>{totalWHSPerDay + ' whs/day'}</span>
       </div>
     </div>
   )
