@@ -2,10 +2,12 @@
 
 import { ApplianceType } from "@/types/appliance.type";
 import { LocationType } from "@/types/location.type";
-import { Field, FieldArray, Form, Formik, FormikHelpers } from "formik";
+import { FieldArray, Form, Formik, FormikErrors, FormikHelpers, FormikTouched } from "formik";
 import { useRouter } from "next/navigation";
-import ApplianceCard from "../appliance/ApplianceCard";
+import ApplianceCard from "@/components/appliance/ApplianceCard";
 import ApplianceForm from "./ApplianceForm";
+import TextField from "@/components/primitives/TextField";
+import SelectField from "@/components/primitives/SelectField";
 
 const initialValues: LocationType = {
   id: 0,
@@ -28,46 +30,58 @@ const LocationForm = ({states, appliances}: Props) => {
     setSubmitting(false);
   }
 
-  const renderAddressFields = () => {
+  const renderAddressFields = (errors: FormikErrors<LocationType>, touched: FormikTouched<LocationType>) => {
     return (
     <>
-      <div className="default-field-container">
-        <label htmlFor="streetAddress">Street Address</label>
-        <Field className="default-field" id="streetAddress" name="streetAddress" />
-      </div>
+      <TextField 
+        name="streetAddress"
+        label="Street Address"
+        classNames={{
+          field: "default-field"
+        }}
+        errors={errors.streetAddress}
+        touched={touched.streetAddress}
+      />
 
-      <div className="default-field-container">
-        <label htmlFor="city">City</label>
-        <Field className="default-field" id="city" name="city" />
-      </div>
+      <TextField 
+        name="city"
+        label="City"
+        classNames={{
+          field: "default-field"
+        }}
+        errors={errors.city}
+        touched={touched.city}
+      />
 
-      <div className="default-field-container">
-        <label htmlFor="state">State</label>
-        <Field
-          className="default-field"
-          component="select"
-          id="state"
-          name="state"
-        >
-          {states.map((value, index) => (
-            <option
-              key={index}
-              value={value}
-            >
-              {value}
-            </option>
-          ))}
-        </Field>
-      </div>
+      <SelectField
+        name="state"
+        label="State"
+        classNames={{
+          field: "default-field"
+        }}
+        errors={errors.state}
+        touched={touched.state}
+      >
+        {states.map((value, index) => (
+          <option
+            key={index}
+            value={value}
+          >
+            {value}
+          </option>
+        ))}
+      </SelectField>
 
-      <div className="default-field-container">
-        <label htmlFor="postalCode">Postal Code</label>
-        <Field
-          className="default-field" 
-          id="postalCode" 
-          name="postalCode" 
-        />
-      </div>
+      <TextField 
+        name="postalCode"
+        label="Postal Code"
+        classNames={{
+          field: "default-field",
+          container: "w-24"
+        }}
+        errors={errors.postalCode}
+        touched={touched.postalCode}
+      />
     </>
     )
   }
@@ -86,12 +100,14 @@ const LocationForm = ({states, appliances}: Props) => {
               arrayHelpers={arrayHelpers}
               applianceOptions={appliances}
             />
-            {locationAppliances.map((value, index) => (
-              <ApplianceCard 
-                key={index}
-                appliance={value}
-              />
-            ))}
+            <div className="mt-4 mb-2 space-y-2 h-64 overflow-y-auto">
+              {locationAppliances.map((value, index) => (
+                <ApplianceCard 
+                  key={index}
+                  appliance={value}
+                />
+              ))}
+            </div>
           </div>
         )}
       />
@@ -106,12 +122,12 @@ const LocationForm = ({states, appliances}: Props) => {
         { setSubmitting }: FormikHelpers<LocationType>
       ) => handleSubmit(values, setSubmitting)}
     >
-      {({values}) => (
+      {({values, errors, touched}) => (
         <Form className="flex flex-col space-y-4 px-4">
-          {renderAddressFields()}
+          {renderAddressFields(errors, touched)}
           {renderAppliances(values)}
 
-          <div className="flex justify-center space-x-8">
+          <div className="pb-4 flex justify-center space-x-8">
             <button 
               type="button" 
               onClick={() => router.back()}
