@@ -133,6 +133,9 @@ const getLocation = (locationId: string): LocationType | undefined => {
 
   const locations = JSON.parse(jsonData) as LocationType[];
   const location = locations.find(location => location.id === locationId);
+  if (!location)
+    console.error('Could not find location in local storage with locationId: '+ locationId);
+  
   return location;
 }
 

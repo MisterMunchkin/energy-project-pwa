@@ -1,6 +1,5 @@
 'use client';
 
-import { API_CONTROLLER } from '@/constants/controller-navigation.constants';
 import { localService } from '@/services/local-service';
 
 import { LocationEnergyBarChartClass } from '@/types/location-energy-bar-chart.type';
@@ -10,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { Chart, BarElement, Tooltip, ChartData, Title, LinearScale, CategoryScale } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { barChartOptions } from './bar-chart.config';
-import { StateEnergyProductionType } from '@/types/state-energy-production.types';
+import Services from '@/services/services';
 
 Chart.register(
   BarElement,
@@ -42,7 +41,7 @@ const LocationBarChart = ({locationId}: Props) => {
   }, [locationId]);
 
   const getChartData = async ({totalWHSPerDay}: LocationStatsType, state: StateType) => {
-    const {energySources} = await getEnergyProduction(state);
+    const {energySources} = await Services.getEnergyProduction(state);
     const chartClass = new LocationEnergyBarChartClass(totalWHSPerDay, energySources);
     
     setChartData(chartClass.chartData);
@@ -59,19 +58,3 @@ const LocationBarChart = ({locationId}: Props) => {
 
 export default LocationBarChart;
 
-const getEnergyProduction = async (state: StateType) => {
-  const searchParams = new URLSearchParams({
-    state
-  });
-
-  const reqUrl = `${API_CONTROLLER}energy-sources?${searchParams}`;
-  const res = await fetch(reqUrl, {
-    method: 'GET',
-  });
-
-  if (!res.ok) 
-    console.error('energy-sources API threw an error', res.status);
-
-  const energyProduction = await res.json() as StateEnergyProductionType;
-  return energyProduction;
-}

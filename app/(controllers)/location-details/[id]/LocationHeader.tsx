@@ -2,6 +2,8 @@
 
 import DropdownWrapper, { SimpleDropdownItemType } from "@/components/wrappers/DropdownWrapper"
 import { LOCATION_DETAILS } from "@/constants/controller-navigation.constants"
+import { localService } from "@/services/local-service"
+import Services from "@/services/services"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Key } from "react"
@@ -47,7 +49,8 @@ const LocationHeader = ({locationId}: Props) => {
         router.push(`${LOCATION_DETAILS}/save/${locationId}`)
         break;
       case "post":
-        console.error("Not yet implemented");
+        const location = localService.getLocation(locationId);
+        location && Services.postToLeaderboard(location)
         break;
       case "delete":
         console.error("Not yet implemented");
