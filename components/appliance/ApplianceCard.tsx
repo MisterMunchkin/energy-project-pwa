@@ -1,4 +1,4 @@
-import { LocationApplianceType } from "@/types/location.type";
+import { LocationApplianceClass, LocationApplianceType } from "@/types/location.type";
 
 type Props = {
   appliance: LocationApplianceType;
@@ -9,7 +9,7 @@ const ApplianceCard = ({appliance}: Props) => {
     quantity,
     hoursPerDay,
     totalWHSPerDay
-  } = appliance;
+  } = new LocationApplianceClass(appliance);
 
   return (
     <div
