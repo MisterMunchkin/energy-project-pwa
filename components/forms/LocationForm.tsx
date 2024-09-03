@@ -9,6 +9,7 @@ import ApplianceForm from "./ApplianceForm";
 import InputField from "@/components/primitives/InputField";
 import SelectField from "@/components/primitives/SelectField";
 import Validators from "@/lib/form-validators";
+import { VscTrash } from "react-icons/vsc";
 
 const initialValues: LocationType = {
   id: 0,
@@ -110,10 +111,24 @@ const LocationForm = ({states, appliances}: Props) => {
             />
             <div className="mt-4 mb-2 space-y-2 h-64 overflow-y-auto">
               {locationAppliances.map((value, index) => (
-                <ApplianceCard 
+                <div
                   key={index}
-                  appliance={value}
-                />
+                  className="flex flex-row items-center space-x-2"
+                >
+                  <ApplianceCard
+                    appliance={value}
+                    classNames={{
+                      container: "grow"
+                    }}
+                  />
+                  <button 
+                    type="button"
+                    className="rounded-full bg-red-600 p-2.5 text-center"
+                    onClick={() => arrayHelpers.remove(index)}  
+                  >
+                    <VscTrash className="text-epp-white w-6 h-fit" />
+                  </button>
+                </div>
               ))}
             </div>
           </div>
