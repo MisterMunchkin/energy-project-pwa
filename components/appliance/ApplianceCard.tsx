@@ -4,7 +4,7 @@ import { cn } from "@nextui-org/theme";
 
 type Props = {
   appliance: LocationApplianceType;
-  classNames: ClassValues<"container">;
+  classNames?: ClassValues<"container">;
 }
 const ApplianceCard = ({appliance, classNames}: Props) => {
   const {
