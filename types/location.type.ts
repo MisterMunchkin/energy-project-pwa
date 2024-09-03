@@ -1,5 +1,5 @@
 export type LocationType = {
-  id: number;
+  id: string;
   streetAddress: string;
   city: string;
   state: string;
@@ -30,7 +30,7 @@ export type LocationStatsType = {
 }
 
 export class LocationClass implements LocationType {
-  id: number = 0;
+  id: string = '';
   streetAddress: string = '';
   city: string = '';
   state: string = '';

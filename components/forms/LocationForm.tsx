@@ -12,7 +12,7 @@ import Validators from "@/lib/form-validators";
 import { VscTrash } from "react-icons/vsc";
 
 const initialValues: LocationType = {
-  id: 0,
+  id: '',
   streetAddress: '',
   city: '',
   state: '',

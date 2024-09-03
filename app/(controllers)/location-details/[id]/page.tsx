@@ -17,10 +17,6 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
   } = params || {};
   if (!idString) 
     throw new Error('passing `id` is required for `LocationDetails`. id: ' + idString);
-  
-  const id = parseInt(idString);
-  if (isNaN(id)) 
-    throw new Error('`id` needs to be a number. id: ' + id);
 
   return <main
     className="py-[50px] flex flex-col space-y-4 bg-epp-white"
@@ -37,17 +33,17 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
           />
         </Link>
       </div>
-      <LocationBarChart locationId={id} />
+      <LocationBarChart locationId={idString} />
     </div>
     {/* Location Stats and Appliances List */}
     <div
       className="flex flex-col space-y-8 p-4 bg-epp-white scroll-auto rounded-t-2xl"
     >
       <LocationStats
-        locationId={id}
+        locationId={idString}
       />
       <Appliances 
-        locationId={id}
+        locationId={idString}
       />
     </div>
   </main>

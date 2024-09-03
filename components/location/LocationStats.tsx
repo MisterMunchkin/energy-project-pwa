@@ -5,7 +5,7 @@ import { LocationStatsType } from "@/types/location.type";
 import { useEffect, useState } from "react";
 
 type Props = {
-  locationId: number
+  locationId: string
 }
 const LocationStats = ({locationId}: Props) => {
   const [stats, setStats] = useState<LocationStatsType>();

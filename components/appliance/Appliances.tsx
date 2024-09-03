@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { LocationApplianceType } from "@/types/location.type";
 
 type Props = {
-  locationId: number;
+  locationId: string;
 }
 /**
  * A client side component to render appliances for a given location.

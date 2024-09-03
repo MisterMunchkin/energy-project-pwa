@@ -3,7 +3,7 @@ import { LocationType } from "@/types/location.type";
 
 export const DUMMY_LOCATIONS: LocationType[] = [
   {
-    id: 1,
+    id: '1111-2222-3333-asdf-zxcv-1012',
     streetAddress: '125 Colchester Street',
     city: 'South Brisbane',
     state: 'Queensland',
@@ -18,7 +18,7 @@ export const DUMMY_LOCATIONS: LocationType[] = [
    ] 
   },
   {
-    id: 2,
+    id: '1111-2222-3333-asdf-zxcv-1011',
     streetAddress: '20 George Street',
     city: 'Parkwood',
     state: 'Queensland',

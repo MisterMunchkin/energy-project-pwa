@@ -21,7 +21,7 @@ Chart.register(
 )
 
 type Props = {
-  locationId: number
+  locationId: string;
 }
 const LocationBarChart = ({locationId}: Props) => {
   const [ chartData, setChartData ] = useState<ChartData<'bar'>>();

@@ -8,7 +8,7 @@ import { StateType } from "@/types/state.type";
  * 
  * @param {locationId} LocationId The id of the location where the appliances are saved.
  */
-const getAppliances = (locationId: number): LocationApplianceType[] => {
+const getAppliances = (locationId: string): LocationApplianceType[] => {
   if (!isStorageDefined()) return [];
 
   const location = getLocation(locationId);
@@ -35,7 +35,7 @@ const getLocations = (): LocationType[] => {
 /**
  * Gets the location stats {totalWHSPerDay, totalAppliances} for a given locationId
  */
-const getLocationStats = (locationId: number): LocationStatsType | undefined => {
+const getLocationStats = (locationId: string): LocationStatsType | undefined => {
   if(!isStorageDefined()) return;
 
   const location = getLocation(locationId);
@@ -45,7 +45,7 @@ const getLocationStats = (locationId: number): LocationStatsType | undefined => 
 /**
  * Gets the state for a given location.
  */
-const getState = (locationId: number): StateType | undefined => {
+const getState = (locationId: string): StateType | undefined => {
   if (!isStorageDefined()) return;
 
   const location = getLocation(locationId);
@@ -57,7 +57,7 @@ const getState = (locationId: number): StateType | undefined => {
  * 
  * @usage If there are location class logic that is needed to retrieve data.
  */
-const getLocation = (locationId: number): LocationClass | undefined => {
+const getLocation = (locationId: string): LocationClass | undefined => {
   const jsonData = localStorage.getItem(LOCATIONS);
   if (!jsonData) {
     console.error(`'${LOCATIONS}' in localStorage is empty.`);
@@ -76,6 +76,19 @@ const populateDummies = (): void => {
 
   const locationData = JSON.stringify(DUMMY_LOCATIONS);
   localStorage.setItem(LOCATIONS, locationData);
+}
+
+const createLocation = (newLocation: LocationType): void => {
+  if (!isStorageDefined()) return;
+
+  const jsonData = localStorage.getItem(LOCATIONS);
+  let locations: LocationType[] = [];
+  if (jsonData)
+    locations = JSON.parse(jsonData) as LocationType[];
+  
+  newLocation.id = window.crypto.randomUUID();
+  locations.push(newLocation);
+  localStorage.setItem(LOCATIONS, JSON.stringify(locations));
 }
 
 /**
@@ -104,4 +117,5 @@ export const localService = {
   getLocations,
   getLocationStats,
   getState,
+  createLocation,
 }
