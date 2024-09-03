@@ -1,10 +1,21 @@
+import LocationForm from "@/components/forms/LocationForm";
+import Services from "@/services/services";
 import { ServerComponentProps } from "@/types/server-component-props.types";
 
 const EditLocationPage = async ({params}: ServerComponentProps) => {
-  console.log(params);
+  const {
+    id: idString
+  } = params || {};
+
+  const states = await Services.getStates();
+  const appliances = await Services.getAppliances();
 
   return (
-    <span>Edit Location Page</span>
+    <LocationForm 
+      states={states}
+      appliances={appliances}
+      locationId={idString}
+    />
   )
 }
 

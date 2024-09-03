@@ -11,27 +11,48 @@ import SelectField from "@/components/primitives/SelectField";
 import Validators from "@/lib/form-validators";
 import { VscTrash } from "react-icons/vsc";
 import { localService } from "@/services/local-service";
-
-const initialValues: LocationType = {
-  id: '',
-  streetAddress: '',
-  city: '',
-  state: '',
-  postalCode: 0,
-  appliances: [],
-};
+import { useEffect, useState } from "react";
 
 type Props = {
   states: string[]
   appliances: ApplianceType[]
+  locationId?: string;
 }
-const LocationForm = ({states, appliances}: Props) => {
+/**
+ * The location form used for both editing and adding new locations to the local storage
+ * 
+ * @param {string[]} states The state options
+ * @param {ApplianceType[]} appliances The appliance options
+ * @param {string | undefined} locationId If populated, then the form will edit the location from local storage instead of creating
+ */
+const LocationForm = ({states, appliances, locationId}: Props) => {
+  const [initialValues, setInitialValues] = useState<LocationType>({
+    id: '',
+    streetAddress: '',
+    city: '',
+    state: '',
+    postalCode: 0,
+    appliances: [],
+  });
   const router = useRouter();
+
+  useEffect(() => {
+    if (locationId && typeof window !== "undefined") {
+      const location = localService.getLocation(locationId);
+      (location) ? setInitialValues(location) : console.error('Location cannot be found in location storage. locationId: ' + locationId);
+    }
+  }, [locationId]);
   
-  const handleSubmit = (values: LocationType, setSubmitting: (isSubmitting: boolean) => void) => {
+  const handleCreate = (values: LocationType, setSubmitting: (isSubmitting: boolean) => void) => {
     localService.createLocation(values);
     setSubmitting(false);
     router.replace('/');
+  }
+
+  function handleEdit(values: LocationType, setSubmitting: (isSubmitting: boolean) => void) {
+    localService.editLocation(values);
+    setSubmitting(false);
+    router.back();
   }
 
   const renderAddressFields = (errors: FormikErrors<LocationType>, touched: FormikTouched<LocationType>) => {
@@ -142,16 +163,17 @@ const LocationForm = ({states, appliances}: Props) => {
   return (
     <Formik
       initialValues={initialValues}
+      enableReinitialize
       onSubmit={(
         values, 
         { setSubmitting }: FormikHelpers<LocationType>
-      ) => handleSubmit(values, setSubmitting)}
+      ) => locationId ? handleEdit(values, setSubmitting) : handleCreate(values, setSubmitting)}
     >
       {({values, errors, touched}) => (
         <Form className="flex flex-col space-y-4 px-4">
           {renderAddressFields(errors, touched)}
           {renderAppliances(values)}
-
+  
           <div className="pb-4 flex justify-center space-x-8">
             <button 
               type="button" 

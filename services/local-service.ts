@@ -11,7 +11,7 @@ import { StateType } from "@/types/state.type";
 const getAppliances = (locationId: string): LocationApplianceType[] => {
   if (!isStorageDefined()) return [];
 
-  const location = getLocation(locationId);
+  const location = getLocationClass(locationId);
   return location?.appliances ?? [];
 }
 
@@ -38,7 +38,7 @@ const getLocations = (): LocationType[] => {
 const getLocationStats = (locationId: string): LocationStatsType | undefined => {
   if(!isStorageDefined()) return;
 
-  const location = getLocation(locationId);
+  const location = getLocationClass(locationId);
   return location?.locationStats;
 }
 
@@ -48,7 +48,7 @@ const getLocationStats = (locationId: string): LocationStatsType | undefined => 
 const getState = (locationId: string): StateType | undefined => {
   if (!isStorageDefined()) return;
 
-  const location = getLocation(locationId);
+  const location = getLocationClass(locationId);
   return (location?.state as StateType) ?? undefined;
 }
 
@@ -57,7 +57,7 @@ const getState = (locationId: string): StateType | undefined => {
  * 
  * @usage If there are location class logic that is needed to retrieve data.
  */
-const getLocation = (locationId: string): LocationClass | undefined => {
+const getLocationClass = (locationId: string): LocationClass | undefined => {
   const jsonData = localStorage.getItem(LOCATIONS);
   if (!jsonData) {
     console.error(`'${LOCATIONS}' in localStorage is empty.`);
@@ -78,6 +78,10 @@ const populateDummies = (): void => {
   localStorage.setItem(LOCATIONS, locationData);
 }
 
+/**
+ * Pushes new location into local storage
+ * @param {LocationType} newLocation The new location to push into local storage
+ */
 const createLocation = (newLocation: LocationType): void => {
   if (!isStorageDefined()) return;
 
@@ -89,6 +93,47 @@ const createLocation = (newLocation: LocationType): void => {
   newLocation.id = window.crypto.randomUUID();
   locations.push(newLocation);
   localStorage.setItem(LOCATIONS, JSON.stringify(locations));
+}
+
+/**
+ * Updates the saved location in local storage
+ * @param {LocationType} editedLocation The edited location to save
+ */
+const editLocation = (editedLocation: LocationType): void => {
+  if (!isStorageDefined()) return;
+
+  const jsonData = localStorage.getItem(LOCATIONS);
+  let locations: LocationType[] = [];
+  if(jsonData)
+    locations = JSON.parse(jsonData) as LocationType[];
+
+  const index = locations.findIndex(location => location.id === editedLocation.id);
+  if (index < 0) {
+    console.error('Could not find location in local storage with locationId: ' + editedLocation.id);
+    return;
+  }
+
+  locations.splice(index, 1, editedLocation);
+  localStorage.setItem(LOCATIONS, JSON.stringify(locations));
+}
+
+/**
+ * Retrieves the location from the local storage based off locationId
+ * 
+ * @param {string} locationId Id of the location to find
+ */
+const getLocation = (locationId: string): LocationType | undefined => {
+  if (!isStorageDefined()) return;
+
+  const jsonData = localStorage.getItem(LOCATIONS);
+  if (!jsonData) {
+    console.error(`'${LOCATIONS}' in localStorage is empty.`);
+    return;
+  }
+
+  const locations = JSON.parse(jsonData) as LocationType[];
+  const location = locations.find(location => location.id === locationId);
+  return location;
 }
 
 /**
@@ -118,4 +163,6 @@ export const localService = {
   getLocationStats,
   getState,
   createLocation,
+  getLocation,
+  editLocation,
 }
