@@ -5,13 +5,10 @@
 import { ClassValues } from "@/lib/clsx";
 import { cn } from "@nextui-org/theme";
 import { Field } from "formik";
-import { ReactNode } from "react"
 
 type Props = {
   name: string;
   label: string;
-  component?: string;
-  children?: ReactNode;
   validation?: () => string | undefined;
   errors?: string;
   touched?: boolean;
@@ -23,14 +20,13 @@ type Props = {
  * 
  * @param {name} name The name and id used for the Formik object
  * @param {label} label The label displayed for the field
- * @param {component} component Optional component to pass down to Formik Field component
  * @param {children} children Optional children to render within the Formik Field
  * @param {validation} validation Option function to pass down to Formik Field validation
  * @param {errors} errors Optional string which should be the errors state of the Formik object
  * @param {touched} touched Optional boolean value which should be the touched state of the Formik object
  * @param {classNames} classNames Optional classNames for container, label, field, and error 
  */
-const FieldWrapper = ({name, label, component, children, validation, errors, touched, classNames}: Props) => {
+const TextField = ({name, label, validation, errors, touched, classNames}: Props) => {
   return <div className={cn(
       "default-field-container",
       classNames?.container
@@ -51,13 +47,10 @@ const FieldWrapper = ({name, label, component, children, validation, errors, tou
       )}
       id={name}
       name={name}
-      component={component}
       validate={validation}
-    >
-      {children}
-    </Field>
+    />
     {errors && touched && <div className={cn("", classNames?.error)}>{errors}</div>}
   </div>
 }
 
-export default FieldWrapper;
+export default TextField;

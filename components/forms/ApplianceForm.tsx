@@ -2,16 +2,12 @@
 
 import { ApplianceType } from "@/types/appliance.type";
 import { LocationApplianceType } from "@/types/location.type";
-import { FieldArrayRenderProps, Form, Formik, FormikErrors, FormikHelpers, FormikTouched } from "formik";
+import { FieldArrayRenderProps, Form, Formik, FormikErrors, FormikHelpers, FormikState, FormikTouched } from "formik";
 import ModalWrapper, { ModalFooterComponentType, ModalTriggerComponentType } from "@/components/wrappers/ModalWrapper";
-import FieldWrapper from "@/components/wrappers/FieldWrapper";
+import TextField from "@/components/primitives/TextField";
+import React from "react";
+import SelectField from "../primitives/SelectField";
 
-const initialValues: LocationApplianceType = {
-  name: '',
-  quantity: 1,
-  hoursPerDay: 1,
-  totalWHSPerDay: 0 //Will be calculated
-};
 type Props = {
   arrayHelpers: FieldArrayRenderProps;
   applianceOptions: ApplianceType[];
@@ -25,24 +21,43 @@ type Props = {
 const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
   const sortedAppliances = applianceOptions.sort((a, b) => a.name.localeCompare(b.name));
 
-  const handleSubmit = (values: LocationApplianceType, setSubmitting: (isSubmitting: boolean) => void) => {
-    console.log(values);
+  const handleSubmit = (
+    values: LocationApplianceType, 
+    setSubmitting: (isSubmitting: boolean) => void, 
+    resetForm:  (nextState?: Partial<FormikState<LocationApplianceType>> | undefined) => void
+  ) => {
     arrayHelpers.push(values);
+    resetForm();
     setSubmitting(false);
   }
 
-  const renderFormBody = (errors: FormikErrors<LocationApplianceType>, touched: FormikTouched<LocationApplianceType>) => {
+  const renderFormBody = (
+    errors: FormikErrors<LocationApplianceType>, 
+    touched: FormikTouched<LocationApplianceType>,
+    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<LocationApplianceType>>
+  ) => {
     return (
       <Form className="space-y-4">
-        <FieldWrapper
+        <SelectField
           name="name"
           label="Appliance"
-          component="select"
           classNames={{
             field: "default-field"
           }}
           errors={errors.name}
           touched={touched.name}
+          setFieldValue={setFieldValue}
+          onChange={(event) => {
+            const {
+              value
+            } = event.target;
+            const appliance = applianceOptions.find(appliance => appliance.name === value);
+            if (!appliance)
+              throw new Error("Unable to find appliance by appliance name: " + value);
+        
+            setFieldValue('watts', appliance.watts);
+            console.log(value);
+          }}
         >
           {sortedAppliances.map(({name}, index) => (
             <option
@@ -52,8 +67,8 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
               {name}
             </option>
           ))}
-        </FieldWrapper>
-        <FieldWrapper 
+        </SelectField>
+        <TextField 
           name="hoursPerDay"
           label="Hours"
           classNames={{
@@ -63,7 +78,7 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
           errors={errors.hoursPerDay}
           touched={touched.hoursPerDay}
         />
-        <FieldWrapper 
+        <TextField 
           name="quantity"
           label="Quantity"
           classNames={{
@@ -80,13 +95,18 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
   return (
     <>
       <Formik
-        initialValues={initialValues}
+        initialValues={{
+          name: sortedAppliances[0].name,
+          watts: sortedAppliances[0].watts,
+          quantity: 1,
+          hoursPerDay: 1,
+        }}
         onSubmit={(
           values,
-          { setSubmitting }: FormikHelpers<LocationApplianceType>
-        ) => handleSubmit(values, setSubmitting)}
+          { setSubmitting, resetForm }: FormikHelpers<LocationApplianceType>,
+        ) => handleSubmit(values, setSubmitting, resetForm)}
       >
-        {({submitForm, errors, touched}) => (
+        {({submitForm, errors, touched, setFieldValue}) => (
 
           <ModalWrapper
             title="Add new appliance"
@@ -94,7 +114,13 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
             ModalTriggerComponent={ApplianceModalTrigger}
             onSubmit={() => submitForm()}
           >
-            {renderFormBody(errors, touched)}
+            {/* <ApplianceFormBody 
+              errors={errors}
+              touched={touched}
+              setFieldValue={setFieldValue}
+              applianceOptions={sortedAppliances}
+            /> */}
+            {renderFormBody(errors, touched, setFieldValue)}
           </ModalWrapper>
         )}
       </Formik>
@@ -103,6 +129,74 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
 }
 
 export default ApplianceForm;
+
+// type ApplianceFormBodyProps = {
+//   errors: FormikErrors<LocationApplianceType>
+//   touched: FormikTouched<LocationApplianceType> 
+//   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<LocationApplianceType>>
+//   applianceOptions: ApplianceType[];
+// }
+// const ApplianceFormBody = ({errors, touched, applianceOptions, setFieldValue}: ApplianceFormBodyProps) => {
+//   const handleApplianceChange = (
+//     event: React.ChangeEvent<HTMLSelectElement>, 
+//     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<LocationApplianceType>>,
+//   ) => {
+//     const {
+//       value
+//     } = event.target;
+//     const watts = applianceOptions.find(appliance => appliance.name === value);
+//     if (!watts)
+//       throw new Error("Unable to find appliance by appliance name: " + value);
+
+//     setFieldValue('watts', watts);
+//     console.log(value);
+//   }
+
+//   return (
+//     <Form className="space-y-4">
+//       <FieldWrapper
+//         name="name"
+//         label="Appliance"
+//         component="select"
+//         classNames={{
+//           field: "default-field"
+//         }}
+//         errors={errors.name}
+//         touched={touched.name}
+//         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => handleApplianceChange(event, setFieldValue)}
+//       >
+//         {applianceOptions.map(({name}, index) => (
+//           <option
+//             key={index}
+//             value={name}
+//           >
+//             {name}
+//           </option>
+//         ))}
+//       </FieldWrapper>
+//       <FieldWrapper 
+//         name="hoursPerDay"
+//         label="Hours"
+//         classNames={{
+//           container: "w-20",
+//           field: "default-field"
+//         }}
+//         errors={errors.hoursPerDay}
+//         touched={touched.hoursPerDay}
+//       />
+//       <FieldWrapper 
+//         name="quantity"
+//         label="Quantity"
+//         classNames={{
+//           container: "w-20",
+//           field: "default-field"
+//         }}
+//         errors={errors.quantity}
+//         touched={touched.quantity}
+//       />
+//     </Form>
+//   )
+// }
 
 const ApplianceModalFooter = ({onClose, onSubmit}: ModalFooterComponentType) => {
   return (
@@ -132,7 +226,7 @@ const ApplianceModalTrigger = ({onOpen}: ModalTriggerComponentType) => {
   return (
     <button 
       type="button"
-      className="py-4  border-4 border-dashed border-epp-indigo rounded-2xl text-epp-indigo"
+      className="py-4 border-4 border-dashed border-epp-indigo rounded-2xl text-epp-indigo w-full"
       onClick={onOpen}  
     >
       + Add Appliance
