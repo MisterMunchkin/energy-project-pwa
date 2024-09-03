@@ -81,8 +81,8 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
           <ModalWrapper
             title="Add new appliance"
             FooterComponent={ApplianceModalFooter}
-            onSubmit={() => subformik.submitForm()}
             ModalTriggerComponent={ApplianceModalTrigger}
+            onSubmit={() => subformik.submitForm()}
           >
             {renderFormBody()}
           </ModalWrapper>

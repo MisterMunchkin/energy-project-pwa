@@ -15,6 +15,13 @@ type Props = {
   ModalTriggerComponent: FC<ModalTriggerComponentType>;
   onSubmit?: () => void;
 }
+/**
+ * Wraps the children into the ModalContent and handles 
+ * the boilerplate that comes with NextUI Modals
+ * 
+ * Requires a FooterComponent to handle onClose and a ModalTriggerComponent
+ * to handle onOpen.
+ */
 const ModalWrapper = ({title, children, FooterComponent, ModalTriggerComponent, onSubmit}: Props) => {
   const {
     isOpen,
