@@ -27,6 +27,7 @@ const locationMenuItems: SimpleDropdownItemType[] = [
     display: "Delete",
     props: {
       key: 'delete',
+      description: "Also removes location from the public leaderboard",
       startContent: <VscTrash className="text-red-600 w-6 h-6" />,
       className: "text-red-600"
     }
