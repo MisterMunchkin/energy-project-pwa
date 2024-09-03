@@ -10,7 +10,7 @@ import { ReactNode } from "react"
 type Props = {
   name: string;
   label: string;
-  component: string;
+  component?: string;
   children?: ReactNode;
   validation?: () => string | undefined;
   errors?: string;
