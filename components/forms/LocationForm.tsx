@@ -10,6 +10,7 @@ import InputField from "@/components/primitives/InputField";
 import SelectField from "@/components/primitives/SelectField";
 import Validators from "@/lib/form-validators";
 import { VscTrash } from "react-icons/vsc";
+import { localService } from "@/services/local-service";
 
 const initialValues: LocationType = {
   id: '',
@@ -28,8 +29,9 @@ const LocationForm = ({states, appliances}: Props) => {
   const router = useRouter();
   
   const handleSubmit = (values: LocationType, setSubmitting: (isSubmitting: boolean) => void) => {
-    console.log(values);
+    localService.createLocation(values);
     setSubmitting(false);
+    router.replace('/');
   }
 
   const renderAddressFields = (errors: FormikErrors<LocationType>, touched: FormikTouched<LocationType>) => {

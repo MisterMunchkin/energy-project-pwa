@@ -21,12 +21,12 @@ const Locations = () => {
   //Due to Nextjs prerendering on the server side.
   useEffect(() => {
     //TODO: For test purposes only
-    console.time('populating dummies');
-    localService.populateDummies();
+    // console.time('populating dummies');
+    // localService.populateDummies();
+    // console.timeEnd('populating dummies');
     
     const locations = localService.getLocations();
     setLocations(locations);
-    console.timeEnd('populating dummies');
   }, []);
 
 
