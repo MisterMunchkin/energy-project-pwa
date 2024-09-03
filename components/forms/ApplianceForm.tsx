@@ -4,7 +4,7 @@ import { ApplianceType } from "@/types/appliance.type";
 import { LocationApplianceType } from "@/types/location.type";
 import { FieldArrayRenderProps, Form, Formik, FormikErrors, FormikHelpers, FormikState, FormikTouched } from "formik";
 import ModalWrapper, { ModalFooterComponentType, ModalTriggerComponentType } from "@/components/wrappers/ModalWrapper";
-import TextField from "@/components/primitives/TextField";
+import InputField from "@/components/primitives/InputField";
 import React from "react";
 import SelectField from "../primitives/SelectField";
 import Validators from "@/lib/form-validators";
@@ -69,9 +69,10 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
             </option>
           ))}
         </SelectField>
-        <TextField 
+        <InputField 
           name="hoursPerDay"
           label="Hours"
+          type="number"
           classNames={{
             error: "text-red-600 font-semibold",
             field: "default-field w-20"
@@ -80,9 +81,10 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
           touched={touched.hoursPerDay}
           validation={Validators.hoursPerDay}
         />
-        <TextField 
+        <InputField 
           name="quantity"
           label="Quantity"
+          type="number"
           classNames={{
             error: "text-red-600 font-semibold",
             field: "default-field w-20"

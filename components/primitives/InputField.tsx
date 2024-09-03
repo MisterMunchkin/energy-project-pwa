@@ -9,6 +9,7 @@ import { Field } from "formik";
 type Props = {
   name: string;
   label: string;
+  type?: "text" | "number";
   validation?: (value: any) => string | undefined;
   errors?: string;
   touched?: boolean;
@@ -26,7 +27,7 @@ type Props = {
  * @param {touched} touched Optional boolean value which should be the touched state of the Formik object
  * @param {classNames} classNames Optional classNames for container, label, field, and error 
  */
-const TextField = ({name, label, validation, errors, touched, classNames}: Props) => {
+const InputField = ({name, label, type, validation, errors, touched, classNames}: Props) => {
   return <div className={cn(
       "default-field-container",
       classNames?.container
@@ -45,6 +46,7 @@ const TextField = ({name, label, validation, errors, touched, classNames}: Props
         "",
         classNames?.field
       )}
+      type={type ?? "text"}
       id={name}
       name={name}
       validate={validation}
@@ -53,4 +55,4 @@ const TextField = ({name, label, validation, errors, touched, classNames}: Props
   </div>
 }
 
-export default TextField;
+export default InputField;

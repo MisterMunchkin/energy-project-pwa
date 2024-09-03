@@ -6,7 +6,7 @@ import { FieldArray, Form, Formik, FormikErrors, FormikHelpers, FormikTouched } 
 import { useRouter } from "next/navigation";
 import ApplianceCard from "@/components/appliance/ApplianceCard";
 import ApplianceForm from "./ApplianceForm";
-import TextField from "@/components/primitives/TextField";
+import InputField from "@/components/primitives/InputField";
 import SelectField from "@/components/primitives/SelectField";
 import Validators from "@/lib/form-validators";
 
@@ -34,7 +34,7 @@ const LocationForm = ({states, appliances}: Props) => {
   const renderAddressFields = (errors: FormikErrors<LocationType>, touched: FormikTouched<LocationType>) => {
     return (
     <>
-      <TextField 
+      <InputField 
         name="streetAddress"
         label="Street Address"
         classNames={{
@@ -46,7 +46,7 @@ const LocationForm = ({states, appliances}: Props) => {
         validation={Validators.streetAddress}
       />
 
-      <TextField 
+      <InputField 
         name="city"
         label="City"
         classNames={{
@@ -78,9 +78,10 @@ const LocationForm = ({states, appliances}: Props) => {
         ))}
       </SelectField>
 
-      <TextField 
+      <InputField 
         name="postalCode"
         label="Postal Code"
+        type="number"
         classNames={{
           error: 'text-red-600 font-semibold',
           field: "default-field w-24",
