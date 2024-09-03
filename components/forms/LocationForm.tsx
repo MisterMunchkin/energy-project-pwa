@@ -8,6 +8,7 @@ import ApplianceCard from "@/components/appliance/ApplianceCard";
 import ApplianceForm from "./ApplianceForm";
 import TextField from "@/components/primitives/TextField";
 import SelectField from "@/components/primitives/SelectField";
+import Validators from "@/lib/form-validators";
 
 const initialValues: LocationType = {
   id: 0,
@@ -37,27 +38,32 @@ const LocationForm = ({states, appliances}: Props) => {
         name="streetAddress"
         label="Street Address"
         classNames={{
+          error: 'text-red-600 font-semibold',
           field: "default-field"
         }}
         errors={errors.streetAddress}
         touched={touched.streetAddress}
+        validation={Validators.streetAddress}
       />
 
       <TextField 
         name="city"
         label="City"
         classNames={{
-          field: "default-field"
+          error: 'text-red-600 font-semibold',
+          field: "default-field",
         }}
         errors={errors.city}
         touched={touched.city}
+        validation={Validators.city}
       />
 
       <SelectField
         name="state"
         label="State"
         classNames={{
-          field: "default-field"
+          error: 'text-red-600 font-semibold',
+          field: "default-field",
         }}
         errors={errors.state}
         touched={touched.state}
@@ -76,11 +82,12 @@ const LocationForm = ({states, appliances}: Props) => {
         name="postalCode"
         label="Postal Code"
         classNames={{
-          field: "default-field",
-          container: "w-24"
+          error: 'text-red-600 font-semibold',
+          field: "default-field w-24",
         }}
         errors={errors.postalCode}
         touched={touched.postalCode}
+        validation={Validators.postalCode}
       />
     </>
     )
