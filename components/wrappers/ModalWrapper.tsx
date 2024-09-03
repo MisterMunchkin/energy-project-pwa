@@ -36,7 +36,7 @@ type Props<TextraFooterProps extends Object> = {
  * @param {FC<ModalFooterComponentType>} FooterComponent The Functional Component that will be rendered within the ModalFooter
  * @param {FC<ModalTriggerComponentType>} ModalTriggerComponent The Functional Component that will trigger the opening of the modal
  * @param {() => void} onSubmit An optional function that gets called if onSubmit is actioned within the FooterComponent
- * @param {ExtraFooterComponentType} extraFooterComponentProps An optional dynamic object that can 
+ * @param {ExtraFooterComponentType} extraFooterComponentProps An optional dynamic object that will be passed as extraProps to the footer component
  */
 const ModalWrapper = <T extends Object,>({title, children, FooterComponent, ModalTriggerComponent, onSubmit, extraFooterComponentProps}: Props<T>) => {
   const {
