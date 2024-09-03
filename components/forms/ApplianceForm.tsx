@@ -114,12 +114,6 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
             ModalTriggerComponent={ApplianceModalTrigger}
             onSubmit={() => submitForm()}
           >
-            {/* <ApplianceFormBody 
-              errors={errors}
-              touched={touched}
-              setFieldValue={setFieldValue}
-              applianceOptions={sortedAppliances}
-            /> */}
             {renderFormBody(errors, touched, setFieldValue)}
           </ModalWrapper>
         )}
@@ -129,74 +123,6 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
 }
 
 export default ApplianceForm;
-
-// type ApplianceFormBodyProps = {
-//   errors: FormikErrors<LocationApplianceType>
-//   touched: FormikTouched<LocationApplianceType> 
-//   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<LocationApplianceType>>
-//   applianceOptions: ApplianceType[];
-// }
-// const ApplianceFormBody = ({errors, touched, applianceOptions, setFieldValue}: ApplianceFormBodyProps) => {
-//   const handleApplianceChange = (
-//     event: React.ChangeEvent<HTMLSelectElement>, 
-//     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => Promise<void | FormikErrors<LocationApplianceType>>,
-//   ) => {
-//     const {
-//       value
-//     } = event.target;
-//     const watts = applianceOptions.find(appliance => appliance.name === value);
-//     if (!watts)
-//       throw new Error("Unable to find appliance by appliance name: " + value);
-
-//     setFieldValue('watts', watts);
-//     console.log(value);
-//   }
-
-//   return (
-//     <Form className="space-y-4">
-//       <FieldWrapper
-//         name="name"
-//         label="Appliance"
-//         component="select"
-//         classNames={{
-//           field: "default-field"
-//         }}
-//         errors={errors.name}
-//         touched={touched.name}
-//         onChange={(event: React.ChangeEvent<HTMLSelectElement>) => handleApplianceChange(event, setFieldValue)}
-//       >
-//         {applianceOptions.map(({name}, index) => (
-//           <option
-//             key={index}
-//             value={name}
-//           >
-//             {name}
-//           </option>
-//         ))}
-//       </FieldWrapper>
-//       <FieldWrapper 
-//         name="hoursPerDay"
-//         label="Hours"
-//         classNames={{
-//           container: "w-20",
-//           field: "default-field"
-//         }}
-//         errors={errors.hoursPerDay}
-//         touched={touched.hoursPerDay}
-//       />
-//       <FieldWrapper 
-//         name="quantity"
-//         label="Quantity"
-//         classNames={{
-//           container: "w-20",
-//           field: "default-field"
-//         }}
-//         errors={errors.quantity}
-//         touched={touched.quantity}
-//       />
-//     </Form>
-//   )
-// }
 
 const ApplianceModalFooter = ({onClose, onSubmit}: ModalFooterComponentType) => {
   return (
