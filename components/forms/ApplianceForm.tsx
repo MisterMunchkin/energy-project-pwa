@@ -7,6 +7,7 @@ import ModalWrapper, { ModalFooterComponentType, ModalTriggerComponentType } fro
 import TextField from "@/components/primitives/TextField";
 import React from "react";
 import SelectField from "../primitives/SelectField";
+import Validators from "@/lib/form-validators";
 
 type Props = {
   arrayHelpers: FieldArrayRenderProps;
@@ -24,7 +25,7 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
   const handleSubmit = (
     values: LocationApplianceType, 
     setSubmitting: (isSubmitting: boolean) => void, 
-    resetForm:  (nextState?: Partial<FormikState<LocationApplianceType>> | undefined) => void
+    resetForm: (nextState?: Partial<FormikState<LocationApplianceType>> | undefined) => void
   ) => {
     arrayHelpers.push(values);
     resetForm();
@@ -42,6 +43,7 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
           name="name"
           label="Appliance"
           classNames={{
+            error: "text-red-600 font-semibold",
             field: "default-field"
           }}
           errors={errors.name}
@@ -56,7 +58,6 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
               throw new Error("Unable to find appliance by appliance name: " + value);
         
             setFieldValue('watts', appliance.watts);
-            console.log(value);
           }}
         >
           {sortedAppliances.map(({name}, index) => (
@@ -72,21 +73,23 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
           name="hoursPerDay"
           label="Hours"
           classNames={{
-            container: "w-20",
-            field: "default-field"
+            error: "text-red-600 font-semibold",
+            field: "default-field w-20"
           }}
           errors={errors.hoursPerDay}
           touched={touched.hoursPerDay}
+          validation={Validators.hoursPerDay}
         />
         <TextField 
           name="quantity"
           label="Quantity"
           classNames={{
-            container: "w-20",
-            field: "default-field"
+            error: "text-red-600 font-semibold",
+            field: "default-field w-20"
           }}
           errors={errors.quantity}
           touched={touched.quantity}
+          validation={Validators.quantity}
         />
       </Form>
     )
@@ -103,16 +106,19 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
         }}
         onSubmit={(
           values,
-          { setSubmitting, resetForm }: FormikHelpers<LocationApplianceType>,
+          { setSubmitting, resetForm, validateForm }: FormikHelpers<LocationApplianceType>,
         ) => handleSubmit(values, setSubmitting, resetForm)}
       >
-        {({submitForm, errors, touched, setFieldValue}) => (
+        {({submitForm, errors, touched, setFieldValue, isValid}) => (
 
           <ModalWrapper
             title="Add new appliance"
             FooterComponent={ApplianceModalFooter}
             ModalTriggerComponent={ApplianceModalTrigger}
             onSubmit={() => submitForm()}
+            extraFooterComponentProps={{
+              isValid
+            }}
           >
             {renderFormBody(errors, touched, setFieldValue)}
           </ModalWrapper>
@@ -124,7 +130,11 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
 
 export default ApplianceForm;
 
-const ApplianceModalFooter = ({onClose, onSubmit}: ModalFooterComponentType) => {
+const ApplianceModalFooter = ({onClose, onSubmit, extraProps}: ModalFooterComponentType<{isValid: boolean}>) => {
+  const {
+    isValid
+  } = extraProps ?? {};
+  
   return (
     <>
       <button 
@@ -138,7 +148,8 @@ const ApplianceModalFooter = ({onClose, onSubmit}: ModalFooterComponentType) => 
         type="button"
         onClick={() => {
           onSubmit && onSubmit();
-          onClose();
+          if (isValid)
+            onClose();
         }} 
         className="rounded-lg bg-epp-spring-green text-epp-indigo py-1.5 px-4 text-lg"
       >
