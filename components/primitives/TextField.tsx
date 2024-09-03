@@ -9,7 +9,7 @@ import { Field } from "formik";
 type Props = {
   name: string;
   label: string;
-  validation?: () => string | undefined;
+  validation?: (value: any) => string | undefined;
   errors?: string;
   touched?: boolean;
   classNames?: ClassValues<"container" | "label" | "field" | "error">
