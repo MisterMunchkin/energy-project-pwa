@@ -10,16 +10,19 @@ export type ModalTriggerComponentType = {
 /**
  * The type FooterComponent will have to follow to use this wrapper.
  */
-export type ModalFooterComponentType = {
+export type ModalFooterComponentType<T extends Object> = {
   onClose: () => void;
   onSubmit?: () => void;
+  extraProps?: Partial<T>;
 }
-type Props = {
+
+type Props<TextraFooterProps extends Object> = {
   title: string;
   children: ReactNode;
-  FooterComponent: FC<ModalFooterComponentType>;
+  FooterComponent: FC<ModalFooterComponentType<TextraFooterProps>>;
   ModalTriggerComponent: FC<ModalTriggerComponentType>;
   onSubmit?: () => void;
+  extraFooterComponentProps?: TextraFooterProps
 }
 /**
  * Wraps the children into the ModalContent and handles 
@@ -28,13 +31,14 @@ type Props = {
  * Requires a FooterComponent to handle onClose and a ModalTriggerComponent
  * to handle onOpen.
  * 
- * @param {title} title The header of the modal
- * @param {children} children The ReactNode rendered within the ModalBody
- * @param {FooterComponent} FooterComponent The Functional Component that will be rendered within the ModalFooter
- * @param {ModalTriggerComponent} ModalTriggerComponent The Functional Component that will trigger the opening of the modal
- * @param {onSubmit} onSubmit An optional function that gets called if onSubmit is actioned within the FooterComponent
+ * @param {string} title The header of the modal
+ * @param {ReactNode} children The ReactNode rendered within the ModalBody
+ * @param {FC<ModalFooterComponentType>} FooterComponent The Functional Component that will be rendered within the ModalFooter
+ * @param {FC<ModalTriggerComponentType>} ModalTriggerComponent The Functional Component that will trigger the opening of the modal
+ * @param {() => void} onSubmit An optional function that gets called if onSubmit is actioned within the FooterComponent
+ * @param {ExtraFooterComponentType} extraFooterComponentProps An optional dynamic object that can 
  */
-const ModalWrapper = ({title, children, FooterComponent, ModalTriggerComponent, onSubmit}: Props) => {
+const ModalWrapper = <T extends Object,>({title, children, FooterComponent, ModalTriggerComponent, onSubmit, extraFooterComponentProps}: Props<T>) => {
   const {
     isOpen,
     onOpen,
@@ -63,6 +67,8 @@ const ModalWrapper = ({title, children, FooterComponent, ModalTriggerComponent, 
                 <FooterComponent 
                   onClose={onClose}
                   onSubmit={onSubmit}
+                  // {...(extraFooterComponentProps ? extraFooterComponentProps : {})}
+                  extraProps={extraFooterComponentProps}
                 />
               </ModalFooter>
             </>
