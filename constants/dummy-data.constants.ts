@@ -7,12 +7,13 @@ export const DUMMY_LOCATIONS: LocationType[] = [
     streetAddress: '125 Colchester Street',
     city: 'South Brisbane',
     state: 'Queensland',
+    postalCode: 4101,
     appliances: [
     {
       name: 'Refrigerator',
       quantity: 1,
       hoursPerDay: 24,
-      totalWHSPerDay: 300
+      watts: 100
     }
    ] 
   },
@@ -21,24 +22,25 @@ export const DUMMY_LOCATIONS: LocationType[] = [
     streetAddress: '20 George Street',
     city: 'Parkwood',
     state: 'Queensland',
+    postalCode: 4202,
     appliances: [
       {
         name: 'Refrigerator',
         quantity: 1,
         hoursPerDay: 24,
-        totalWHSPerDay: 300
+        watts: 100
       },
       {
-        name: 'Lights',
+        name: 'Lamp',
         quantity: 5,
         hoursPerDay: 8,
-        totalWHSPerDay: 200
+        watts: 60
       },
       {
         name: 'Dishwasher',
         quantity: 1,
         hoursPerDay: 2,
-        totalWHSPerDay: 150
+        watts: 1800
       }
     ] 
   },
