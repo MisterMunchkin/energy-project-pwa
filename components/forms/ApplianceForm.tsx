@@ -16,6 +16,12 @@ type Props = {
   arrayHelpers: FieldArrayRenderProps;
   applianceOptions: ApplianceType[];
 }
+/**
+ * A Formik form for creating an Appliance for a Location.
+ * 
+ * @param {arrayHelpers} arrayHelpers A field array for nested Formik Arrays. Comes with helper functions
+ * @param {applianceOptions} applianceOptions A list of appliances that can be selected.
+ */
 const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
   const sortedAppliances = applianceOptions.sort((a, b) => a.name.localeCompare(b.name));
 
