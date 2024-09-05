@@ -12,11 +12,32 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
   }
 
   /**
+   * Deletes the post by location id
+   * 
+   * 
+   * Need to retrieve the dataList, then populate it back because the current
+   * basemodel does not support finding by properties because of generic T type.
+   * 
+   * In the future, need to setup T where implements {id: string}
+   */
+  delete = (locationId: string) => {
+    const dataList = this.select();
+    const index = dataList.findIndex(item => item.locationId === locationId);
+    if (index === -1) {
+      console.error('Could not find post with locationId: ' + locationId);
+      return { errMessage: 'Could not find post with locationId: ' + locationId };
+    }
+
+    dataList.splice(index, 1);
+    this.populate(dataList);
+  }
+
+  /**
    * Finds the post by location id
    * 
    * @param {string} locationId The id...
    */
-  findBy(locationId: string) {
+  findBy = (locationId: string) => {
     const dataList = this.select(item => item.locationId === locationId);
     if (!dataList || dataList.length === 0)
       return null;

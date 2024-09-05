@@ -1,4 +1,8 @@
 export type PredicateType<T> = (value: T, index: number, array: T[]) => unknown;
+
+/**
+ * The generic base model that interacts with the cache service.
+ */
 export class BaseModel<T> {
   private TName: string;
 
@@ -32,6 +36,17 @@ export class BaseModel<T> {
     this.setCache(cachedData);
   }
   
+  /**
+   * @ignore
+   * @todo Should've made T where implements {id: string} to allow for editing or deleting
+   * data within this base model
+   */
+  Obsoletedelete = (item: T) => {
+    // const cachedData = this.getCache();
+    // cachedData.findIndex(item)
+    throw new Error('Not implemented');
+  }
+
   private getCache = () => {
     if (!global.serverCache.has(this.TName))
       throw new Error(`cache for ${this.TName} not initialized!!!`);
