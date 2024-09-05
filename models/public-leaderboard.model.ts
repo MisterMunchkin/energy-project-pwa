@@ -1,24 +1,27 @@
-import { LocationClass, LocationType } from "@/types/location.type";
+import { LocationType } from "@/types/location.type";
 import { BaseModel } from "./base.model";
 import { PublicLeaderboardClass, PublicLeaderboardType } from "@/types/public-leaderboard.type";
 import { StateEnergyProductionType } from "@/types/state-energy-production.types";
 
 /**
  * Accesses the data relating to the PublicLeaderboard data.
- * 
- * @implements PublicLeaderboardType to create polymorphic `this` for insert behavior
  */
-export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> implements PublicLeaderboardType {
-  locationId: string = '';
-  solarProduction: number = 0;
-  windProduction: number = 0;
-  gasProduction: number = 0;
-  coalProduction: number = 0;
-  totalWHSPerDay: number = 0;
-  name: string = '';
-
+export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
   constructor() {
     super(PublicLeaderboardModel.name);
+  }
+
+  /**
+   * Finds the post by location id
+   * 
+   * @param {string} locationId The id...
+   */
+  findBy(locationId: string) {
+    const dataList = this.select(item => item.locationId === locationId);
+    if (!dataList || dataList.length === 0)
+      return null;
+
+    return dataList[0];
   }
 
   /**
@@ -27,11 +30,17 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> imp
    * @param {StateEnergyProductionType} stateProduction The state energy production of the given location
    * @param {string} name The name the user gave for this post
    */
-  post (
+  post = (
     location: LocationType, 
     stateProduction: StateEnergyProductionType,
     name?: string,
-  ): void {
+  ): void => {
+    if (this.exists(location.id)) {
+      console.error('Post with the same location id already exists! locationId: ' + location.id);
+      return;
+    }
+       
+
     const {
       createTypeBy
     } = PublicLeaderboardClass;
@@ -60,5 +69,10 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> imp
       );
 
     return sortedLeaderboard;
+  }
+
+  exists = (locationId: string): boolean => {
+    const dataList = this.select(item => item.locationId === locationId);
+    return dataList && dataList.length > 0;
   }
 }
