@@ -1,6 +1,7 @@
-import { API_CONTROLLER } from "@/constants/controller-navigation.constants";
+import { PublicLeaderboardPostArgs } from "@/app/api/controllers/public-leaderboard/route";
+import { API_CONTROLLER, API_PUBLIC_LEADERBOARD } from "@/constants/controller-navigation.constants";
 import { ApplianceType } from "@/types/appliance.type";
-import { LocationType } from "@/types/location.type";
+import { PublicLeaderboardType } from "@/types/public-leaderboard.type";
 import { StateEnergyProductionType } from "@/types/state-energy-production.types";
 import { StateType } from "@/types/state.type";
 
@@ -45,19 +46,31 @@ namespace Services {
     const energyProduction = await res.json() as StateEnergyProductionType;
     return energyProduction;
   }
-  export const postToLeaderboard = async (location: LocationType) => {
-    const reqUrl = `${API_CONTROLLER}public-leaderboard`;
+  export const postToLeaderboard = async (args: PublicLeaderboardPostArgs) => {
+    const reqUrl = API_PUBLIC_LEADERBOARD;
     const res = await fetch(reqUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(location)
+      body: JSON.stringify(args)
     });
 
     if (!res.ok)
       console.error('public-leaderboard API threw an error', res.status);
-  } 
+  }
+  export const getPublicLeaderboard = async () => {
+    const reqUrl = API_PUBLIC_LEADERBOARD;
+    const res = await fetch(reqUrl, {
+      method: 'GET',
+    });
+
+    if (!res.ok)
+      console.error('public-leaderboard API threw an error', res.status);
+
+    const publicLeaderBoard = await res.json() as PublicLeaderboardType[];
+    return publicLeaderBoard;
+  }
 }
 
 export default Services;
