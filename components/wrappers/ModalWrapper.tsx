@@ -20,9 +20,10 @@ type Props<TextraFooterProps extends Object> = {
   title: string;
   children: ReactNode;
   FooterComponent: FC<ModalFooterComponentType<TextraFooterProps>>;
-  ModalTriggerComponent: FC<ModalTriggerComponentType>;
+  ModalTriggerComponent?: FC<ModalTriggerComponentType>;
   onSubmit?: () => void;
-  extraFooterComponentProps?: TextraFooterProps
+  extraFooterComponentProps?: TextraFooterProps;
+  useDisclosure?: ReturnType<typeof useDisclosure>;
 }
 /**
  * Wraps the children into the ModalContent and handles 
@@ -37,42 +38,44 @@ type Props<TextraFooterProps extends Object> = {
  * @param {FC<ModalTriggerComponentType>} ModalTriggerComponent The Functional Component that will trigger the opening of the modal
  * @param {() => void} onSubmit An optional function that gets called if onSubmit is actioned within the FooterComponent
  * @param {ExtraFooterComponentType} extraFooterComponentProps An optional dynamic object that will be passed as extraProps to the footer component
+ * @param {ReturnType<typeof useDisclosure>} useDisclosure An optional prop if user would like to handle the state of the modal programmatically
  */
-const ModalWrapper = <T extends Object,>({title, children, FooterComponent, ModalTriggerComponent, onSubmit, extraFooterComponentProps}: Props<T>) => {
+const ModalWrapper = <T extends Object,>({title, children, FooterComponent, ModalTriggerComponent, onSubmit, extraFooterComponentProps, useDisclosure: handleDisclosure}: Props<T>) => {
   const {
     isOpen,
     onOpen,
     onOpenChange,
-  } = useDisclosure();
+    onClose,
+  } = handleDisclosure ?? useDisclosure();
   
   return (
     <>
-      <ModalTriggerComponent 
-        onOpen={onOpen}
-      />
+      {ModalTriggerComponent &&  
+        <ModalTriggerComponent 
+          onOpen={onOpen}
+        />
+      }
       <Modal
         isOpen={isOpen}
         onOpenChange={onOpenChange}
       >
         <ModalContent>
-          {(onClose) => (
-            <>
-              <ModalHeader>
-                {title}
-              </ModalHeader>
-              <ModalBody>
-                {children}
-              </ModalBody>
-              <ModalFooter>
-                <FooterComponent 
-                  onClose={onClose}
-                  onSubmit={onSubmit}
-                  // {...(extraFooterComponentProps ? extraFooterComponentProps : {})}
-                  extraProps={extraFooterComponentProps}
-                />
-              </ModalFooter>
-            </>
-          )}
+          <>
+            <ModalHeader>
+              {title}
+            </ModalHeader>
+            <ModalBody>
+              {children}
+            </ModalBody>
+            <ModalFooter>
+              <FooterComponent 
+                onClose={onClose}
+                onSubmit={onSubmit}
+                // {...(extraFooterComponentProps ? extraFooterComponentProps : {})}
+                extraProps={extraFooterComponentProps}
+              />
+            </ModalFooter>
+          </>
         </ModalContent>
       </Modal>
     </>

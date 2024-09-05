@@ -49,12 +49,22 @@ const _quantity = (value: string): string | undefined => {
   return;
 }
 
+const _leadboardPostName = (value: string): string | undefined => {
+  if (!value) 
+    return 'Required!';
+  if (value.length > 30)
+    return 'Maximum of 30 characters!';
+
+  return;
+}
+
 namespace Validators {
   export const streetAddress = _streetAddress;
   export const city = _city;
   export const postalCode = _postalCode;
   export const hoursPerDay = _hoursPerDay;
   export const quantity = _quantity;
+  export const leaderboardPostName = _leadboardPostName;
 }
 
 export default Validators;
