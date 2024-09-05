@@ -108,7 +108,7 @@ const ApplianceForm = ({applianceOptions, arrayHelpers}: Props) => {
         }}
         onSubmit={(
           values,
-          { setSubmitting, resetForm, validateForm }: FormikHelpers<LocationApplianceType>,
+          { setSubmitting, resetForm }: FormikHelpers<LocationApplianceType>,
         ) => handleSubmit(values, setSubmitting, resetForm)}
       >
         {({submitForm, errors, touched, setFieldValue, isValid}) => (
