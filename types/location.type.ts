@@ -1,3 +1,8 @@
+/**
+ * A location object and the appliances within that location.
+ * 
+ * @property {LocationApplianceTypep[]} appliances A list of appliances for the given location.
+ */
 export type LocationType = {
   id: string;
   streetAddress: string;
@@ -24,11 +29,21 @@ export type LocationApplianceType = {
 }
 
 
+/**
+ * Statistics for a given location
+ * 
+ * @property {number} totalWHSPerDay
+ * @property {number} totalAppliances
+ */
 export type LocationStatsType = {
   totalWHSPerDay: number;
   totalAppliances: number;
 }
 
+/**
+ * A class that takes a locationType. This class gives utility getters
+ * Needed for business logic
+ *  */ 
 export class LocationClass implements LocationType {
   id: string = '';
   streetAddress: string = '';
@@ -63,6 +78,10 @@ export class LocationClass implements LocationType {
   }
 }
 
+/**
+ * A class that takes a LocationApplianceType. It gives utility getters
+ * for business logic.
+ */
 export class LocationApplianceClass implements LocationApplianceType {
   name: string = '';
   quantity: number = 0;
