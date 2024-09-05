@@ -72,7 +72,6 @@ namespace Services {
     return publicLeaderBoard;
   }
   export const getPostFromPublicLeaderboard = async (locationId: string) => {
-    console.log('oioioi ' + locationId);
     const reqUrl = `${API_PUBLIC_LEADERBOARD}/${locationId}`;
     const res = await fetch(reqUrl, {
       method: 'GET',
@@ -83,6 +82,15 @@ namespace Services {
 
     const {post} = await res.json() as {post: PublicLeaderboardType | null};
     return post;
+  }
+  export const deletePostFromPublicLeaderboard = async (locationId: string) => {
+    const reqUrl = `${API_PUBLIC_LEADERBOARD}/${locationId}`;
+    const res = await fetch(reqUrl, {
+      method: 'DELETE',
+    });
+
+    if (!res.ok)
+      console.error('public-leaderboard/[id] API threw an error', res.status, res.statusText);
   }
 }
 
