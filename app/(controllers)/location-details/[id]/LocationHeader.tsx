@@ -1,9 +1,12 @@
 "use client"
 
+import PostToLeadboardForm, { PostToLeadboardFormType } from "@/components/forms/PostToLeaderboardForm"
 import DropdownWrapper, { SimpleDropdownItemType } from "@/components/wrappers/DropdownWrapper"
 import { LOCATION_DETAILS } from "@/constants/controller-navigation.constants"
 import { localService } from "@/services/local-service"
 import Services from "@/services/services"
+import { useDisclosure } from "@nextui-org/modal"
+import { FormikState } from "formik"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Key } from "react"
@@ -43,14 +46,15 @@ type Props = {
 }
 const LocationHeader = ({locationId}: Props) => {
   const router = useRouter();
-  function handleDropDownMenuAction(key: Key): void {
+  const modal = useDisclosure();
+
+  const handleDropDownMenuAction = (key: Key): void => {
     switch (key) {
       case "edit":
         router.push(`${LOCATION_DETAILS}/save/${locationId}`)
         break;
       case "post":
-        const location = localService.getLocation(locationId);
-        location && Services.postToLeaderboard(location)
+        modal.onOpen();
         break;
       case "delete":
         console.error("Not yet implemented");
@@ -60,29 +64,50 @@ const LocationHeader = ({locationId}: Props) => {
     }
   }
 
+  const onSubmitPostToLeaderboard = async (
+    values: PostToLeadboardFormType, 
+    setSubmitting: (isSubmitting: boolean) => void, 
+    resetForm: (nextState?: Partial<FormikState<PostToLeadboardFormType>> | undefined) => void
+  ) => {
+    const location = localService.getLocation(locationId);
+    if (!location)
+      return;
+
+    await Services.postToLeaderboard({location, name: values.name});
+    setSubmitting(false);
+    resetForm();
+  }
+
   return (
-    <div className="p-2 flex flex-row justify-between items-center">
-      <Link
-        className="cursor-pointer"
-        href='/'
-      >
-        <VscArrowLeft
-          className="text-epp-indigo w-10 h-10"
+    <>
+      <div className="p-2 flex flex-row justify-between items-center">
+        <Link
+          className="cursor-pointer"
+          href='/'
+        >
+          <VscArrowLeft
+            className="text-epp-indigo w-10 h-10"
+          />
+        </Link>
+        <DropdownWrapper 
+          trigger={(
+            <button
+              type="button"
+            >
+              <BsThreeDots className="w-10 h-10 text-epp-indigo" />
+            </button>
+          )}
+          ariaLabel="Location Menu"
+          simpleMenuItems={locationMenuItems}
+          onAction={handleDropDownMenuAction}
         />
-      </Link>
-      <DropdownWrapper 
-        trigger={(
-          <button
-            type="button"
-          >
-            <BsThreeDots className="w-10 h-10 text-epp-indigo" />
-          </button>
-        )}
-        ariaLabel="Location Menu"
-        simpleMenuItems={locationMenuItems}
-        onAction={handleDropDownMenuAction}
+      </div>
+
+      <PostToLeadboardForm 
+        modal={modal}
+        onSubmitForm={onSubmitPostToLeaderboard}
       />
-    </div>
+    </>
   )
 }
 
