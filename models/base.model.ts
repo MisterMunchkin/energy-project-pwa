@@ -25,6 +25,12 @@ export class BaseModel<T> {
 
     return cachedData;
   }
+
+  insert = (item: T) => {
+    const cachedData = this.getCache();
+    cachedData.push(item);
+    this.setCache(cachedData);
+  }
   
   private getCache = () => {
     if (!global.serverCache.has(this.TName))
@@ -32,18 +38,11 @@ export class BaseModel<T> {
 
     return global.serverCache.get(this.TName) as T[];
   }
-  // static insert = <U>(entry: U) => {
-  //   if (!this.data)
-  //     throw new Error(this.errMessages.notPopulated);
-    
-  //   this.data.push(this.clone(entry));
-  // }
-  
-  // private clone = (data: T) => {
-  //   return Object.assign(Object.create(Object.getPrototypeOf(data)), data)
-  // }
 
-  // static readonly errMessages = {
-  //   notPopulated: `Data model has not been populated`
-  // };
+  private setCache = (cachedData: T[]) => {
+    if (!global.serverCache.has(this.TName))
+      throw new Error(`cache for ${this.TName} not initialized!!!`);
+
+    global.serverCache.set(this.TName, cachedData);
+  }
 }
