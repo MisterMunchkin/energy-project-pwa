@@ -71,6 +71,19 @@ namespace Services {
     const publicLeaderBoard = await res.json() as PublicLeaderboardType[];
     return publicLeaderBoard;
   }
+  export const getPostFromPublicLeaderboard = async (locationId: string) => {
+    console.log('oioioi ' + locationId);
+    const reqUrl = `${API_PUBLIC_LEADERBOARD}/${locationId}`;
+    const res = await fetch(reqUrl, {
+      method: 'GET',
+    });
+
+    if (!res.ok) 
+      console.error('public-leaderboard/[id] API threw an error', res.status);
+
+    const {post} = await res.json() as {post: PublicLeaderboardType | null};
+    return post;
+  }
 }
 
 export default Services;

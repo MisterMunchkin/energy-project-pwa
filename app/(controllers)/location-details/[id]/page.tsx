@@ -3,6 +3,7 @@ import LocationBarChart from "@/components/location/LocationBarChart";
 import LocationStats from "@/components/location/LocationStats";
 import { ServerComponentProps } from "@/types/server-component-props.types";
 import LocationHeader from "./LocationHeader";
+import Services from "@/services/services";
 
 /**
  * @param {serverComponentProps} serverComponentProps Strictly types NextJs server navigation from a `<Link />`. 
@@ -15,6 +16,7 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
   if (!idString) 
     throw new Error('passing `id` is required for `LocationDetails`. id: ' + idString);
 
+  const publicPost = await Services.getPostFromPublicLeaderboard(idString);
   return <main
     className="py-[50px] flex flex-col space-y-4 bg-epp-white"
   >
@@ -22,6 +24,7 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
     <div className="flex flex-col ">
       <LocationHeader 
         locationId={idString}
+        publicPost={publicPost}
       />
       <LocationBarChart locationId={idString} />
     </div>
