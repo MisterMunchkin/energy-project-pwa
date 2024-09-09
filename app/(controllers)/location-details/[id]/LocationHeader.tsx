@@ -65,7 +65,7 @@ const LocationHeader = ({locationId, publicPost}: Props) => {
   else
     locationMenuItems.splice(0, 0, uploadPost);
 
-  const handleDropDownMenuAction = (key: Key): void => {
+  const handleDropDownMenuAction = async (key: Key): Promise<void> => {
     switch (key) {
       case "edit":
         router.push(`${LOCATION_DETAILS}/save/${locationId}`)
@@ -77,7 +77,7 @@ const LocationHeader = ({locationId, publicPost}: Props) => {
         console.error("Not yet implemented");
         break;
       case "remove-post":
-        console.error("Not yet implemented");
+        await Services.deletePostFromPublicLeaderboard(locationId);
       default:
         break;
     }

@@ -1,5 +1,5 @@
 import { PublicLeaderboardPostArgs } from "@/app/api/controllers/public-leaderboard/route";
-import { API_CONTROLLER, API_PUBLIC_LEADERBOARD } from "@/constants/controller-navigation.constants";
+import { API_CONTROLLER, API_PUBLIC_LEADERBOARD, RevalidatePath } from "@/constants/controller-navigation.constants";
 import { ApplianceType } from "@/types/appliance.type";
 import { PublicLeaderboardType } from "@/types/public-leaderboard.type";
 import { StateEnergyProductionType } from "@/types/state-energy-production.types";
@@ -47,7 +47,11 @@ namespace Services {
     return energyProduction;
   }
   export const postToLeaderboard = async (args: PublicLeaderboardPostArgs) => {
-    const reqUrl = API_PUBLIC_LEADERBOARD;
+    //TODO: revalidatePath not working yet on Nextjs 14 API Route
+    const reqUrl = API_PUBLIC_LEADERBOARD + '?' + new URLSearchParams({
+      'path-to-revalidate': RevalidatePath.LOCATION_DETAILS_PAGE
+    });
+
     const res = await fetch(reqUrl, {
       method: 'POST',
       headers: {
@@ -63,6 +67,7 @@ namespace Services {
     const reqUrl = API_PUBLIC_LEADERBOARD;
     const res = await fetch(reqUrl, {
       method: 'GET',
+      cache: 'no-store',
     });
 
     if (!res.ok)
@@ -75,6 +80,7 @@ namespace Services {
     const reqUrl = `${API_PUBLIC_LEADERBOARD}/${locationId}`;
     const res = await fetch(reqUrl, {
       method: 'GET',
+      cache: 'no-store'
     });
 
     if (!res.ok) 

@@ -1,8 +1,10 @@
+import { API_PUBLIC_LEADERBOARD, LOCATION_DETAILS, RevalidatePath } from "@/constants/controller-navigation.constants";
 import { PublicLeaderboardModel } from "@/models/public-leaderboard.model";
 import { StateEnergyProductionModel } from "@/models/state-energy-production.model";
 import { LocationType } from "@/types/location.type";
-import { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from "next";
+import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
 
 /**
  * The required argument for the public leaderboard POST request
@@ -15,7 +17,7 @@ export type PublicLeaderboardPostArgs = {
   location: LocationType
 }
 export async function POST(
-  req: Request
+  req: NextRequest
 ) {
   if (!req.url)
     return NextResponse.json({}, {status: 400, statusText: 'invalid URL'});
@@ -39,13 +41,29 @@ export async function POST(
     return NextResponse.json({}, {status: 500, statusText: 'Could not find valid state for the location requested. state: ' + location.state});
 
   new PublicLeaderboardModel()
-    .post(
-      location,
-      stateProduction,
-      name
-    );
+  .post(
+    location,
+    stateProduction,
+    name
+  );
+  
+  //TODO: revalidatePath not working on Nextjs 14
+  // const path = req.nextUrl.searchParams.get('path-to-revalidate');
+  // const revalidateResponse = {
+  //   revalidated: true,
+  //   now: Date.now(),
+  //   message: ""
+  // };
 
-  return NextResponse.json({}, {status: 200});
+  // if (path) {
+  //   revalidatePath(path, "page");
+  // } else {
+  //   revalidateResponse.revalidated = false;
+  //   revalidateResponse.message = "Missing path to revalidate";
+  // }
+
+  // return NextResponse.json(revalidateResponse);
+  return NextResponse.json({});
 }
 
 export async function GET(
