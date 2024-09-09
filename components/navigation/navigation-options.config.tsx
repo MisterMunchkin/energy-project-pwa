@@ -1,4 +1,4 @@
-import { LOCATION_DETAILS } from "@/constants/controller-navigation.constants";
+import { LOCATION_DETAILS, PUBLIC_LEADERBOARD } from "@/constants/controller-navigation.constants";
 import { ReactNode } from "react";
 import { FaEarthOceania } from "react-icons/fa6";
 import { VscAdd, VscHome } from "react-icons/vsc";
@@ -19,6 +19,6 @@ export const bottomTabOptions: NavOption[] = [
   },
   {
     content: (className: string) => <FaEarthOceania className={`${className}  w-14 h-full`} />,
-    href: '/'
+    href: `${PUBLIC_LEADERBOARD}`
   }
 ];
