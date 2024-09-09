@@ -62,6 +62,8 @@ namespace Services {
 
     if (!res.ok)
       console.error('public-leaderboard API threw an error', res.status);
+
+    return res;
   }
   export const getPublicLeaderboard = async () => {
     const reqUrl = API_PUBLIC_LEADERBOARD;
@@ -97,6 +99,8 @@ namespace Services {
 
     if (!res.ok)
       console.error('public-leaderboard/[id] API threw an error', res.status, res.statusText);
+
+    return res;
   }
 }
 

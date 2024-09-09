@@ -40,7 +40,7 @@ export async function POST(
   if (!stateProduction)
     return NextResponse.json({}, {status: 500, statusText: 'Could not find valid state for the location requested. state: ' + location.state});
 
-  new PublicLeaderboardModel()
+  const newPost = new PublicLeaderboardModel()
   .post(
     location,
     stateProduction,
@@ -63,7 +63,7 @@ export async function POST(
   // }
 
   // return NextResponse.json(revalidateResponse);
-  return NextResponse.json({});
+  return NextResponse.json(newPost);
 }
 
 export async function GET(

@@ -10,7 +10,7 @@ import { useDisclosure } from "@nextui-org/modal"
 import { FormikState } from "formik"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Key } from "react"
+import { Key, useState } from "react"
 import { BsThreeDots } from "react-icons/bs"
 import { TbWorldUpload, TbWorldX } from "react-icons/tb"
 import { VscArrowLeft, VscEdit, VscTrash } from "react-icons/vsc"
@@ -37,9 +37,10 @@ type Props = {
   locationId: string
   publicPost: PublicLeaderboardType | null;
 }
-const LocationHeader = ({locationId, publicPost}: Props) => {
+const LocationHeader = ({locationId, publicPost: defaultPublicPost}: Props) => {
   const router = useRouter();
   const modal = useDisclosure();
+  const [publicPost, setPublicPost] = useState<PublicLeaderboardType | null>(defaultPublicPost);
 
   const locationMenuItems: SimpleDropdownItemType[] = [
     {
@@ -77,7 +78,9 @@ const LocationHeader = ({locationId, publicPost}: Props) => {
         console.error("Not yet implemented");
         break;
       case "remove-post":
-        await Services.deletePostFromPublicLeaderboard(locationId);
+        const res = await Services.deletePostFromPublicLeaderboard(locationId);
+        if (res.ok)
+          setPublicPost(null);
       default:
         break;
     }
@@ -92,7 +95,11 @@ const LocationHeader = ({locationId, publicPost}: Props) => {
     if (!location)
       return;
 
-    await Services.postToLeaderboard({location, name: values.name});
+    const res = await Services.postToLeaderboard({location, name: values.name});
+    if (res.ok) {
+      const post = await res.json() as PublicLeaderboardType;
+      setPublicPost(post);
+    }
     setSubmitting(false);
     resetForm();
   }

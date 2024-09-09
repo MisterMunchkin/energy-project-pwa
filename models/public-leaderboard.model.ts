@@ -55,7 +55,7 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
     location: LocationType, 
     stateProduction: StateEnergyProductionType,
     name?: string,
-  ): void => {
+  ): PublicLeaderboardType | undefined => {
     if (this.exists(location.id)) {
       console.error('Post with the same location id already exists! locationId: ' + location.id);
       return;
@@ -73,6 +73,7 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
     );
 
     this.insert(newPost);
+    return newPost;
   }
 
   /**
