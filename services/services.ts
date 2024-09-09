@@ -67,7 +67,7 @@ namespace Services {
     const reqUrl = API_PUBLIC_LEADERBOARD;
     const res = await fetch(reqUrl, {
       method: 'GET',
-      cache: 'no-store',
+      cache: 'no-store',//TODO: Should be removed once revalidatePath is working
     });
 
     if (!res.ok)
@@ -80,7 +80,7 @@ namespace Services {
     const reqUrl = `${API_PUBLIC_LEADERBOARD}/${locationId}`;
     const res = await fetch(reqUrl, {
       method: 'GET',
-      cache: 'no-store'
+      cache: 'no-store'//TODO: Should be removed once revalidatePath is working
     });
 
     if (!res.ok) 
