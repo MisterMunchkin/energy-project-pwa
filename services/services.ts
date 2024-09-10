@@ -1,4 +1,4 @@
-import { PublicLeaderboardPostArgs } from "@/app/api/controllers/public-leaderboard/route";
+import { PublicLeaderboardPostArgs, PublicLeaderboardPutArgs } from "@/app/api/controllers/public-leaderboard/route";
 import { API_CONTROLLER, API_PUBLIC_LEADERBOARD, RevalidatePath } from "@/constants/controller-navigation.constants";
 import { ApplianceType } from "@/types/appliance.type";
 import { PublicLeaderboardType } from "@/types/public-leaderboard.type";
@@ -46,6 +46,10 @@ namespace Services {
     const energyProduction = await res.json() as StateEnergyProductionType;
     return energyProduction;
   }
+}
+export default Services;
+
+export namespace PublicLeaderboardService {
   export const postToLeaderboard = async (args: PublicLeaderboardPostArgs) => {
     //TODO: revalidatePath not working yet on Nextjs 14 API Route
     const reqUrl = API_PUBLIC_LEADERBOARD + '?' + new URLSearchParams({
@@ -102,6 +106,19 @@ namespace Services {
 
     return res;
   }
-}
+  export const updatePostFromPublicLeaderboard = async (args: PublicLeaderboardPutArgs) => {
+    const reqUrl = `${API_PUBLIC_LEADERBOARD}`;
+    const res = await fetch(reqUrl, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(args)
+    });
 
-export default Services;
+    if (!res.ok)
+      console.error('public-leaderboard API threw an error', res.status);
+
+    return res;
+  }
+}

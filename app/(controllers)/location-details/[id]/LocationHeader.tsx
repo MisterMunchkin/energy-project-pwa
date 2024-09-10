@@ -4,7 +4,7 @@ import PostToLeadboardForm, { PostToLeadboardFormType } from "@/components/forms
 import DropdownWrapper, { SimpleDropdownItemType } from "@/components/wrappers/DropdownWrapper"
 import { LOCATION_DETAILS } from "@/constants/controller-navigation.constants"
 import { localService } from "@/services/local-service"
-import Services from "@/services/services"
+import { PublicLeaderboardService } from "@/services/services"
 import { PublicLeaderboardType } from "@/types/public-leaderboard.type"
 import { useDisclosure } from "@nextui-org/modal"
 import { FormikState } from "formik"
@@ -78,7 +78,7 @@ const LocationHeader = ({locationId, publicPost: defaultPublicPost}: Props) => {
         console.error("Not yet implemented");
         break;
       case "remove-post":
-        const res = await Services.deletePostFromPublicLeaderboard(locationId);
+        const res = await PublicLeaderboardService.deletePostFromPublicLeaderboard(locationId);
         if (res.ok)
           setPublicPost(null);
       default:
@@ -95,7 +95,7 @@ const LocationHeader = ({locationId, publicPost: defaultPublicPost}: Props) => {
     if (!location)
       return;
 
-    const res = await Services.postToLeaderboard({location, name: values.name});
+    const res = await PublicLeaderboardService.postToLeaderboard({location, name: values.name});
     if (res.ok) {
       const post = await res.json() as PublicLeaderboardType;
       setPublicPost(post);
