@@ -20,7 +20,7 @@ const PublicLeaderboard = ({publicLeaderboard}: Props) => {
         />
       </Link>
     </div>
-    <div className="p-4 space-y-4">
+    <div className="p-4 space-y-4 w-full">
       {publicLeaderboard.map((post, index) => (
         <PublicPost 
           key={index}
