@@ -6,7 +6,7 @@ const config: Config = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/components/(dropdown|modal|menu|divider|popover|button|ripple|spinner).js"
+    "./node_modules/@nextui-org/theme/dist/components/(dropdown|modal|menu|divider|popover|button|ripple|spinner|chip|accordion).js"
   ],
   theme: {
     extend: {
@@ -19,6 +19,9 @@ const config: Config = {
         'epp-aqua': '#61FEB0',
         'epp-spring-green': '#0af693',
         'epp-orange': '#fea800',
+        'gold': '#d4af37',
+        'silver': '#c0c0c0',
+        'bronze': '#cd7f32'
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
