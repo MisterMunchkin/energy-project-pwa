@@ -2,6 +2,7 @@ import { LocationType } from "@/types/location.type";
 import { BaseModel } from "./base.model";
 import { PublicLeaderboardClass, PublicLeaderboardType } from "@/types/public-leaderboard.type";
 import { StateEnergyProductionType } from "@/types/state-energy-production.types";
+import { NationalStatisticsType } from "@/types/national-statistics.type";
 
 /**
  * Accesses the data relating to the PublicLeaderboard data.
@@ -117,4 +118,33 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
     const dataList = this.select(item => item.locationId === locationId);
     return dataList && dataList.length > 0;
   }
+
+
+  nationalStatistics = (): NationalStatisticsType => {
+    const leaderboard = this.select();
+
+    const result: NationalStatisticsType = {
+      totalWHSPerDayPer: {
+        wind: 0,
+        solar: 0,
+        gas: 0,
+        coal: 0,
+      }
+    };
+
+    leaderboard.forEach((post) => {
+      result.totalWHSPerDayPer.coal += this.getWattHourPer(post, post.coalProduction);
+      result.totalWHSPerDayPer.wind += this.getWattHourPer(post, post.windProduction);
+      result.totalWHSPerDayPer.solar += this.getWattHourPer(post, post.solarProduction);
+      result.totalWHSPerDayPer.gas += this.getWattHourPer(post, post.gasProduction);
+    });
+
+    return result;
+  }
+
+  private getWattHourPer(post: PublicLeaderboardType, sourcePercentage: number) {
+    const decimal = sourcePercentage / 100;
+    return post.totalWHSPerDay * decimal;
+  }
 }
+

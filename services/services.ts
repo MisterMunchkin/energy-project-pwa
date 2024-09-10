@@ -1,7 +1,8 @@
 import { PublicLeaderboardPostArgs, PublicLeaderboardPutArgs } from "@/app/api/controllers/public-leaderboard/route";
-import { API_CONTROLLER, API_PUBLIC_LEADERBOARD, RevalidatePath } from "@/constants/controller-navigation.constants";
+import { API_CONTROLLER, API_NATIONAL_STATISTICS, API_PUBLIC_LEADERBOARD, RevalidatePath } from "@/constants/controller-navigation.constants";
 import { ApplianceType } from "@/types/appliance.type";
-import { PublicLeaderboardType } from "@/types/public-leaderboard.type";
+import { NationalStatisticsType } from "@/types/national-statistics.type";
+import {  PublicLeaderboardType } from "@/types/public-leaderboard.type";
 import { StateEnergyProductionType } from "@/types/state-energy-production.types";
 import { StateType } from "@/types/state.type";
 
@@ -120,5 +121,18 @@ export namespace PublicLeaderboardService {
       console.error('public-leaderboard API threw an error', res.status);
 
     return res;
+  }
+  export const getNationalStatistics = async () => {
+    const reqUrl = `${API_NATIONAL_STATISTICS}`;
+    const res = await fetch(reqUrl, {
+      method: 'GET',
+      cache: 'no-store'
+    });
+
+    if (!res.ok)
+      console.error('national-statistics API threw an error', res.status);
+
+    const data = await res.json() as NationalStatisticsType
+    return data;
   }
 }
