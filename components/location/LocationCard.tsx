@@ -31,8 +31,14 @@ const LocationCard = ({location, isLink}: Props) => {
       </span>
 
       <div className="flex flex-row justify-between font-semibold text-lg">
-        <span>{totalAppliances}</span>
-        <span>{totalWHSPerDay + ' whs/day'}</span>
+        <span className="font-normal space-x-3">
+          <span>Appliances</span>
+          <span className="font-bold">{totalAppliances}</span>
+        </span>
+        <span className="font-normal space-x-1">
+          <span className="font-bold">{totalWHSPerDay}</span>
+          <span>{'whs/day'}</span>
+        </span>
       </div>
     </div>
   )
