@@ -38,3 +38,8 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## UI Wireframe
 
 ![Wireframe](image.png)
+
+## TODOs
+
+- Search location functionality
+- Public National statistics functionality
