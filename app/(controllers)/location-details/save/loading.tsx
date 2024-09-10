@@ -1,5 +1,5 @@
 const LoadingLocationDetails = () => {
-  return <>...Loading</>
+  return <span>...Loading</span>
 }
 
 export default LoadingLocationDetails;
