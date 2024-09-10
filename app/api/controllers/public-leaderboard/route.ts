@@ -66,6 +66,42 @@ export async function POST(
   return NextResponse.json(newPost);
 }
 
+//For maintainability
+export type PublicLeaderboardPutArgs = PublicLeaderboardPostArgs;
+export async function PUT(
+  req: NextRequest,
+) {
+  if (!req.url)
+    return NextResponse.json({}, {status: 400, statusText: 'invalid URL'});
+  
+  const {
+    location,
+    name
+  } = await req.json() as PublicLeaderboardPutArgs;
+
+  if (!location || !name) {
+    return NextResponse.json({
+      requestedLocation: location,
+      requestName: name
+    }, {status: 500, statusText: 'location and name are required'});
+  }
+
+  const stateProduction = new StateEnergyProductionModel()
+  .find(item => item.name === location.state)
+
+  if (!stateProduction)
+    return NextResponse.json({}, {status: 500, statusText: 'Could not find valid state for the location requested. state: ' + location.state});
+
+  const updatedPost = new PublicLeaderboardModel()
+    .update(
+      location,
+      stateProduction,
+      name
+    );
+  
+  return NextResponse.json(updatedPost);
+}
+
 export async function GET(
   req: NextApiRequest
 ) {

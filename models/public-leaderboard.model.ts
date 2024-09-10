@@ -10,6 +10,27 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
   constructor() {
     super(PublicLeaderboardModel.name);
   }
+  
+  update = (
+    location: LocationType, 
+    stateProduction: StateEnergyProductionType,
+    name?: string,
+  ): PublicLeaderboardType | undefined => {
+    this.delete(location.id);
+
+    const {
+      createTypeBy
+    } = PublicLeaderboardClass;
+
+    const updatedPost = createTypeBy(
+      location,
+      stateProduction,
+      name
+    );
+
+    this.insert(updatedPost);
+    return updatedPost;
+  }
 
   /**
    * Deletes the post by location id
@@ -61,7 +82,6 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
       return;
     }
        
-
     const {
       createTypeBy
     } = PublicLeaderboardClass;
