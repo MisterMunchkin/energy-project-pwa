@@ -42,5 +42,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## TODOs
 
 - Search location functionality
-- Public National statistics functionality
 - add badge on location card to show which ones are in public leaderboard
+- bottom tab bar icon colors not working properly
