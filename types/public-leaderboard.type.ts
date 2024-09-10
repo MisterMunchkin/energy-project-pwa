@@ -75,6 +75,6 @@ export class PublicLeaderboardClass implements PublicLeaderboardType {
   }
 
   static getTotalRenewableEnergyProduction(post: PublicLeaderboardType): number {
-    return post.solarProduction + post.windProduction + post.gasProduction;
+    return post.solarProduction + post.windProduction;
   }
 }
