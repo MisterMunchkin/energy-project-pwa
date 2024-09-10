@@ -12,6 +12,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Key, useState } from "react"
 import { BsThreeDots } from "react-icons/bs"
+import { RxUpdate } from "react-icons/rx"
 import { TbWorldUpload, TbWorldX } from "react-icons/tb"
 import { VscArrowLeft, VscEdit, VscTrash } from "react-icons/vsc"
 
@@ -33,13 +34,23 @@ const removePost: SimpleDropdownItemType = {
   }
 }
 
+const updatePost: SimpleDropdownItemType = {
+  display: "Update Post",
+  props: {
+    key: 'update-post',
+    description: 'Updates the location posted to the public leaderboard with your current local data.',
+    startContent: <RxUpdate className="w-6 h-6" />
+  }
+}
+
 type Props = {
   locationId: string
   publicPost: PublicLeaderboardType | null;
 }
 const LocationHeader = ({locationId, publicPost: defaultPublicPost}: Props) => {
   const router = useRouter();
-  const modal = useDisclosure();
+  const postModal = useDisclosure();
+  const updateModal = useDisclosure();
   const [publicPost, setPublicPost] = useState<PublicLeaderboardType | null>(defaultPublicPost);
 
   const locationMenuItems: SimpleDropdownItemType[] = [
@@ -62,7 +73,7 @@ const LocationHeader = ({locationId, publicPost: defaultPublicPost}: Props) => {
   ];
 
   if (publicPost) 
-    locationMenuItems.splice(0, 0, removePost);
+    locationMenuItems.splice(0, 0, ...[updatePost, removePost]);
   else
     locationMenuItems.splice(0, 0, uploadPost);
 
@@ -72,7 +83,10 @@ const LocationHeader = ({locationId, publicPost: defaultPublicPost}: Props) => {
         router.push(`${LOCATION_DETAILS}/save/${locationId}`)
         break;
       case "post":
-        modal.onOpen();
+        postModal.onOpen();
+        break;
+      case "update-post":
+        updateModal.onOpen();
         break;
       case "delete":
         console.error("Not yet implemented");
@@ -86,6 +100,25 @@ const LocationHeader = ({locationId, publicPost: defaultPublicPost}: Props) => {
     }
   }
 
+  const onSubmitUpdatePostOnLeaderboard = async (
+    values: PostToLeadboardFormType, 
+    setSubmitting: (isSubmitting: boolean) => void, 
+    resetForm: (nextState?: Partial<FormikState<PostToLeadboardFormType>> | undefined) => void
+  ) => {
+    const location = localService.getLocation(locationId);
+    if (!location)
+      return;
+
+    const res = await PublicLeaderboardService.updatePostFromPublicLeaderboard({location, name: values.name});
+    resetPage(res);
+
+    setSubmitting(false);
+    resetForm();
+
+    //Refresh the SSR pages so publicPost is changed
+    router.refresh();
+  }
+
   const onSubmitPostToLeaderboard = async (
     values: PostToLeadboardFormType, 
     setSubmitting: (isSubmitting: boolean) => void, 
@@ -96,12 +129,21 @@ const LocationHeader = ({locationId, publicPost: defaultPublicPost}: Props) => {
       return;
 
     const res = await PublicLeaderboardService.postToLeaderboard({location, name: values.name});
+    resetPage(res);
+
+    setSubmitting(false);
+    resetForm();
+
+    //Refresh the SSR pages so publicPost is changed
+    router.refresh();
+  }
+
+  //This makes sure that the menu actions change on success
+  const resetPage = async (res: Response) => {
     if (res.ok) {
       const post = await res.json() as PublicLeaderboardType;
       setPublicPost(post);
     }
-    setSubmitting(false);
-    resetForm();
   }
 
   return (
@@ -130,8 +172,12 @@ const LocationHeader = ({locationId, publicPost: defaultPublicPost}: Props) => {
       </div>
 
       <PostToLeadboardForm 
-        modal={modal}
+        modal={postModal}
         onSubmitForm={onSubmitPostToLeaderboard}
+      />
+      <PostToLeadboardForm 
+        modal={updateModal}
+        onSubmitForm={onSubmitUpdatePostOnLeaderboard}
       />
     </>
   )
