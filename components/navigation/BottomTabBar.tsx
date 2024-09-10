@@ -1,25 +1,45 @@
 'use client'
 
-import Link from "next/link";
+import { useCallback } from "react";
 import { bottomTabOptions } from "./navigation-options.config";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type Props = {}
+const ACTIVE_TAB = 'activeTab';
 const BottomTabBar = () => {
-  const [ activeTab, setActiveTab ] = useState<number>(0);  
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const activeTab = searchParams.get(ACTIVE_TAB);
+
+  
+  // Get a new searchParams string by merging the current
+  // searchParams with a provided key/value pair
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+ 
+      return params.toString()
+    },
+    [searchParams]
+  )
 
   return (
     <div 
       className="flex flex-row justify-evenly w-full h-[50px] fixed bottom-0 left-0 border-t-2 bg-epp-white"
     >
       {bottomTabOptions.map((option, index) => (
-        <Link
+        <button
           key={index}
-          href={option.href}
-          onClick={() => setActiveTab(index)}
+          // href={option.href}
+          type="button"
+          onClick={() => {
+
+            router.push(`${option.href}?${createQueryString(ACTIVE_TAB, index.toString())}`);
+          }}
         >
-          {option.content(`px-4 ${(activeTab === index ? 'text-epp-orange' : 'text-gray-800')}`)}
-        </Link>
+          {option.content(`px-4 ${(activeTab === index.toString() ? 'text-epp-orange' : 'text-gray-800')}`)}
+        </button>
       ))}
     </div>
   )
