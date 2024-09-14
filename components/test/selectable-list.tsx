@@ -1,12 +1,4 @@
-import { createContext, Dispatch, ReactNode, Ref, useContext, useImperativeHandle, useReducer, useState } from "react";
-
-interface SelectState {
-  selected?: string | number;
-}
-
-interface SelectAction {
-  payload: string | number
-}
+import { createContext, Dispatch, ReactNode, useContext, useState } from "react";
 
 type SelectableListContext = {
   selected: string | number | undefined;
@@ -14,27 +6,16 @@ type SelectableListContext = {
 }
 const SelectableListContext = createContext<SelectableListContext | null>(null);
 
-const selectReducer = (state: SelectState, action: SelectAction) => {
-  const {
-    payload
-  } = action;
-
-  return { selected: payload };
-}
-
 type Props = {
   defaultValue?: string | number;
-  
-  children: (value: SelectableListContext) => ReactNode;
+  children: ReactNode | ((value: SelectableListContext) => ReactNode);
 }
 const SelectableListProvider = ({children, defaultValue,}: Props) => {
-  // const [state, dispatch] = useReducer(selectReducer, { selected: defaultValue ?? ""});
   const [selected, setSelected] = useState<string | number | undefined>(defaultValue);
 
-  // const value = {selected: state.selected, setSelected: dispatch};
   const value = {selected, setSelected};
   return <SelectableListContext.Provider value={value}>
-    {children(value)}
+    {(typeof children === "function") ? children(value) : children}
   </SelectableListContext.Provider>
 }
 
