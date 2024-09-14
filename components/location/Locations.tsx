@@ -59,12 +59,11 @@ const Locations = () => {
   return <main className="flex min-h-screen flex-col items-center space-y-4 p-4">
     <SelectableListProvider
       // defaultValue={"QLD"}
-      // valueType={ValueType}
-      valueType={sampleListItems[0].value}
+      options={sampleListItems}
+      
     >
       {({selected}) => (
-
-        <div className="flex flex-col">
+        <>
           {sampleListItems.map(({value, label}, index) => (
             <SelectableListItem 
               key={index}
@@ -77,7 +76,7 @@ const Locations = () => {
           ))}
 
           {JSON.stringify(selected)}
-        </div>
+        </>
       )}
       
     </SelectableListProvider>

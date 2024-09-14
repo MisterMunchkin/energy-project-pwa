@@ -3,6 +3,11 @@ import { Slot } from "@radix-ui/react-slot"
 import { forwardRef, ReactNode, Ref } from "react";
 import { useSelectableList } from "./selectable-list";
 
+export type SelectableListItem<T> = {
+  label: string;
+  value: T
+}
+
 type Props<T> = {
   className?: string;
   onSelectedClassName?: string;
