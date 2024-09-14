@@ -59,6 +59,8 @@ const Locations = () => {
   return <main className="flex min-h-screen flex-col items-center space-y-4 p-4">
     <SelectableListProvider
       // defaultValue={"QLD"}
+      // valueType={ValueType}
+      valueType={sampleListItems[0].value}
     >
       {({selected}) => (
 
