@@ -73,9 +73,21 @@ const Locations = () => {
         container: "flex flex-col space-y-2",
       }}
       defaultValue={"NSW"}
-      hasAll="All"
+      //I guess could be useful if want to see changes from parent component
+      onSelectionChange={(value) => console.log(value)} 
+      items={sampleListItems}
+      render={({value, label}, key) => (
+        <SelectableListItem
+          key={key}
+          value={value}
+          className="cursor-pointer"
+          onSelectedClassName="bg-red-500 text-white"
+        > 
+          <Chip>{label}</Chip>
+        </SelectableListItem>
+      )}
     >
-      {sampleListItems.map(({value, label}, key) => (
+      {/* {sampleListItems.map(({value, label}, key) => (
         <SelectableListItem
           key={key}
           value={value}
@@ -85,7 +97,7 @@ const Locations = () => {
         >
           <Chip>{label}</Chip>
         </SelectableListItem>
-      ))}
+      ))} */}
     </SelectableList>
 
     {locations.map((location, index) => (

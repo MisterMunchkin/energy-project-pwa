@@ -2,7 +2,7 @@ import { ClassValues } from "@/lib/clsx";
 import React, { Children, createContext, Dispatch, Key, ReactElement, ReactNode, useContext, useEffect, useState } from "react";
 
 import { cn } from "@/lib/cn";
-import SelectableListItem, { SelectableListItemProps } from "./selectable-list-item";
+import SelectableListItem, { SelectableListItemOption, SelectableListItemProps } from "./selectable-list-item";
 
 type SelectableListContext<T> = {
   selected?: T;
@@ -12,28 +12,28 @@ type SelectableListContext<T> = {
 const SelectableListContext = createContext<SelectableListContext<any> | null>(null);
 
 type Props<T> = {
-  // options?: {label: string, value?: T}[];
   defaultValue?: T;
-  // children: ReactNode | ((option: {label: string, value?: T}, key?: Key | null | undefined) => ReactNode);
-  children: ReactElement<SelectableListItemProps<T>> | Array<ReactElement<SelectableListItemProps<T>>>;
+  children?: ReactElement<SelectableListItemProps<T>> | Array<ReactElement<SelectableListItemProps<T>>>;
   classNames?: ClassValues<"container">;
   hasAll?: string;
+  onSelectionChange?: (value?: T) => void;
+  items?: SelectableListItemOption<T>[];
+  render?: (item: SelectableListItemOption<T>, index: Key) => ReactElement<SelectableListItemProps<T>>;
 }
-const SelectableList = <T, >({defaultValue, children, classNames, hasAll}: Props<T>) => {
+const SelectableList = <T, >({defaultValue, children, classNames, hasAll, onSelectionChange, items, render}: Props<T>) => {
   const [selected, setSelected] = useState<T | undefined>(defaultValue);
-  const hasAllEl: React.FunctionComponent<SelectableListItemProps<T>> = (props) => {
-    return <SelectableListItem
-      key={undefined}
-      value={undefined}
-      
-      {...props}
-    />
-  }
+
+  const hasItemsToRender = !!(items && render);
+
+  useEffect(() => {
+    onSelectionChange && onSelectionChange(selected);
+  }, [onSelectionChange, selected]);
 
   const value = {selected, setSelected};
   return <SelectableListContext.Provider value={value}>
     <div className={cn(classNames?.container)}>
-      {children}
+      {!hasItemsToRender && children}
+      {hasItemsToRender && items.map((item, index) => render(item, index))}
     </div>
   </SelectableListContext.Provider>
 }
