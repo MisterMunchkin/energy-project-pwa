@@ -12,19 +12,19 @@ type Props<T> = {
   className?: string;
   onSelectedClassName?: string;
   children: ReactNode;
-  onSelect: (value?: T) => void;
   value?: T;
 }
 
-const Comp = <T, >({onSelect, className, onSelectedClassName, children, value, ...props}: Props<T>, ref?: React.Ref<HTMLElement>) => {
+const Comp = <T, >({className, onSelectedClassName, children, value, ...props}: Props<T>, ref?: React.Ref<HTMLElement>) => {
   const {
     selected,
+    setSelected,
   } = useSelectableList();
 
   return <Slot 
     className={cn(className, (selected === value) ? onSelectedClassName : "")}
     ref={ref} 
-    onClick={() => onSelect(value)}
+    onClick={() => setSelected(value)}
     {...props}
   >
     {children}

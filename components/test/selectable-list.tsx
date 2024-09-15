@@ -2,7 +2,7 @@ import { ClassValues } from "@/lib/clsx";
 import { Children, createContext, Dispatch, Key, ReactElement, ReactNode, useContext, useEffect, useState } from "react";
 
 import { cn } from "@/lib/cn";
-import SelectableListItem, { SelectableListItemOption } from "./selectable-list-item";
+import { SelectableListItemOption } from "./selectable-list-item";
 
 type SelectableListContext<T> = {
   selected?: T;
@@ -12,30 +12,25 @@ type SelectableListContext<T> = {
 const SelectableListContext = createContext<SelectableListContext<any> | null>(null);
 
 type Props<T> = {
-  options: SelectableListItemOption<T>[];
+  options: {label: string, value?: T}[];
   defaultValue?: T;
-  children: ((option: SelectableListItemOption<T>, key?: Key | null | undefined) => ReactNode);
+  children: ((option: {label: string, value?: T}, key?: Key | null | undefined) => ReactNode);
   classNames?: ClassValues<"container" | "item" | "onSelected">;
-  onChange?: (value?: T) => void;
   hasAll?: string;
 }
-const SelectableList = <T, >({options, defaultValue, children, classNames, onChange, hasAll}: Props<T>) => {
+const SelectableList = <T, >({options, defaultValue, children, classNames, hasAll}: Props<T>) => {
   // const childArray = Children.toArray(children); 
   const [selected, setSelected] = useState<T | undefined>(defaultValue);
 
-  const onSelect = (value?: T) => {
-    setSelected(value);
-    onChange && onChange(value);
-  }
 
   const value = {selected, setSelected};
   return <SelectableListContext.Provider value={value}>
     <div className={cn(classNames?.container)}>
-      {hasAll && (
+      {/* TODO: This one enforces SelectableListItem */}
+      {/* {hasAll && (
         <SelectableListItem
           className={cn(classNames?.item)}
           onSelectedClassName={cn(classNames?.onSelected)}
-          onSelect={onSelect}
         >
           {children({label: hasAll, }, "")}
         </SelectableListItem>
@@ -46,13 +41,13 @@ const SelectableList = <T, >({options, defaultValue, children, classNames, onCha
           value={option.value}
           className={cn(classNames?.item)}
           onSelectedClassName={cn(classNames?.onSelected)}
-          onSelect={onSelect}
         >
           {children(option, index)}
         </SelectableListItem>
       ))}
-      {JSON.stringify(selected)}
-
+      {JSON.stringify(selected)} */}
+      {hasAll && children({label: hasAll, value: undefined}, "")}
+      {options.map((option, index) => children(option, index))}
     </div>
   </SelectableListContext.Provider>
 }

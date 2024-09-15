@@ -7,10 +7,38 @@ import { localService } from "@/services/local-service";
 import { useEffect, useState } from "react";
 import { LocationType } from "@/types/location.type";
 import { SelectableList, useSelectableList } from "@/components/test/selectable-list";
-import SelectableListItem from "@/components/test/selectable-list-item";
+import SelectableListItem, { SelectableListItemOption } from "@/components/test/selectable-list-item";
 import { Chip } from "@nextui-org/chip";
-import StateSelection, { sampleListItems } from "./state-selection";
 
+const sampleListItems: {label: string, value: "QLD" | "VIC" | "TAS" | "NSW"}[] = [
+  {
+    label: "Queensland",
+    value: "QLD"
+  },
+  {
+    label: "New South Wales",
+    value: "NSW"
+  },
+  {
+    label: "Victoria",
+    value: "VIC"
+  },
+  {
+    label: "Tasmania",
+    value: "TAS"
+  }
+];
+
+const numberList: {label: string, value: number}[] = [
+  {
+    label: "1st",
+    value: 1
+  },
+  {
+    label: "2nd",
+    value: 2
+  }
+];
 
 type Props = {
 
@@ -42,14 +70,13 @@ const Locations = () => {
         onSelected: "bg-red-500 text-white"
       }}
       options={sampleListItems}
-      defaultValue={"VIC"}
-      onChange={(value) => console.log(value)}
+      defaultValue={"NSW"}
       hasAll="All"
     >
-      {({value, label}) => (
+      {/* {({value, label}) => (
         <Chip>{label}</Chip>
-      )}
-      {/* {({value, label}, key) => (
+      )} */}
+      {({value, label}, key) => (
         <SelectableListItem
           key={key}
           value={value}
@@ -57,9 +84,9 @@ const Locations = () => {
           onSelectedClassName="bg-red-500 text-white"
 
         >
-          
+          <Chip>{label}</Chip>
         </SelectableListItem>
-      )} */}
+      )}
     </SelectableList>
 
     {locations.map((location, index) => (
