@@ -10,7 +10,12 @@ import { SelectableList, useSelectableList } from "@/components/test/selectable-
 import SelectableListItem, { SelectableListItemOption } from "@/components/test/selectable-list-item";
 import { Chip } from "@nextui-org/chip";
 
-const sampleListItems: {label: string, value: "QLD" | "VIC" | "TAS" | "NSW"}[] = [
+type ValueType = "QLD" | "VIC" | "TAS" | "NSW";
+const sampleListItems: {label: string, value?: ValueType}[] = [
+  {
+    label: "All",
+    value: undefined
+  },
   {
     label: "Queensland",
     value: "QLD"
@@ -63,20 +68,14 @@ const Locations = () => {
   }, []);
 
   return <main className="flex min-h-screen flex-col items-center space-y-4 p-4">
-    <SelectableList
+    <SelectableList<ValueType>
       classNames={{
         container: "flex flex-col space-y-2",
-        item: "cursor-pointer",
-        onSelected: "bg-red-500 text-white"
       }}
-      options={sampleListItems}
       defaultValue={"NSW"}
       hasAll="All"
     >
-      {/* {({value, label}) => (
-        <Chip>{label}</Chip>
-      )} */}
-      {({value, label}, key) => (
+      {sampleListItems.map(({value, label}, key) => (
         <SelectableListItem
           key={key}
           value={value}
@@ -86,7 +85,7 @@ const Locations = () => {
         >
           <Chip>{label}</Chip>
         </SelectableListItem>
-      )}
+      ))}
     </SelectableList>
 
     {locations.map((location, index) => (

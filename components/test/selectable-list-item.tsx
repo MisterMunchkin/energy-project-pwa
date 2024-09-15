@@ -37,5 +37,5 @@ const SelectableListItem = forwardRef(Comp) as <T,>(
   props: Props<T> & { ref?: React.Ref<HTMLElement>}
 ) => ReturnType<typeof Comp>;
 
-
+export type SelectableListItemProps<T> =  Props<T> & { ref?: React.Ref<HTMLElement> };
 export default SelectableListItem;

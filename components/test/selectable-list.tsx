@@ -1,8 +1,8 @@
 import { ClassValues } from "@/lib/clsx";
-import { Children, createContext, Dispatch, Key, ReactElement, ReactNode, useContext, useEffect, useState } from "react";
+import React, { Children, createContext, Dispatch, Key, ReactElement, ReactNode, useContext, useEffect, useState } from "react";
 
 import { cn } from "@/lib/cn";
-import { SelectableListItemOption } from "./selectable-list-item";
+import SelectableListItem, { SelectableListItemProps } from "./selectable-list-item";
 
 type SelectableListContext<T> = {
   selected?: T;
@@ -12,42 +12,28 @@ type SelectableListContext<T> = {
 const SelectableListContext = createContext<SelectableListContext<any> | null>(null);
 
 type Props<T> = {
-  options: {label: string, value?: T}[];
+  // options?: {label: string, value?: T}[];
   defaultValue?: T;
-  children: ((option: {label: string, value?: T}, key?: Key | null | undefined) => ReactNode);
-  classNames?: ClassValues<"container" | "item" | "onSelected">;
+  // children: ReactNode | ((option: {label: string, value?: T}, key?: Key | null | undefined) => ReactNode);
+  children: ReactElement<SelectableListItemProps<T>> | Array<ReactElement<SelectableListItemProps<T>>>;
+  classNames?: ClassValues<"container">;
   hasAll?: string;
 }
-const SelectableList = <T, >({options, defaultValue, children, classNames, hasAll}: Props<T>) => {
-  // const childArray = Children.toArray(children); 
+const SelectableList = <T, >({defaultValue, children, classNames, hasAll}: Props<T>) => {
   const [selected, setSelected] = useState<T | undefined>(defaultValue);
-
+  const hasAllEl: React.FunctionComponent<SelectableListItemProps<T>> = (props) => {
+    return <SelectableListItem
+      key={undefined}
+      value={undefined}
+      
+      {...props}
+    />
+  }
 
   const value = {selected, setSelected};
   return <SelectableListContext.Provider value={value}>
     <div className={cn(classNames?.container)}>
-      {/* TODO: This one enforces SelectableListItem */}
-      {/* {hasAll && (
-        <SelectableListItem
-          className={cn(classNames?.item)}
-          onSelectedClassName={cn(classNames?.onSelected)}
-        >
-          {children({label: hasAll, }, "")}
-        </SelectableListItem>
-      )}
-      {options.map((option, index) => (
-        <SelectableListItem
-          key={index}
-          value={option.value}
-          className={cn(classNames?.item)}
-          onSelectedClassName={cn(classNames?.onSelected)}
-        >
-          {children(option, index)}
-        </SelectableListItem>
-      ))}
-      {JSON.stringify(selected)} */}
-      {hasAll && children({label: hasAll, value: undefined}, "")}
-      {options.map((option, index) => children(option, index))}
+      {children}
     </div>
   </SelectableListContext.Provider>
 }
