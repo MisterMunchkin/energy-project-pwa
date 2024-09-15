@@ -25,6 +25,9 @@ const SelectableList = <T, >({defaultValue, children, classNames, hasAll, onSele
 
   const hasItemsToRender = !!(items && render);
 
+  if (hasAll && hasItemsToRender) 
+    items.push({label: hasAll, value: undefined});
+
   useEffect(() => {
     onSelectionChange && onSelectionChange(selected);
   }, [onSelectionChange, selected]);

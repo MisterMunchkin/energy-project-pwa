@@ -13,10 +13,6 @@ import { Chip } from "@nextui-org/chip";
 type ValueType = "QLD" | "VIC" | "TAS" | "NSW";
 const sampleListItems: {label: string, value?: ValueType}[] = [
   {
-    label: "All",
-    value: undefined
-  },
-  {
     label: "Queensland",
     value: "QLD"
   },
