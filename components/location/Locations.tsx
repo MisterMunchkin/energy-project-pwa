@@ -6,33 +6,11 @@ import { LOCATION_DETAILS } from "@/constants/controller-navigation.constants";
 import { localService } from "@/services/local-service";
 import { useEffect, useState } from "react";
 import { LocationType } from "@/types/location.type";
-import { SelectableListProvider, useSelectableList } from "@/components/test/selectable-list";
+import { SelectableList, useSelectableList } from "@/components/test/selectable-list";
 import SelectableListItem from "@/components/test/selectable-list-item";
 import { Chip } from "@nextui-org/chip";
+import StateSelection, { sampleListItems } from "./state-selection";
 
-type ListItem = {
-  value: "QLD" | "NSW" | "VIC" | "TAS";
-  label: string
-}
-
-const sampleListItems: ListItem[] = [
-  {
-    value: "QLD",
-    label: "Queensland"
-  },
-  {
-    value: "NSW",
-    label: "New South Wales"
-  },
-  {
-    value: "VIC",
-    label: "Victoria"
-  },
-  {
-    value: "TAS",
-    label: "Tasmania"
-  },
-];
 
 type Props = {
 
@@ -57,30 +35,33 @@ const Locations = () => {
   }, []);
 
   return <main className="flex min-h-screen flex-col items-center space-y-4 p-4">
-    <SelectableListProvider
-      // defaultValue={"QLD"}
+    <SelectableList
+      classNames={{
+        container: "flex flex-col space-y-2",
+        item: "cursor-pointer",
+        onSelected: "bg-red-500 text-white"
+      }}
       options={sampleListItems}
-      
+      defaultValue={"VIC"}
+      onChange={(value) => console.log(value)}
+      hasAll="All"
     >
-      {({selected}) => (
-        <>
-          {sampleListItems.map(({value, label}, index) => (
-            <SelectableListItem 
-              key={index}
-              className="text-black bg-white cursor-pointer"
-              onSelectedClassName="bg-red-500 text-white"
-              value={value}
-            >
-              <Chip variant="dot">{label}</Chip>
-            </SelectableListItem>
-          ))}
-
-          {JSON.stringify(selected)}
-        </>
+      {({value, label}) => (
+        <Chip>{label}</Chip>
       )}
-      
-    </SelectableListProvider>
-    
+      {/* {({value, label}, key) => (
+        <SelectableListItem
+          key={key}
+          value={value}
+          className="cursor-pointer"
+          onSelectedClassName="bg-red-500 text-white"
+
+        >
+          
+        </SelectableListItem>
+      )} */}
+    </SelectableList>
+
     {locations.map((location, index) => (
       <Link
         className="w-full"

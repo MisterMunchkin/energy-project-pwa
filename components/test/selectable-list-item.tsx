@@ -1,39 +1,41 @@
 import { cn } from "@/lib/cn";
 import { Slot } from "@radix-ui/react-slot"
-import { forwardRef, ReactNode, Ref } from "react";
+import React, { forwardRef, ReactNode, Ref } from "react";
 import { useSelectableList } from "./selectable-list";
 
-export type SelectableListItem<T> = {
+export type SelectableListItemOption<T> = {
   label: string;
-  value: T
+  value?: T
 }
 
 type Props<T> = {
   className?: string;
   onSelectedClassName?: string;
   children: ReactNode;
-  value: T;
+  onSelect: (value?: T) => void;
+  value?: T;
 }
-// interface WithForwardRefType extends React.FC<WithForwardRefProps<Option>>  {
-//   <T extends Option>(props: WithForwardRefProps<T>): ReturnType<React.FC<WithForwardRefProps<T>>>
-// }
 
-const Comp = <T, >({className, onSelectedClassName, children, value, ...props}: Props<T>) => {
+const Comp = <T, >({onSelect, className, onSelectedClassName, children, value, ...props}: Props<T>, ref?: React.Ref<HTMLElement>) => {
   const {
     selected,
-    setSelected
-  } = useSelectableList(value);
+  } = useSelectableList();
 
   return <Slot 
     className={cn(className, (selected === value) ? onSelectedClassName : "")}
-    // ref={ref} TODO: unable to create generics with forward refs
-    onClick={() => setSelected(value)}
+    ref={ref} 
+    onClick={() => onSelect(value)}
     {...props}
   >
     {children}
   </Slot>
 }
 
-const SelectableListItem = Comp;
+//TODO: Generics within forwardRef comes back as `unknown` instead of the inferred T type
+// using `as` to keep forwardRef but still having generic T.
+const SelectableListItem = forwardRef(Comp) as <T,>(
+  props: Props<T> & { ref?: React.Ref<HTMLElement>}
+) => ReturnType<typeof Comp>;
+
 
 export default SelectableListItem;
