@@ -1,6 +1,6 @@
 import TopNavBar from "@/components/navigation/TopNavBar";
-import { ServerComponentProps } from "@/types/server-component-props.types";
 import { Metadata } from "next";
+import React from "react";
 
 export const metadata: Metadata = {
   title: "Location Detail | Energy Project",
@@ -8,20 +8,26 @@ export const metadata: Metadata = {
 
 export default function LocationDetailLayout({
   children,
-  params,
+  header,
+  barchart,
 }: Readonly<{
   children: React.ReactNode,
-  params: ServerComponentProps,
+  header: React.ReactNode,
+  barchart: React.ReactNode
 }>) {
-  console.log(params);
-
   return (
     <section>
       <TopNavBar 
         title="Location Detail"
         showAccount
       />
-      {children}
+      <main className="py-[50px] flex flex-col space-y-4 bg-epp-white">
+        <div className="flex flex-col">
+          {header}
+          {barchart}
+        </div>
+        {children}
+      </main>
     </section>
   )
 }

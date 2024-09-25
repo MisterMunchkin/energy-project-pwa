@@ -1,9 +1,6 @@
 import Appliances from "@/components/appliance/Appliances";
-import LocationBarChart from "@/components/location/LocationBarChart";
 import LocationStats from "@/components/location/LocationStats";
 import { ServerComponentProps } from "@/types/server-component-props.types";
-import LocationHeader from "./LocationHeader";
-import { PublicLeaderboardService } from "@/services/services";
 import LocationSummary from "@/components/location/LocationSummary";
 
 /**
@@ -17,22 +14,10 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
   if (!idString) 
     throw new Error('passing `id` is required for `LocationDetails`. id: ' + idString);
 
-  const publicPost = await PublicLeaderboardService.getPostFromPublicLeaderboard(idString);
-  return <main
-    className="py-[50px] flex flex-col space-y-4 bg-epp-white"
-  >
-    {/* Chart, back button, and menu */}
-    <div className="flex flex-col ">
-      <LocationHeader 
-        locationId={idString}
-        publicPost={publicPost}
-      />
-      <LocationBarChart locationId={idString} />
-    </div>
+  return <>
     <LocationSummary 
       locationId={idString}
     />
-    {/* Location Stats and Appliances List */}
     <div
       className="flex flex-col space-y-8 p-4 bg-epp-white scroll-auto rounded-t-2xl"
     >
@@ -43,6 +28,6 @@ const LocationDetails = async ({params}: ServerComponentProps) => {
         locationId={idString}
       />
     </div>
-  </main>
+  </>
 }
 export default LocationDetails;
