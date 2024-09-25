@@ -4,12 +4,11 @@ import { useCallback } from "react";
 import { bottomTabOptions } from "./navigation-options.config";
 import { useRouter, useSearchParams } from "next/navigation";
 
-type Props = {}
 const ACTIVE_TAB = 'activeTab';
 const BottomTabBar = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const activeTab = searchParams.get(ACTIVE_TAB);
+  const activeTab = searchParams.get(ACTIVE_TAB) ?? '0';
 
   
   // Get a new searchParams string by merging the current

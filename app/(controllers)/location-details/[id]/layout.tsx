@@ -1,4 +1,3 @@
-import BottomTabBar from "@/components/navigation/BottomTabBar";
 import TopNavBar from "@/components/navigation/TopNavBar";
 import { ServerComponentProps } from "@/types/server-component-props.types";
 import { Metadata } from "next";
@@ -23,7 +22,6 @@ export default function LocationDetailLayout({
         showAccount
       />
       {children}
-      <BottomTabBar />
     </section>
   )
 }
