@@ -140,6 +140,23 @@ const getLocation = (locationId: string): LocationType | undefined => {
 }
 
 /**
+ * Deletes the location from the local storage based off locationId
+ * 
+ * @param {string} locationId Id of the location to find
+ */
+const deleteLocation = (locationId: string): void => {
+  if (!isStorageDefined()) return;
+
+  const locations = getLocations();
+  const index = locations.findIndex(location => location.id === locationId);
+  if (index === -1)
+    console.error('Could not find location in local storage with locationId: ' + locationId);
+
+  locations.splice(index, 1);
+  localStorage.setItem(LOCATIONS, JSON.stringify(locations));
+}
+
+/**
  * Because of Nextjs SSR, window may be undefined if the component is rendered on server side.
  * 
  * Nextjs also pre-renders Client Components in the server, so the calls need to come within a `useEffect`
@@ -168,4 +185,5 @@ export const localService = {
   createLocation,
   getLocation,
   editLocation,
+  deleteLocation,
 }

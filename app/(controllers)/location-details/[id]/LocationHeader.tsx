@@ -88,15 +88,23 @@ const LocationActions = ({locationId, publicPost: defaultPublicPost}: Props) => 
         updateModal.onOpen();
         break;
       case "delete":
-        console.error("Not yet implemented");
+        localService.deleteLocation(locationId);
+        if (publicPost) 
+          await removePostFromLeaderboard(locationId);
+
+        router.back();
         break;
       case "remove-post":
-        const res = await PublicLeaderboardService.deletePostFromPublicLeaderboard(locationId);
-        if (res.ok)
-          setPublicPost(null);
+        await removePostFromLeaderboard(locationId);
       default:
         break;
     }
+  }
+
+  const removePostFromLeaderboard = async (locationId: string) => {
+    const res = await PublicLeaderboardService.deletePostFromPublicLeaderboard(locationId);
+    if (res.ok)
+      setPublicPost(null);
   }
 
   const onSubmitUpdatePostOnLeaderboard = async (
@@ -109,7 +117,7 @@ const LocationActions = ({locationId, publicPost: defaultPublicPost}: Props) => 
       return;
 
     const res = await PublicLeaderboardService.updatePostFromPublicLeaderboard({location, name: values.name});
-    resetPage(res);
+    resetPublicPost(res);
 
     setSubmitting(false);
     resetForm();
@@ -128,7 +136,7 @@ const LocationActions = ({locationId, publicPost: defaultPublicPost}: Props) => 
       return;
 
     const res = await PublicLeaderboardService.postToLeaderboard({location, name: values.name});
-    resetPage(res);
+    resetPublicPost(res);
 
     setSubmitting(false);
     resetForm();
@@ -137,8 +145,9 @@ const LocationActions = ({locationId, publicPost: defaultPublicPost}: Props) => 
     router.refresh();
   }
 
-  //This makes sure that the menu actions change on success
-  const resetPage = async (res: Response) => {
+  //This makes sure that the menu actions change on success based on
+  //public post state
+  const resetPublicPost = async (res: Response) => {
     if (res.ok) {
       const post = await res.json() as PublicLeaderboardType;
       setPublicPost(post);
