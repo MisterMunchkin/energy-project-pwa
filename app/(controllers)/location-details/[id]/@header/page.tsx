@@ -1,6 +1,8 @@
 import { PublicLeaderboardService } from "@/services/services";
-import LocationHeader from "../LocationHeader";
 import { ServerComponentProps } from "@/types/server-component-props.types";
+import Link from "next/link";
+import { VscArrowLeft } from "react-icons/vsc";
+import LocationActions from "../LocationHeader";
 
 export default async function Header({params}: ServerComponentProps) {
   const {
@@ -11,9 +13,16 @@ export default async function Header({params}: ServerComponentProps) {
 
   const publicPost = await PublicLeaderboardService.getPostFromPublicLeaderboard(idString); 
   return (
-    <LocationHeader 
-      locationId={idString}
-      publicPost={publicPost}
-    />
+    <div className="p-2 flex flex-row justify-between items-center">
+      <Link
+        className="cursor-pointer"
+        href='/'
+      >
+        <VscArrowLeft
+          className="text-epp-indigo w-10 h-10"
+        />
+      </Link>
+      <LocationActions locationId={idString} publicPost={publicPost} />
+    </div>
   )
 }

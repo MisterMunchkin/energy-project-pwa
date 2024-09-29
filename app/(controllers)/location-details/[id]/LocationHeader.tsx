@@ -8,13 +8,12 @@ import { PublicLeaderboardService } from "@/services/services"
 import { PublicLeaderboardType } from "@/types/public-leaderboard.type"
 import { useDisclosure } from "@nextui-org/modal"
 import { FormikState } from "formik"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Key, useState } from "react"
 import { BsThreeDots } from "react-icons/bs"
 import { RxUpdate } from "react-icons/rx"
 import { TbWorldUpload, TbWorldX } from "react-icons/tb"
-import { VscArrowLeft, VscEdit, VscTrash } from "react-icons/vsc"
+import { VscEdit, VscTrash } from "react-icons/vsc"
 
 const uploadPost: SimpleDropdownItemType = {
   display: "Post",
@@ -47,7 +46,7 @@ type Props = {
   locationId: string
   publicPost: PublicLeaderboardType | null;
 }
-const LocationHeader = ({locationId, publicPost: defaultPublicPost}: Props) => {
+const LocationActions = ({locationId, publicPost: defaultPublicPost}: Props) => {
   const router = useRouter();
   const postModal = useDisclosure();
   const updateModal = useDisclosure();
@@ -148,28 +147,18 @@ const LocationHeader = ({locationId, publicPost: defaultPublicPost}: Props) => {
 
   return (
     <>
-      <div className="p-2 flex flex-row justify-between items-center">
-        <Link
-          className="cursor-pointer"
-          href='/'
-        >
-          <VscArrowLeft
-            className="text-epp-indigo w-10 h-10"
-          />
-        </Link>
-        <DropdownWrapper 
-          trigger={(
-            <button
-              type="button"
-            >
-              <BsThreeDots className="w-10 h-10 text-epp-indigo" />
-            </button>
-          )}
-          ariaLabel="Location Menu"
-          simpleMenuItems={locationMenuItems}
-          onAction={handleDropDownMenuAction}
-        />
-      </div>
+      <DropdownWrapper 
+        trigger={(
+          <button
+            type="button"
+          >
+            <BsThreeDots className="w-10 h-10 text-epp-indigo" />
+          </button>
+        )}
+        ariaLabel="Location Menu"
+        simpleMenuItems={locationMenuItems}
+        onAction={handleDropDownMenuAction}
+      />
 
       <PostToLeadboardForm 
         modal={postModal}
@@ -183,4 +172,4 @@ const LocationHeader = ({locationId, publicPost: defaultPublicPost}: Props) => {
   )
 }
 
-export default LocationHeader;
+export default LocationActions;
