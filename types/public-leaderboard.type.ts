@@ -27,6 +27,14 @@ export type PublicLeaderboardType = {
 
 /**
  * Utility class for Public Leaderboard feature.
+ *
+ * @property {string} locationId The id of the location this post is from.
+ * @property {number} solarProduction solar production of this leaderboard post
+ * @property {number} windProduction wind production of this leaderboard post
+ * @property {number} gasProduction gas production of this leaderboard post
+ * @property {number} coalProduction coal production of this leaderboard post
+ * @property {number} totalWHSPerDay The total wattage per hour per day for this given public leaderboard post
+ * @property {string} name The name given for this leaderboard post
  */
 export class PublicLeaderboardClass implements PublicLeaderboardType {
   locationId: string = "";
@@ -38,6 +46,12 @@ export class PublicLeaderboardClass implements PublicLeaderboardType {
   name: string = "";
   state: string = "";
 
+  /**
+   * instantiates a PublicLeaderboardClass, if post is empty, instantiates an
+   * empty class.
+   * @param post Optional args to instantiate a PublicLeaderboardType
+   * @returns void
+   */
   constructor(post?: PublicLeaderboardType) {
     if (!post) return;
 
@@ -50,7 +64,16 @@ export class PublicLeaderboardClass implements PublicLeaderboardType {
     this.name = post.name;
     this.state = post.state;
   }
-
+  /**
+   * Creates the new leaderboard post by the location and stateProduction
+   * type. Retrieves the energy sources from stateProduction and the totalWHSPerDay
+   * from location to create the PublicLeaderboardType.
+   *
+   * @param location location param
+   * @param stateProduction stateProduction param
+   * @param name name of the new leaderboard post
+   * @returns
+   */
   static createTypeBy(
     location: LocationType,
     stateProduction: StateEnergyProductionType,
@@ -75,6 +98,11 @@ export class PublicLeaderboardClass implements PublicLeaderboardType {
     return post;
   }
 
+  /**
+   * Utility function for leaderboard sorting calculations.
+   * @param post required args to retrieve renewable energy production
+   * @returns solar and wind energy production
+   */
   static getTotalRenewableEnergyProduction(
     post: PublicLeaderboardType,
   ): number {

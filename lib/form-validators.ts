@@ -1,3 +1,9 @@
+/**
+ * Regexpressions used for validations
+ *
+ * export const is to make it accessible within the Regex namespace.
+ * Regex is private and only used within this file.
+ */
 namespace Regex {
   export const only4Digits = new RegExp("^[0-9]{4}$");
   export const hoursInADay = new RegExp("^(2[0-4]|1[0-9]|[1-9])$");
@@ -5,6 +11,11 @@ namespace Regex {
   export const textAndNumOnly = new RegExp("^[A-Za-z0-9\\s]+$");
 }
 
+/**
+ * validates streetAddress strings.
+ * @param value streetAddress value to validate
+ * @returns string of error messages, if no errors, undefined
+ */
 const _streetAddress = (value: string): string | undefined => {
   if (!value) return "Required!";
   if (value.length > 100) return "Too Long!";
@@ -14,6 +25,11 @@ const _streetAddress = (value: string): string | undefined => {
   return;
 };
 
+/**
+ * validates city strings
+ * @param value city value to validates
+ * @returns string of error messages, if no errors, undefined
+ */
 const _city = (value: string): string | undefined => {
   if (!value) return "Required!";
   if (value.length > 30) return "Too Long!";
@@ -23,6 +39,11 @@ const _city = (value: string): string | undefined => {
   return;
 };
 
+/**
+ * Validates postal code strings.
+ * @param value Postal code value to validate
+ * @returns String of error message if invalid; otherwise, undefined
+ */
 const _postalCode = (value: string): string | undefined => {
   if (!value) return "Required!";
   if (!Regex.only4Digits.test(value)) return "Needs to be only 4 digits!";
@@ -30,6 +51,11 @@ const _postalCode = (value: string): string | undefined => {
   return;
 };
 
+/**
+ * Validates hours per day strings.
+ * @param value Hours per day value to validate
+ * @returns String of error message if invalid; otherwise, undefined
+ */
 const _hoursPerDay = (value: string): string | undefined => {
   if (!value) return "Required!";
   if (!Regex.hoursInADay.test(value))
@@ -38,6 +64,11 @@ const _hoursPerDay = (value: string): string | undefined => {
   return;
 };
 
+/**
+ * Validates quantity strings.
+ * @param value Quantity value to validate
+ * @returns String of error message if invalid; otherwise, undefined
+ */
 const _quantity = (value: string): string | undefined => {
   if (!value) return "Required!";
   if (!Regex.wholeNumbers.test(value))
@@ -46,6 +77,11 @@ const _quantity = (value: string): string | undefined => {
   return;
 };
 
+/**
+ * Validates leaderboard post name strings.
+ * @param value Leaderboard post name to validate
+ * @returns String of error message if invalid; otherwise, undefined
+ */
 const _leadboardPostName = (value: string): string | undefined => {
   if (!value) return "Required!";
   if (value.length > 30) return "Maximum of 30 characters!";
@@ -64,4 +100,7 @@ namespace Validators {
   export const leaderboardPostName = _leadboardPostName;
 }
 
+/**
+ * To Validated different form fields.
+ */
 export default Validators;
