@@ -1,40 +1,57 @@
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from "@nextui-org/dropdown";
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/dropdown";
 import { Key, ReactNode } from "react";
 
+/**
+ * types that users of DropdownWrapper has to follow to properly render dropdown item
+ */
 export type SimpleDropdownItemType = {
   display: string;
   props: {
     key: string;
-    description?: string
+    description?: string;
     startContent?: ReactNode;
     className?: string;
-  }
-}
+  };
+};
 type Props = {
-  trigger: ReactNode
+  trigger: ReactNode;
   ariaLabel: string;
-  simpleMenuItems: SimpleDropdownItemType[]; 
+  simpleMenuItems: SimpleDropdownItemType[];
   onAction: (key: Key) => void;
-}
-const DropdownWrapper = ({trigger, ariaLabel, simpleMenuItems, onAction}: Props) => {
+};
+/**
+ *
+ * @param trigger A ReactNode that is rendered as the dropdown trigger
+ * @param ariaLabel Used for accessibility reasons
+ * @param simpleMenuItems Menu items that are rendered as drop down items
+ * @param onAction Handler for onAction event of the Dropdown Menu
+ * @returns
+ */
+const DropdownWrapper = ({
+  trigger,
+  ariaLabel,
+  simpleMenuItems,
+  onAction,
+}: Props) => {
   return (
     <Dropdown>
-      <DropdownTrigger>
-        {trigger}
-      </DropdownTrigger>
-      <DropdownMenu 
-        aria-label={ariaLabel}
-        onAction={onAction}
-      >
-        {simpleMenuItems.map(({display, props: {key, ...optionalProps}}) => (
-          <DropdownItem
-            key={key}
-            {...optionalProps}
-          >{display}</DropdownItem>
-        ))}
+      <DropdownTrigger>{trigger}</DropdownTrigger>
+      <DropdownMenu aria-label={ariaLabel} onAction={onAction}>
+        {simpleMenuItems.map(
+          ({ display, props: { key, ...optionalProps } }) => (
+            <DropdownItem key={key} {...optionalProps}>
+              {display}
+            </DropdownItem>
+          ),
+        )}
       </DropdownMenu>
     </Dropdown>
-  )
-}
+  );
+};
 
 export default DropdownWrapper;

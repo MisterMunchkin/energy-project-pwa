@@ -5,35 +5,35 @@ import { PublicLeaderboardModel } from "@/models/public-leaderboard.model";
 import { StateEnergyProductionModel } from "@/models/state-energy-production.model";
 import NodeCache, { Options } from "node-cache";
 
-
+/**
+ * Initializes node-cache and populate models for cached server data
+ */
 const initServerData = () => {
-  console.log('intializing server data...');
-  console.time('init');
-  
+  console.log("intializing server data...");
+  console.time("init");
+
   initNodeCache();
   populateModels();
 
-  console.timeEnd('init');
-}
+  console.timeEnd("init");
+};
 
 const initNodeCache = () => {
-  console.log('initializing node cache...');
+  console.log("initializing node cache...");
   const config: Options = {
     useClones: true, //clone data instead of reference
     stdTTL: 0, //keep for unlimited.
-  }
+  };
   global.serverCache = new NodeCache(config);
-}
+};
 
 const populateModels = () => {
-  console.log('populating models...');
-  new StateEnergyProductionModel()
-  .populate(ENERGY_PRODUCTION_DATA);
-  
-  new ApplianceModel()
-  .populate(APPLIANCES_DATA);
+  console.log("populating models...");
+  new StateEnergyProductionModel().populate(ENERGY_PRODUCTION_DATA);
 
-  new PublicLeaderboardModel()
-  .populate([]);
-}
+  new ApplianceModel().populate(APPLIANCES_DATA);
+
+  new PublicLeaderboardModel().populate([]);
+};
+
 export default initServerData;

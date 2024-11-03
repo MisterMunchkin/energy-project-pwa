@@ -8,6 +8,12 @@ type Props = {
   place: number;
 };
 
+/**
+ *
+ * @param post PublicLeaderboardType data to render as a post in the leaderboard
+ * @param place the place of the post in the leaderboard
+ * @returns ReactNode
+ */
 const PublicPost = ({ post, place }: Props) => {
   const {
     name,

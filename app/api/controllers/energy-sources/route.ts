@@ -2,6 +2,12 @@ import { StateEnergyProductionModel } from "@/models/state-energy-production.mod
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
+/**
+ * Get energy sources for a specific state
+ *
+ * @param req NextApiRequest
+ * @returns NextResponse
+ */
 export function GET(req: NextApiRequest) {
   if (!req.url)
     return NextResponse.json({}, { status: 400, statusText: "invalid URL" });

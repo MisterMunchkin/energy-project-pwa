@@ -52,6 +52,11 @@ type Props = {
   locationId: string;
   publicPost: PublicLeaderboardType | null;
 };
+/**
+ * Location details header with actions.
+ * @param param0 props for LocationActions
+ * @returns ReactNode
+ */
 const LocationActions = ({
   locationId,
   publicPost: defaultPublicPost,

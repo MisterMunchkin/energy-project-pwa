@@ -8,6 +8,11 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { VscArrowLeft } from "react-icons/vsc";
 
+/**
+ * SSR page for national statistics
+ *
+ * @returns ReactNode
+ */
 export default async function page() {
   const stats = await PublicLeaderboardService.getNationalStatistics();
   const nationalStats = new NationalStatisticsClass(stats);

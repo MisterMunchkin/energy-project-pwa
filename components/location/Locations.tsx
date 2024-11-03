@@ -11,7 +11,7 @@ import { formatAddress } from "@/lib/formatters";
 
 type Props = {};
 /**
- * Client Component to handle localStorage retrieval.
+ * Renders UI for the location list and search field page.
  *
  */
 const Locations = () => {

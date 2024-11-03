@@ -3,19 +3,18 @@ import TopNavBar from "@/components/navigation/TopNavBar";
 import PublicLeaderboard from "@/components/public-leaderboard/PublicLeaderboard";
 import { PublicLeaderboardService } from "@/services/services";
 
+/**
+ * SSR page of public leaderboard page
+ * @returns ReactNode
+ */
 export default async function Page() {
   const leaderboard = await PublicLeaderboardService.getPublicLeaderboard();
   console.log(leaderboard);
   return (
     <section className="py-[50px]">
-      <TopNavBar 
-        title="Public Leaderboard"
-        showAccount
-      />
-      <PublicLeaderboard 
-        publicLeaderboard={leaderboard}
-      />
+      <TopNavBar title="Public Leaderboard" showAccount />
+      <PublicLeaderboard publicLeaderboard={leaderboard} />
       <BottomTabBar />
     </section>
-  )
+  );
 }

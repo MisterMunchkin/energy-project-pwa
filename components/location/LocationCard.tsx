@@ -1,8 +1,10 @@
 "use client";
 
 import { LocationClass, LocationType } from "@/types/location.type";
-import PublicBadge from "./PublicBadge";
+
 /**
+ * Renders the location card UI that also handles click event which navigates to the location details.
+ *
  * @param {location} location data to display to cards.
  * @param {isLink} isLink boolean show correct cursor pointer if linkable
  */

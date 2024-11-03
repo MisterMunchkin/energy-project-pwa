@@ -20,6 +20,11 @@ export type PublicLeaderboardPostArgs = {
   name: string;
   location: LocationType;
 };
+/**
+ * POST request to create a public leaderboard post
+ * @param req NextRequest
+ * @returns NextResponse
+ */
 export async function POST(req: NextRequest) {
   if (!req.url)
     return NextResponse.json({}, { status: 400, statusText: "invalid URL" });
@@ -78,6 +83,11 @@ export async function POST(req: NextRequest) {
 
 //For maintainability
 export type PublicLeaderboardPutArgs = PublicLeaderboardPostArgs;
+/**
+ * PUT request for updating public leaderboard posts
+ * @param req NextRequest
+ * @returns NextResponse
+ */
 export async function PUT(req: NextRequest) {
   if (!req.url)
     return NextResponse.json({}, { status: 400, statusText: "invalid URL" });
@@ -134,6 +144,11 @@ export async function PUT(req: NextRequest) {
   }
 }
 
+/**
+ * GET request for retrieving the sorted list of public leaderboard
+ * @param req NextApiRequest
+ * @returns NextResponse
+ */
 export async function GET(req: NextApiRequest) {
   if (!req.url)
     return NextResponse.json({}, { status: 400, statusText: "invalid URL" });
