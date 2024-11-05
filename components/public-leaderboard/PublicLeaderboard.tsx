@@ -9,8 +9,8 @@ type Props = {
 };
 /**
  * Aside from the PublicPosts it also renders the link to national statistics
- * @param publicLeaderboard list of publicleaderboard posts sorted from the API
- * @returns
+ * @param {PublicLeaderboardType[]} publicLeaderboard list of publicleaderboard posts sorted from the API
+ * @returns {ReactNode}
  */
 const PublicLeaderboard = ({ publicLeaderboard }: Props) => {
   return (

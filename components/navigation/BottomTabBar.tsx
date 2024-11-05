@@ -11,7 +11,7 @@ const ACTIVE_TAB = "activeTab";
  * Creates a query string dynamically to switch from one route to another
  *
  *
- * @returns ReactNode
+ * @returns {ReactNode}
  */
 const BottomTabBar = () => {
   const searchParams = useSearchParams();

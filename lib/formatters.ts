@@ -5,6 +5,7 @@ import { LocationType } from "@/types/location.type";
  * @example getOrdinal(123) returns "123rd"
  *
  * @param {number} n number to get the ordinal
+ * @returns {number}
  */
 export const getOrdinal = (n: number) => {
   const s = ["th", "st", "nd", "rd"];
@@ -25,8 +26,8 @@ export const getOrdinal = (n: number) => {
  *
  * as long as it has the required property, it should be allowed to use this method
  *
- * @param param0 address fields to format
- * @returns formatted string of address
+ * @param {object} param0 address fields to format
+ * @returns {string} formatted string of address
  */
 export const formatAddress = ({
   streetAddress,

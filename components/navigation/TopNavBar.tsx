@@ -4,9 +4,9 @@ type Props = {
 };
 /**
  *
- * @param title Title to display on top navbar
- * @param showAccount boolean to show or unshow account menu (which is just a text lol)
- * @returns
+ * @param {string} title Title to display on top navbar
+ * @param {boolean} showAccount boolean to show or unshow account menu (which is just a text lol)
+ * @returns {ReactNode}
  */
 const TopNavBar = ({ title, showAccount }: Props) => {
   return (

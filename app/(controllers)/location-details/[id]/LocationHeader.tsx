@@ -54,8 +54,8 @@ type Props = {
 };
 /**
  * Location details header with actions.
- * @param param0 props for LocationActions
- * @returns ReactNode
+ * @param {object} param0 props for LocationActions
+ * @returns {ReactNode}
  */
 const LocationActions = ({
   locationId,

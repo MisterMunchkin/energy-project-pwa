@@ -26,10 +26,10 @@ type Props = {
 };
 /**
  *
- * @param trigger A ReactNode that is rendered as the dropdown trigger
- * @param ariaLabel Used for accessibility reasons
- * @param simpleMenuItems Menu items that are rendered as drop down items
- * @param onAction Handler for onAction event of the Dropdown Menu
+ * @param {ReactNode} trigger A ReactNode that is rendered as the dropdown trigger
+ * @param {string} ariaLabel Used for accessibility reasons
+ * @param {object[]} simpleMenuItems Menu items that are rendered as drop down items
+ * @param {Key} onAction Handler for onAction event of the Dropdown Menu
  * @returns
  */
 const DropdownWrapper = ({

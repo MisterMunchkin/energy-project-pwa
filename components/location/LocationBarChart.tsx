@@ -26,8 +26,8 @@ type Props = {
 };
 /**
  * Renderrs the barchart UI for a location within the local storage
- * @param locationId location id to retrieve location from the local storage service
- * @returns
+ * @param {string} locationId location id to retrieve location from the local storage service
+ * @returns {ReactNode}
  */
 const LocationBarChart = ({ locationId }: Props) => {
   const [chartData, setChartData] = useState<ChartData<"bar">>();

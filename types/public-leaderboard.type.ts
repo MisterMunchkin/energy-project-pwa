@@ -37,13 +37,53 @@ export type PublicLeaderboardType = {
  * @property {string} name The name given for this leaderboard post
  */
 export class PublicLeaderboardClass implements PublicLeaderboardType {
+  /**
+   * Description placeholder
+   *
+   * @type {string}
+   */
   locationId: string = "";
+  /**
+   * Description placeholder
+   *
+   * @type {number}
+   */
   solarProduction: number = 0;
+  /**
+   * Description placeholder
+   *
+   * @type {number}
+   */
   windProduction: number = 0;
+  /**
+   * Description placeholder
+   *
+   * @type {number}
+   */
   gasProduction: number = 0;
+  /**
+   * Description placeholder
+   *
+   * @type {number}
+   */
   coalProduction: number = 0;
+  /**
+   * Description placeholder
+   *
+   * @type {number}
+   */
   totalWHSPerDay: number = 0;
+  /**
+   * Description placeholder
+   *
+   * @type {string}
+   */
   name: string = "";
+  /**
+   * Description placeholder
+   *
+   * @type {string}
+   */
   state: string = "";
 
   /**

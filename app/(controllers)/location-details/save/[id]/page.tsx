@@ -4,8 +4,8 @@ import { ServerComponentProps } from "@/types/server-component-props.types";
 
 /**
  * SSR Edit location page
- * @param param0 server component props with id param
- * @returns ReactNode
+ * @param {object} param0 server component props with id param
+ * @returns {ReactNode}
  */
 const EditLocationPage = async ({ params }: ServerComponentProps) => {
   const { id: idString } = params || {};

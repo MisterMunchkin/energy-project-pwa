@@ -20,10 +20,10 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
 
   /**
    *
-   * @param location locationType to update in the leaderboard data list
-   * @param stateProduction energy production of the state based on location
-   * @param name leaderboard post name, could be updated too, leaderboard keeps track of locations through locationId generated on insert in the local storage service.
-   * @returns returns the leaderboard post after update
+   * @param {object} location locationType to update in the leaderboard data list
+   * @param {object} stateProduction energy production of the state based on location
+   * @param {string} name leaderboard post name, could be updated too, leaderboard keeps track of locations through locationId generated on insert in the local storage service.
+   * @returns {PublicLeaderboardType | undefined} the leaderboard post after update
    */
   update = (
     location: LocationType,
@@ -49,8 +49,8 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
    *
    * In the future, need to setup T where implements {id: string}
    *
-   * @params locationId id to delete in the public leaderboard
-   * @returns returns a soft error message if cannot find the post
+   * @param {string} locationId id to delete in the public leaderboard
+   * @returns {object | void} returns a soft error message if cannot find the post
    */
   delete = (locationId: string) => {
     const dataList = this.select();
@@ -70,6 +70,7 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
    * Finds the post by location id
    *
    * @param {string} locationId The id...
+   * @returns {object}
    */
   findBy = (locationId: string) => {
     const dataList = this.select((item) => item.locationId === locationId);
@@ -84,7 +85,7 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
    * @param {StateEnergyProductionType} stateProduction The state energy production of the given location
    * @param {string} name The name the user gave for this post
    *
-   * @returns the new leaderboard post created
+   * @returns {PublicLeaderboardType | undefined} the new leaderboard post created
    */
   post = (
     location: LocationType,
@@ -111,7 +112,7 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
    * Retrieves the leaderboard posts and sorts it by the highest renewable
    * energy production first, then if left hand is false (0), it will compare by totalWHSPerDay
    *
-   * @returns the sorted leaderboard posts.
+   * @returns {PublicLeaderboardType[]} the sorted leaderboard posts.
    */
   getSortedLeaderboard = () => {
     const { getTotalRenewableEnergyProduction: get } = PublicLeaderboardClass;
@@ -125,8 +126,8 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
 
   /**
    *
-   * @param locationId location id to check if it exists in the leaderboard
-   * @returns true or false depending if location exists
+   * @param {string} locationId location id to check if it exists in the leaderboard
+   * @returns {boolean} true or false depending if location exists
    */
   exists = (locationId: string): boolean => {
     const dataList = this.select((item) => item.locationId === locationId);
@@ -135,7 +136,7 @@ export class PublicLeaderboardModel extends BaseModel<PublicLeaderboardType> {
 
   /**
    * retrieves the national statistics based on all posts within the leaderboard.
-   * @returns retrieves the results
+   * @returns {NationalStatisticsType} retrieves the results
    */
   nationalStatistics = (): NationalStatisticsType => {
     const leaderboard = this.select();

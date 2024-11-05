@@ -13,8 +13,8 @@ type ExtraProps = {
  *
  * Not really happy with this, should've been better to just create a provider that this can consume to handle actions instead of prop drilling
  *
- * @param isValid checks if form is valid before onClosing
- * @param resetForm resetsForm method on cancel click event
+ * @param {boolean} isValid checks if form is valid before onClosing
+ * @param {function} resetForm resetsForm method on cancel click event
  * @returns
  */
 const PostToLeaderboardModalFooter = ({

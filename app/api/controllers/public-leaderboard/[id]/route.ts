@@ -6,9 +6,9 @@ type IdParams = { params: { id: string } };
 /**
  * GET request for retrieving a specific leaderboard post
  *
- * @param req NextApiRequest
- * @param param1 id params to retrieve specific leaderboard post
- * @returns NextResponse
+ * @param {NextApiRequest} req
+ * @param {object} params id params to retrieve specific leaderboard post
+ * @returns {NextResponse}
  */
 export async function GET(req: NextApiRequest, { params }: IdParams) {
   const { id } = params;
@@ -26,9 +26,9 @@ export async function GET(req: NextApiRequest, { params }: IdParams) {
 /**
  * DELETE request for deleting a specific leaderboard post
  *
- * @param req NextApiRequest
- * @param param1 id params to delete specific leaderboard post
- * @returns NextResponse
+ * @param {NextApiRequest} req
+ * @param {object} params id params to delete specific leaderboard post
+ * @returns {NextResponse}
  */
 export async function DELETE(req: NextApiRequest, { params }: IdParams) {
   const { id } = params;

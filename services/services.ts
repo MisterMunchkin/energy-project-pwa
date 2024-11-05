@@ -19,8 +19,10 @@ import { StateType } from "@/types/state.type";
  */
 namespace Services {
   /**
-   * Gets all the states from the servers
-   * @returns {Promise<string[]>} retrieves an array of states
+   * GET API for retrieving states
+   *
+   * @async
+   * @returns {unknown}
    */
   export const getStates = async () => {
     const reqUrl = `${API_CONTROLLER}states`;
@@ -50,7 +52,7 @@ namespace Services {
   };
   /**
    *
-   * @param state specific state to retrieve energy sources from
+   * @param {StateType} state specific state to retrieve energy sources from
    * @returns {Promise<StateEnergyProductionType>} Retrieves the energy production for the state passed
    */
   export const getEnergyProduction = async (state: StateType) => {
@@ -77,7 +79,7 @@ export default Services;
 export namespace PublicLeaderboardService {
   /**
    *
-   * @param args form body for POST-ing to the public leaderboard
+   * @param {PublicLeaderboardPostArgs} args form body for POST-ing to the public leaderboard
    * @returns {Promise<Response>} data saved to the public leaderboard. (Was not exactly necessary in the app which is why its not typed, but if it because necessary it can be typed. Mainnly returned a response for testing purposes)
    */
   export const postToLeaderboard = async (args: PublicLeaderboardPostArgs) => {
@@ -121,7 +123,7 @@ export namespace PublicLeaderboardService {
   };
   /**
    * retrieves leaderboard post based off of location id
-   * @param locationId LocationId to retrieve from public leaderboard
+   * @param {string} locationId LocationId to retrieve from public leaderboard
    * @returns {Promise<PublicLeaderboardType | null>} retrieves the leaderboard post
    */
   export const getPostFromPublicLeaderboard = async (locationId: string) => {
@@ -141,7 +143,7 @@ export namespace PublicLeaderboardService {
   };
   /**
    * deletes the leaderboard post and response with the deleted leaderboard. Mainly used for testing purposes, might also be useful to show user statistics of deleted post. idk.
-   * @param locationId LocationId to delete from public leaderboard
+   * @param {string} locationId LocationId to delete from public leaderboard
    * @returns retrieves the leaderboard post deleted
    */
   export const deletePostFromPublicLeaderboard = async (locationId: string) => {
@@ -161,7 +163,7 @@ export namespace PublicLeaderboardService {
   };
   /**
    * Sends the LocationType and name for the public leaderboard PUT request, and receives the new leaderboard object after update.
-   * @param args Update request for a specific post within the public leaderboard
+   * @param {object} args Update request for a specific post within the public leaderboard
    * @returns returns the new leaderboard post object after update.
    */
   export const updatePostFromPublicLeaderboard = async (

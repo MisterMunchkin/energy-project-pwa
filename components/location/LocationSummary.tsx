@@ -2,7 +2,7 @@
 
 import { localService } from "@/services/local-service";
 import { LocationType } from "@/types/location.type";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import AccordionWrapper from "../wrappers/AccordionWrapper";
 import { formatAddress } from "@/lib/formatters";
 
@@ -13,7 +13,8 @@ type Props = {
  * Component for display the location address within the
  * location-details page.
  *
- * @param locationId location id to retrieve location summary from in the local service
+ * @param {string} locationId location id to retrieve location summary from in the local service
+ * @returns {ReactNode}
  */
 const LocationSummary = ({ locationId }: Props) => {
   const [location, setLocation] = useState<Omit<LocationType, "appliances">>({

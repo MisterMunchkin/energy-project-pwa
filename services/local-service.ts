@@ -9,9 +9,10 @@ import {
 import { StateType } from "@/types/state.type";
 
 /**
- * Retrieves all appliances for a specific location.
+ * gets all appliances in a given location
  *
- * @param {locationId} LocationId The id of the location where the appliances are saved.
+ * @param {string} locationId
+ * @returns {LocationApplianceType[]}
  */
 const getAppliances = (locationId: string): LocationApplianceType[] => {
   if (!isStorageDefined()) return [];
@@ -23,7 +24,7 @@ const getAppliances = (locationId: string): LocationApplianceType[] => {
 /**
  * Retrieves all locations and their given appliance types.
  *
- * @returns A LocationType array from the local storage
+ * @returns {LocationType[]}
  */
 const getLocations = (): LocationType[] => {
   if (!isStorageDefined()) return [];
@@ -42,8 +43,8 @@ const getLocations = (): LocationType[] => {
 /**
  * Gets the location stats {totalWHSPerDay, totalAppliances} for a given locationId
  *
- * @param {string} locationId id of the location to access
- * @returns Returns location statistics for the specific id
+ * @param {string} locationId
+ * @returns {(LocationStatsType | undefined)}
  */
 const getLocationStats = (
   locationId: string,
@@ -57,8 +58,8 @@ const getLocationStats = (
 /**
  * Gets the state for a given location.
  *
- * * @param {string} locationId id of the location to access
- * @returns retrieves the state of the location for the specific id
+ * @param {string} locationId
+ * @returns {(StateType | undefined)}
  */
 const getState = (locationId: string): StateType | undefined => {
   if (!isStorageDefined()) return;
@@ -72,7 +73,7 @@ const getState = (locationId: string): StateType | undefined => {
  *
  * @usage If there are location class logic that is needed to retrieve data.
  * @param {string} locationId id of the location to access
- * @returns retrieves the location instantiated as a LocationClass to access util getters
+ * @returns {LocationClass | undefined} retrieves the location instantiated as a LocationClass to access util getters
  */
 const getLocationClass = (locationId: string): LocationClass | undefined => {
   const jsonData = localStorage.getItem(LOCATIONS);
@@ -89,7 +90,7 @@ const getLocationClass = (locationId: string): LocationClass | undefined => {
 /**
  * Test method used to populate dummy locations on the local storage
  *
- * @returns void
+ * @returns {void}
  */
 const populateDummies = (): void => {
   if (!isStorageDefined()) return;
@@ -104,7 +105,7 @@ const populateDummies = (): void => {
  * Pushes new location into local storage
  * @param {LocationType} newLocation The new location to push into local storage
  *
- * @returns void
+ * @returns {void}
  */
 const createLocation = (newLocation: LocationType): void => {
   if (!isStorageDefined()) return;
@@ -122,7 +123,7 @@ const createLocation = (newLocation: LocationType): void => {
  * Updates the saved location in local storage
  * @param {LocationType} editedLocation The edited location to save
  *
- * @returns void
+ * @returns {void}
  */
 const editLocation = (editedLocation: LocationType): void => {
   if (!isStorageDefined()) return;
@@ -151,7 +152,7 @@ const editLocation = (editedLocation: LocationType): void => {
  *
  * @param {string} locationId Id of the location to find
  *
- * @returns location of LocationType
+ * @returns {LocationType | undefined} of LocationType
  */
 const getLocation = (locationId: string): LocationType | undefined => {
   if (!isStorageDefined()) return;
@@ -176,7 +177,7 @@ const getLocation = (locationId: string): LocationType | undefined => {
  * Deletes the location from the local storage based off locationId
  *
  * @param {string} locationId Id of the location to find
- * @returns void
+ * @returns {void}
  */
 const deleteLocation = (locationId: string): void => {
   if (!isStorageDefined()) return;
@@ -197,7 +198,7 @@ const deleteLocation = (locationId: string): void => {
  *
  * Nextjs also pre-renders Client Components in the server, so the calls need to come within a `useEffect`
  *
- * @returns boolean - If true, then local storage is retrieved from client component, which is the desired outcome, if false, then SSR will silently error since local storage does not exist on server
+ * @returns {boolean} - If true, then local storage is retrieved from client component, which is the desired outcome, if false, then SSR will silently error since local storage does not exist on server
  */
 const isStorageDefined = (): boolean => {
   const isDefined = typeof window !== "undefined";

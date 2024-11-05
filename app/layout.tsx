@@ -15,8 +15,8 @@ export const metadata: Metadata = {
 
 /**
  * Root layout and starting point of the app
- * @param children ReactNode
- * @returns ReactNode
+ * @param {ReactNode} children ReactNode
+ * @returns {ReactNode}
  */
 export default function RootLayout({
   children,

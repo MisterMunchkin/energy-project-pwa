@@ -15,7 +15,9 @@ But if requirements change and things need updating, its cool how we can do that
  */
 export class ApplianceModel extends BaseModel<ApplianceType> {
   /**
-   * instantiates the ApplianceModel with a key for the node cache object
+   * Creates an instance of ApplianceModel.
+   *
+   * @constructor
    */
   constructor() {
     super(ApplianceModel.name);

@@ -13,7 +13,7 @@ export class BaseModel<T> {
 
   /**
    *Instantiates BaseModel
-   * @param modelName model name to be used as the key for its own node-cache object
+   * @param {string} modelName model name to be used as the key for its own node-cache object
    */
   constructor(modelName: string) {
     this.TName = modelName;
@@ -25,7 +25,7 @@ export class BaseModel<T> {
 
   /**
    * Populates the cache with the list of data based of the TName key.
-   * @param dataList list of generic data to populate to the cache
+   * @param {T[]} dataList list of generic data to populate to the cache
    */
   populate = (dataList: T[]) => {
     if (!global.serverCache.has(this.TName))
@@ -36,8 +36,8 @@ export class BaseModel<T> {
 
   /**
    * Used to retrieve data from the node-cache within a model class.
-   * @param filter predicate function used to filter the cachedData list
-   * @returns Returns generic T[] of filtered data
+   * @param {PredicateType<T>} filter predicate function used to filter the cachedData list
+   * @returns {T[]} Returns generic T[] of filtered data
    */
   select = (filter?: PredicateType<T>) => {
     const cachedData = this.getCache();
@@ -49,7 +49,7 @@ export class BaseModel<T> {
 
   /**
    * Inserts generic item into the node cache for the specific model class.
-   * @param item generic item to insert into node-cache
+   * @param {T} item generic item to insert into node-cache
    */
   insert = (item: T) => {
     const cachedData = this.getCache();

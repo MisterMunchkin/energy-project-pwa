@@ -26,8 +26,8 @@ type SimpleAccordionItemType = {
  * building blocks or legos. Nextui gives us these building blocks with accessibility and standards baked in,
  *  and we can choose how abstract or verbose we would like our components to be.
  *
- * @param accordions list of accordion UI to render with title and content within
- * @param classNames ClassValues that can overwrite default classNames of "item"
+ * @param {object[]} accordions list of accordion UI to render with title and content within
+ * @param {ClassValues} classNames ClassValues that can overwrite default classNames of "item"
  *
  * @returns
  */

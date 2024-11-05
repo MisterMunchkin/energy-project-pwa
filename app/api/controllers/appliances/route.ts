@@ -5,8 +5,8 @@ import { NextResponse } from "next/server";
 /**
  * GET request for all appliances
  *
- * @param req NextApiRequest
- * @returns NextResponse
+ * @param {NextApiRequest} req
+ * @returns {NextResponse}
  */
 export function GET(req: NextApiRequest) {
   if (!req.url)

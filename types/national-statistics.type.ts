@@ -25,6 +25,16 @@ export type NationalStatisticsType = {
  * each type of energy source
  */
 export class NationalStatisticsClass implements NationalStatisticsType {
+  /**
+   * total WHS per day for each energy source
+   *
+   * @type {{
+   *     wind: number;
+   *     solar: number;
+   *     gas: number;
+   *     coal: number;
+   *   }}
+   */
   totalWHSPerDayPer: {
     wind: number;
     solar: number;

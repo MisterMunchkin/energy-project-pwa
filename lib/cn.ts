@@ -20,8 +20,8 @@ import { twMerge } from "tailwind-merge";
  * 
  * This util function also works harmonously with clsx.ts
  * 
- * @param inputs multiple arguments of ClassValue types.
- * @returns returns the merged string for tailwind utility classes
+ * @param {ClassValue[]} inputs multiple arguments of ClassValue types.
+ * @returns {string} returns the merged string for tailwind utility classes
  */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

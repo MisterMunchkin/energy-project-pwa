@@ -4,7 +4,7 @@ import { ServerComponentProps } from "@/types/server-component-props.types";
 
 /**
  * SSR page for new location form page
- * @returns ReactNode
+ * @returns {ReactNode}
  */
 const NewLocationPage = async () => {
   const states = await Services.getStates();

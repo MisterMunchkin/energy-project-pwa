@@ -22,12 +22,12 @@ type Props = {
 /**
  *
  *
- * @param modal the return type of the useDisclosure hook
- * @param onSubmitForm submit form event handler
+ * @param {object} modal the return type of the useDisclosure hook
+ * @param {function} onSubmitForm submit form event handler
  *
  * Not happy with prop drilling useDisclosure hook especially since its not exactly necessary anyway.
  * Thought I needed an instance for both Post and Update.
- * @returns ReactNode
+ * @returns {ReactNode}
  */
 const PostToLeadboardForm = ({ modal, onSubmitForm }: Props) => {
   return (

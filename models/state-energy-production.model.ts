@@ -16,7 +16,7 @@ export class StateEnergyProductionModel extends BaseModel<StateEnergyProductionT
   /**
    * Retrieves an array of Australian states.
    *
-   * @returns retrieves an array of state names
+   * @returns {string[]} retrieves an array of state names
    */
   getStates(): string[] {
     return this.select().map((data) => data.name);
@@ -25,7 +25,9 @@ export class StateEnergyProductionModel extends BaseModel<StateEnergyProductionT
   /**
    * Like get except it will eiter return the Type object or null
    *
-   * @returns retrieves a single StateEnergyProductionType object, if does not exist? returns null
+   * @param {PredicateType<StateEnergyProductionType>} filter
+   *
+   * @returns {StateEnergyProductionType | null} retrieves a single StateEnergyProductionType object, if does not exist? returns null
    */
   find(
     filter?: PredicateType<StateEnergyProductionType>,

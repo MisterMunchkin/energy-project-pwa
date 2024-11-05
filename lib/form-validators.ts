@@ -13,8 +13,8 @@ namespace Regex {
 
 /**
  * validates streetAddress strings.
- * @param value streetAddress value to validate
- * @returns string of error messages, if no errors, undefined
+ * @param {string} value streetAddress value to validate
+ * @returns {string} string of error messages, if no errors, undefined
  */
 const _streetAddress = (value: string): string | undefined => {
   if (!value) return "Required!";
@@ -27,8 +27,8 @@ const _streetAddress = (value: string): string | undefined => {
 
 /**
  * validates city strings
- * @param value city value to validates
- * @returns string of error messages, if no errors, undefined
+ * @param {string} value city value to validates
+ * @returns {string} string of error messages, if no errors, undefined
  */
 const _city = (value: string): string | undefined => {
   if (!value) return "Required!";
@@ -41,8 +41,8 @@ const _city = (value: string): string | undefined => {
 
 /**
  * Validates postal code strings.
- * @param value Postal code value to validate
- * @returns String of error message if invalid; otherwise, undefined
+ * @param {string} value Postal code value to validate
+ * @returns {string} String of error message if invalid; otherwise, undefined
  */
 const _postalCode = (value: string): string | undefined => {
   if (!value) return "Required!";
@@ -53,8 +53,8 @@ const _postalCode = (value: string): string | undefined => {
 
 /**
  * Validates hours per day strings.
- * @param value Hours per day value to validate
- * @returns String of error message if invalid; otherwise, undefined
+ * @param {string} value Hours per day value to validate
+ * @returns {string} String of error message if invalid; otherwise, undefined
  */
 const _hoursPerDay = (value: string): string | undefined => {
   if (!value) return "Required!";
@@ -66,8 +66,8 @@ const _hoursPerDay = (value: string): string | undefined => {
 
 /**
  * Validates quantity strings.
- * @param value Quantity value to validate
- * @returns String of error message if invalid; otherwise, undefined
+ * @param {string} value Quantity value to validate
+ * @returns {string} String of error message if invalid; otherwise, undefined
  */
 const _quantity = (value: string): string | undefined => {
   if (!value) return "Required!";
@@ -79,8 +79,8 @@ const _quantity = (value: string): string | undefined => {
 
 /**
  * Validates leaderboard post name strings.
- * @param value Leaderboard post name to validate
- * @returns String of error message if invalid; otherwise, undefined
+ * @param {string} value Leaderboard post name to validate
+ * @returns {string} String of error message if invalid; otherwise, undefined
  */
 const _leadboardPostName = (value: string): string | undefined => {
   if (!value) return "Required!";

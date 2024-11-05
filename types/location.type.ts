@@ -51,17 +51,47 @@ export type LocationStatsType = {
     @property {LocationApplianceType[]} appliances An array of appliances linked to a location.
  */
 export class LocationClass implements LocationType {
+  /**
+   * Description placeholder
+   *
+   * @type {string}
+   */
   id: string = "";
+  /**
+   * Description placeholder
+   *
+   * @type {string}
+   */
   streetAddress: string = "";
+  /**
+   * Description placeholder
+   *
+   * @type {string}
+   */
   city: string = "";
+  /**
+   * Description placeholder
+   *
+   * @type {string}
+   */
   state: string = "";
+  /**
+   * Description placeholder
+   *
+   * @type {number}
+   */
   postalCode: number = 0;
+  /**
+   * Description placeholder
+   *
+   * @type {LocationApplianceType[]}
+   */
   appliances: LocationApplianceType[] = [];
 
   /**
    * instantiates a LocationClass, if post is empty, instantiates an
    * empty class.
-   * @param location Optional args to instantiate a LocationClass
+   * @param {object} location Optional args to instantiate a LocationClass
    * @returns {void}
    */
   constructor(location: LocationType) {
@@ -117,15 +147,35 @@ export class LocationClass implements LocationType {
     @property {number} watts wattage of appliance
  */
 export class LocationApplianceClass implements LocationApplianceType {
+  /**
+   * Description placeholder
+   *
+   * @type {string}
+   */
   name: string = "";
+  /**
+   * Description placeholder
+   *
+   * @type {number}
+   */
   quantity: number = 0;
+  /**
+   * Description placeholder
+   *
+   * @type {number}
+   */
   hoursPerDay: number = 0;
+  /**
+   * Description placeholder
+   *
+   * @type {number}
+   */
   watts: number = 0;
 
   /**
    * instantiates a LocationApplianceClass. required.
    *
-   * @param locationAppliance args to instantiate the type LocationApplianceType.
+   * @param {object} locationAppliance args to instantiate the type LocationApplianceType.
    * @returns {void}
    */
   constructor(locationAppliance: LocationApplianceType) {

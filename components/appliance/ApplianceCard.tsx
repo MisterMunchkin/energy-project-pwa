@@ -11,9 +11,9 @@ type Props = {
 };
 /**
  * Renders the UI for Appliance cards.
- * @param appliance Appliance linked to a Location data
- * @param classNames optional ClassValues for "container", see clsx.ts and cn.ts comments
- * @returns ReactNode
+ * @param {object} appliance Appliance linked to a Location data
+ * @param {object} classNames optional ClassValues for "container", see clsx.ts and cn.ts comments
+ * @returns {ReactNode}
  */
 const ApplianceCard = ({ appliance, classNames }: Props) => {
   const { name, quantity, hoursPerDay, totalWHSPerDay } =

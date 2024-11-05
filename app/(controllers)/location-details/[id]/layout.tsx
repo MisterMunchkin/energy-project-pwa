@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 /**
  * LocationDetail Layout SSR page
- * @param param0 props for LocationDetail SSR
- * @returns ReactNode
+ * @param {object} param0 props for LocationDetail SSR
+ * @returns {ReactNode}
  */
 export default function LocationDetailLayout({
   children,

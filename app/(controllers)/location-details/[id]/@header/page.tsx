@@ -6,8 +6,8 @@ import LocationActions from "../LocationHeader";
 
 /**
  * SSR parallel route for the header route
- * @param param0 ServerComponent props with id param
- * @returns ReactNode
+ * @param {object} param0 ServerComponent props with id param
+ * @returns {ReactNode}
  */
 export default async function Header({ params }: ServerComponentProps) {
   const { id: idString } = params || {};

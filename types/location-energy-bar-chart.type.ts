@@ -2,6 +2,11 @@ import { ChartData } from "chart.js";
 import { EnergySourcesType } from "./state-energy-production.types";
 import { energySourceBackgrounds } from "@/components/location/bar-chart.config";
 
+/**
+ * KeyOfEnergySources
+ *
+ * @typedef {KeyOfEnergySources}
+ */
 type KeyOfEnergySources = keyof EnergySourcesType;
 
 /**
@@ -13,15 +18,31 @@ type KeyOfEnergySources = keyof EnergySourcesType;
     @property {KeyOfEnergySources[]} sourceTypes
  */
 export class LocationEnergyBarChartClass {
+  /**
+   * totalWattHour
+   *
+   * @type {number}
+   */
   totalWattHour: number;
+  /**
+   * energySources
+   *
+   * @type {EnergySourcesType}
+   */
   energySources: EnergySourcesType;
+  /**
+   * sourceTypes
+   *
+   * @type {KeyOfEnergySources[]}
+   */
   sourceTypes: KeyOfEnergySources[];
 
   /**
-   * instantiates a PublicLeaderboardClass, if post is empty, instantiates an
-   * empty class.
-   * @param post Optional args to instantiate a PublicLeaderboardType
-   * @returns {void}
+   * Creates an instance of LocationEnergyBarChartClass.
+   *
+   * @constructor
+   * @param {number} totalWattHour
+   * @param {EnergySourcesType} energySources
    */
   constructor(totalWattHour: number, energySources: EnergySourcesType) {
     this.totalWattHour = totalWattHour;
@@ -57,7 +78,7 @@ export class LocationEnergyBarChartClass {
 
   /**
    *
-   * @param sourceType source type to get the watt hour from.
+   * @param {object} sourceType source type to get the watt hour from.
    * @returns {number} Gets the total watt hour for the specific energy-source type
    */
   private getWattHourPer(sourceType: KeyOfEnergySources): number {

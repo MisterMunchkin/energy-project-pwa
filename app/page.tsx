@@ -8,7 +8,7 @@ import TopNavBar from "@/components/navigation/TopNavBar";
  * Respecting the MVC paradigm while also keeping whithin the boundaries of the
  * NextJs route file structure.
  *
- * @returns ReactNode
+ * @returns {ReactNode}
  */
 export default function Home() {
   return (

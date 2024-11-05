@@ -10,8 +10,8 @@ type Props = {
 /**
  * Renders the location stats for the location details page.
  *
- * @param locationId locationId used to retrieve location from the local storage service
- * @returns
+ * @param {string} locationId locationId used to retrieve location from the local storage service
+ * @returns {ReactNode}
  */
 const LocationStats = ({ locationId }: Props) => {
   const [stats, setStats] = useState<LocationStatsType>();

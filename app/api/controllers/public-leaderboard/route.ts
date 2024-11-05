@@ -85,8 +85,8 @@ export async function POST(req: NextRequest) {
 export type PublicLeaderboardPutArgs = PublicLeaderboardPostArgs;
 /**
  * PUT request for updating public leaderboard posts
- * @param req NextRequest
- * @returns NextResponse
+ * @param {NextRequest} req
+ * @returns {NextResponse}
  */
 export async function PUT(req: NextRequest) {
   if (!req.url)
@@ -146,8 +146,8 @@ export async function PUT(req: NextRequest) {
 
 /**
  * GET request for retrieving the sorted list of public leaderboard
- * @param req NextApiRequest
- * @returns NextResponse
+ * @param {NextApiRequest} req
+ * @returns {NextResponse}
  */
 export async function GET(req: NextApiRequest) {
   if (!req.url)

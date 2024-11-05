@@ -5,8 +5,8 @@ import { NextResponse } from "next/server";
 /**
  * Get energy sources for a specific state
  *
- * @param req NextApiRequest
- * @returns NextResponse
+ * @param {NextApiRequest} req
+ * @returns {NextResponse}
  */
 export function GET(req: NextApiRequest) {
   if (!req.url)

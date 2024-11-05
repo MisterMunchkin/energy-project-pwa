@@ -13,6 +13,7 @@ type Props = {};
 /**
  * Renders UI for the location list and search field page.
  *
+ * @returns {ReactNode}
  */
 const Locations = () => {
   const [locations, setLocations] = useState<LocationType[]>([]);

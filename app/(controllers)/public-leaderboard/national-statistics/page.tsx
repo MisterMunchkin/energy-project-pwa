@@ -11,7 +11,7 @@ import { VscArrowLeft } from "react-icons/vsc";
 /**
  * SSR page for national statistics
  *
- * @returns ReactNode
+ * @returns {ReactNode}
  */
 export default async function page() {
   const stats = await PublicLeaderboardService.getNationalStatistics();

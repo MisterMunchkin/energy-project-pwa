@@ -5,7 +5,7 @@ import { PublicLeaderboardService } from "@/services/services";
 
 /**
  * SSR page of public leaderboard page
- * @returns ReactNode
+ * @returns {ReactNode}
  */
 export default async function Page() {
   const leaderboard = await PublicLeaderboardService.getPublicLeaderboard();

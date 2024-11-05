@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 
 /**
  *SSR Layout for new location form
- * @param param0 ReactNode childrn
- * @returns ReactNode
+ * @param {ReactNode} param0 ReactNode childrn
+ * @returns {ReactNode}
  */
 export default function NewLocationLayout({
   children,

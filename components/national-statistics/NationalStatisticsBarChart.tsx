@@ -19,8 +19,8 @@ type Props = {
 Chart.register(BarElement, Tooltip, Title, LinearScale, CategoryScale);
 /**
  *BarChart for the NationalStatistics UI
- * @param chartData chartData to be consumed by the Bar comp in react-chartjs-2
- * @returns
+ * @param {object} chartData chartData to be consumed by the Bar comp in react-chartjs-2
+ * @returns {ReactNode}
  */
 const NationalStatisticsBarChart = ({ chartData }: Props) => {
   return (

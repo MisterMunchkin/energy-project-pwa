@@ -13,13 +13,13 @@ type Props = {
 
 /**
  *
- * @param debounceTime sets a debounce for the text input so it doesnt create search request at the speed of the type
- * @param onChange event handler for when input text changes
- * @param classNames ClassValues that can be customized: "container", "label", "field". See clsx.ts and cn.ts comments
- * @param label Handles the input label optionally
- * @param name required name prop for input element
+ * @param {number} debounceTime sets a debounce for the text input so it doesnt create search request at the speed of the type
+ * @param {() => string} onChange event handler for when input text changes
+ * @param {string} classNames ClassValues that can be customized: "container", "label", "field". See clsx.ts and cn.ts comments
+ * @param {string} label Handles the input label optionally
+ * @param {string} name required name prop for input element
  *
- * @returns ReactNode
+ * @returns {ReactNode}
  */
 const SearchField = ({
   debounceTime,

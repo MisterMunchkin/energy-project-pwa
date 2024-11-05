@@ -14,7 +14,7 @@ type NavOption = {
 /**
  * tab items to be rendered on the bottomTabBar
  *
- * @returns NavOptions that have the content ro render and the href string
+ * @returns {NavOption[]} NavOptions that have the content ro render and the href string
  */
 export const bottomTabOptions: NavOption[] = [
   {

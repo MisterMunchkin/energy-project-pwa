@@ -3,8 +3,8 @@ import { ServerComponentProps } from "@/types/server-component-props.types";
 
 /**
  *SSR parallel route for the BarChart route.
- * @param param0 ServerComponent prop with id param
- * @returns ReactNode
+ * @param {object} param0 ServerComponent prop with id param
+ * @returns {ReactNode}
  */
 export default function BarChart({ params }: ServerComponentProps) {
   const { id: idString } = params || {};
