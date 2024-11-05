@@ -34,7 +34,7 @@ export class NationalStatisticsClass implements NationalStatisticsType {
 
   /**
    *constructor to instantiate the total national WHS per day for each energy source
-   * @param param0 coal wind solar and gas energy sources to populate in this instantiation
+   * @param {object} param0 coal wind solar and gas energy sources to populate in this instantiation
    */
   constructor({
     totalWHSPerDayPer: { coal, wind, solar, gas },
@@ -49,7 +49,7 @@ export class NationalStatisticsClass implements NationalStatisticsType {
 
   /**
    * Total WHS of the Nation
-   * @returns summation of wind solar gas and coal
+   * @returns {number} summation of wind solar gas and coal
    */
   get totalWHSOfTheNation(): number {
     const { wind, solar, gas, coal } = this.totalWHSPerDayPer;
@@ -59,7 +59,7 @@ export class NationalStatisticsClass implements NationalStatisticsType {
   /**
    * Chart data for a react-charts-2
    *
-   * @returns object data consumed by react-charts-2 to create chart UI. Shows
+   * @returns {object} object data consumed by react-charts-2 to create chart UI. Shows
    * a bar chart of the national statistics
    */
   get chartData(): ChartData<"bar"> {

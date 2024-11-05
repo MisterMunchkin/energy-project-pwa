@@ -20,7 +20,7 @@ import { StateType } from "@/types/state.type";
 namespace Services {
   /**
    * Gets all the states from the servers
-   * @returns retrieves an array of states
+   * @returns {Promise<string[]>} retrieves an array of states
    */
   export const getStates = async () => {
     const reqUrl = `${API_CONTROLLER}states`;
@@ -35,7 +35,7 @@ namespace Services {
   };
   /**
    * Gets all the appliances from the servers
-   * @returns retrieves an array of ApplianceType
+   * @returns {Promise<object[]>} retrieves an array of ApplianceType
    */
   export const getAppliances = async () => {
     const reqUrl = `${API_CONTROLLER}appliances`;
@@ -51,7 +51,7 @@ namespace Services {
   /**
    *
    * @param state specific state to retrieve energy sources from
-   * @returns Retrieves the energy production for the state passed
+   * @returns {Promise<StateEnergyProductionType>} Retrieves the energy production for the state passed
    */
   export const getEnergyProduction = async (state: StateType) => {
     const searchParams = new URLSearchParams({
@@ -78,7 +78,7 @@ export namespace PublicLeaderboardService {
   /**
    *
    * @param args form body for POST-ing to the public leaderboard
-   * @returns data saved to the public leaderboard. (Was not exactly necessary in the app which is why its not typed, but if it because necessary it can be typed. Mainnly returned a response for testing purposes)
+   * @returns {Promise<Response>} data saved to the public leaderboard. (Was not exactly necessary in the app which is why its not typed, but if it because necessary it can be typed. Mainnly returned a response for testing purposes)
    */
   export const postToLeaderboard = async (args: PublicLeaderboardPostArgs) => {
     //TODO: revalidatePath not working yet on Nextjs 14 API Route
@@ -104,7 +104,7 @@ export namespace PublicLeaderboardService {
   };
   /**
    * Retrieves sorted list.
-   * @returns Returns a sorted list of public leaderboard posts. Sort logic is in the model
+   * @returns {Promise<PublicLeaderboardType[]>} Returns a sorted list of public leaderboard posts. Sort logic is in the model
    */
   export const getPublicLeaderboard = async () => {
     const reqUrl = API_PUBLIC_LEADERBOARD;
@@ -122,7 +122,7 @@ export namespace PublicLeaderboardService {
   /**
    * retrieves leaderboard post based off of location id
    * @param locationId LocationId to retrieve from public leaderboard
-   * @returns retrieves the leaderboard post
+   * @returns {Promise<PublicLeaderboardType | null>} retrieves the leaderboard post
    */
   export const getPostFromPublicLeaderboard = async (locationId: string) => {
     const reqUrl = `${API_PUBLIC_LEADERBOARD}/${locationId}`;

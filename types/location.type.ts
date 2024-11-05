@@ -62,7 +62,7 @@ export class LocationClass implements LocationType {
    * instantiates a LocationClass, if post is empty, instantiates an
    * empty class.
    * @param location Optional args to instantiate a LocationClass
-   * @returns void
+   * @returns {void}
    */
   constructor(location: LocationType) {
     this.id = location.id;
@@ -126,7 +126,7 @@ export class LocationApplianceClass implements LocationApplianceType {
    * instantiates a LocationApplianceClass. required.
    *
    * @param locationAppliance args to instantiate the type LocationApplianceType.
-   * @returns void
+   * @returns {void}
    */
   constructor(locationAppliance: LocationApplianceType) {
     const { name, quantity, hoursPerDay, watts } = locationAppliance;
@@ -140,7 +140,7 @@ export class LocationApplianceClass implements LocationApplianceType {
   /**
    * getter for retrieving totalWHSPerDays
    *
-   * @returns total WHS per day by multiplying watts, hoursPerDay and quantity
+   * @returns {number} total WHS per day by multiplying watts, hoursPerDay and quantity
    */
   get totalWHSPerDay(): number {
     return this.watts * this.hoursPerDay * this.quantity;

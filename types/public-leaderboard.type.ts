@@ -49,8 +49,8 @@ export class PublicLeaderboardClass implements PublicLeaderboardType {
   /**
    * instantiates a PublicLeaderboardClass, if post is empty, instantiates an
    * empty class.
-   * @param post Optional args to instantiate a PublicLeaderboardType
-   * @returns void
+   * @param {object} post Optional args to instantiate a PublicLeaderboardType
+   * @returns {void}
    */
   constructor(post?: PublicLeaderboardType) {
     if (!post) return;
@@ -69,10 +69,10 @@ export class PublicLeaderboardClass implements PublicLeaderboardType {
    * type. Retrieves the energy sources from stateProduction and the totalWHSPerDay
    * from location to create the PublicLeaderboardType.
    *
-   * @param location location param
-   * @param stateProduction stateProduction param
-   * @param name name of the new leaderboard post
-   * @returns
+   * @param {object} location location param
+   * @param {object} stateProduction stateProduction param
+   * @param {string} name name of the new leaderboard post
+   * @returns {object}
    */
   static createTypeBy(
     location: LocationType,
@@ -100,8 +100,8 @@ export class PublicLeaderboardClass implements PublicLeaderboardType {
 
   /**
    * Utility function for leaderboard sorting calculations.
-   * @param post required args to retrieve renewable energy production
-   * @returns solar and wind energy production
+   * @param {object} post required args to retrieve renewable energy production
+   * @returns {number} solar and wind energy production
    */
   static getTotalRenewableEnergyProduction(
     post: PublicLeaderboardType,

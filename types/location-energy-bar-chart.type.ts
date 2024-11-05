@@ -21,7 +21,7 @@ export class LocationEnergyBarChartClass {
    * instantiates a PublicLeaderboardClass, if post is empty, instantiates an
    * empty class.
    * @param post Optional args to instantiate a PublicLeaderboardType
-   * @returns void
+   * @returns {void}
    */
   constructor(totalWattHour: number, energySources: EnergySourcesType) {
     this.totalWattHour = totalWattHour;
@@ -35,7 +35,7 @@ export class LocationEnergyBarChartClass {
   /**
    * Chart data for a react-charts-2
    *
-   * @returns object data consumed by react-charts-2 to create chart UI. Shows
+   * @returns {object} data consumed by react-charts-2 to create chart UI. Shows
    * a bar chart of the location statistics
    */
   get chartData(): ChartData<"bar"> {
@@ -58,9 +58,9 @@ export class LocationEnergyBarChartClass {
   /**
    *
    * @param sourceType source type to get the watt hour from.
-   * @returns Gets the total watt hour for the specific energy-source type
+   * @returns {number} Gets the total watt hour for the specific energy-source type
    */
-  private getWattHourPer(sourceType: KeyOfEnergySources) {
+  private getWattHourPer(sourceType: KeyOfEnergySources): number {
     const percentage = this.energySources[sourceType];
     const decimal = percentage / 100;
     return this.totalWattHour * decimal;
